@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+#boost
+boost_1_76_0/
+
 # User-specific files
 *.rsuser
 *.suo
@@ -316,6 +319,10 @@ __pycache__/
 # Telerik's JustMock configuration file
 *.jmconfig
 
+# boost
+boost_1_76_0/
+
+
 # BizTalk build output
 *.btp.cs
 *.btm.cs
@@ -348,3 +355,36 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
