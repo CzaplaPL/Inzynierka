@@ -1,8 +1,9 @@
 ﻿
 #include <iostream>
 
+#include "Logger.h"
+
 int main()
 {
-    std::cout << "Hello World!\n";
-	
+
 }
