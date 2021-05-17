@@ -14,8 +14,8 @@
     <Filter Include="Pliki źródłowe\ROOT\System">
       <UniqueIdentifier>{cbeac712-8caa-427c-8e7e-4c0c6e869d5e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pliki źródłowe\ROOT\System\nagłówki">
-      <UniqueIdentifier>{ab2b561c-9f65-4bb8-a578-861530ed7afb}</UniqueIdentifier>
+    <Filter Include="Pliki źródłowe\ROOT\System\logger">
+      <UniqueIdentifier>{8624bc59-13a2-4ae0-89d9-738e5bf6b78c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -23,7 +23,7 @@
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="Logger.cpp">
-      <Filter>Pliki źródłowe\ROOT\System</Filter>
+      <Filter>Pliki źródłowe\ROOT\System\logger</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -36,7 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Logger.h">
-      <Filter>Pliki źródłowe\ROOT\System\nagłówki</Filter>
+      <Filter>Pliki źródłowe\ROOT\System\logger</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
