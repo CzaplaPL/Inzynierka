@@ -1,0 +1,5 @@
+D:/Programowanie/inzynierka/Translator/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+D:/Programowanie/inzynierka/Translator/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
+D:/Programowanie/inzynierka/Translator/out/build/x64-Debug/Catch2Test/CMakeFiles/Catch2Test.dir
+D:/Programowanie/inzynierka/Translator/out/build/x64-Debug/Catch2Test/CMakeFiles/edit_cache.dir
+D:/Programowanie/inzynierka/Translator/out/build/x64-Debug/Catch2Test/CMakeFiles/rebuild_cache.dir
