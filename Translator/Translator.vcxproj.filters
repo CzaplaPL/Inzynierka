@@ -8,22 +8,28 @@
     <Filter Include="other">
       <UniqueIdentifier>{bdb009e0-bb24-47c0-8418-261880a0199d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pliki źródłowe\ROOT">
-      <UniqueIdentifier>{a4549c1d-3838-4bb8-856b-39b220c55fe9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pliki źródłowe\ROOT\System">
+    <Filter Include="Pliki źródłowe\System">
       <UniqueIdentifier>{cbeac712-8caa-427c-8e7e-4c0c6e869d5e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pliki źródłowe\ROOT\System\logger">
+    <Filter Include="Pliki źródłowe\System\addoans">
+      <UniqueIdentifier>{937451c9-6042-49f2-a82b-5c3de592327c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\System\addoans\logger">
       <UniqueIdentifier>{8624bc59-13a2-4ae0-89d9-738e5bf6b78c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\System\addoans\test">
+      <UniqueIdentifier>{3b64ce60-43d6-44b1-a953-b07dd520f84c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Translator.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Logger.cpp">
-      <Filter>Pliki źródłowe\ROOT\System\logger</Filter>
+    <ClCompile Include="BasicTest.cpp">
+      <Filter>Pliki źródłowe\System\addoans\test</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\Logger.cpp">
+      <Filter>Pliki źródłowe\System\addoans\logger</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -35,8 +41,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Logger.h">
-      <Filter>Pliki źródłowe\ROOT\System\logger</Filter>
+    <ClInclude Include="BasicTest.h">
+      <Filter>Pliki źródłowe\System\addoans\test</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\Logger.h">
+      <Filter>Pliki źródłowe\System\addoans\logger</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

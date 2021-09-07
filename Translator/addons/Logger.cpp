@@ -22,18 +22,17 @@ Logger::Logger(string environment)
 	this->isTime = false;
 }
 
-Logger::~Logger()
+Logger::~Logger() 
 {
-	fileInfo.close();
-	fileLog.close();
+	close();
 }
 
-void Logger::setDebug(const bool isDebug)
+void Logger::setDebug(const bool isDebug) noexcept
 {
 	this->isDebug = isDebug;
 }
 
-void Logger::setTime(const bool isTime)
+void Logger::setTime(const bool isTime) noexcept
 {
 	this->isTime = isTime;
 }
@@ -68,12 +67,11 @@ void Logger::writeDebug(const char* templates, ...)
 	{
 		fileLog << "[DEBUG] " << now() << " ";
 
-		va_list vl;
+		va_list vl = nullptr;
 		va_start(vl, templates);
 
 		union option_t {
-			int     i;
-			double   f;
+			int     i =0;
 			double   d;
 			char    c;
 			char* s;
@@ -85,10 +83,6 @@ void Logger::writeDebug(const char* templates, ...)
 			case 'i':
 				option.i = va_arg(vl, int);
 				fileLog << option.i;
-				break;
-			case 'f':
-				option.f = va_arg(vl, double);
-				fileLog << option.f;
 				break;
 			case 'd':
 				option.d = va_arg(vl, double);
@@ -107,7 +101,7 @@ void Logger::writeDebug(const char* templates, ...)
 			}
 		}
 		fileLog << endl;
-		va_end(vl);
+		__crt_va_end(vl);
 	}
 }
 
@@ -135,4 +129,16 @@ void Logger::writeStart(ofstream& file) const
 	file << "log Translator " << VERSION << endl;
 	file << "autor: Czapla " << endl;
 	file << "data uruchomienia : " << now() << endl;
+}
+
+void Logger::close() noexcept
+{
+	try
+	{
+		fileInfo.close();
+		fileLog.close();
+	}
+	catch (exception e)
+	{
+	}
 }
