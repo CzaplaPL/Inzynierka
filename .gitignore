@@ -6,6 +6,10 @@
 #boost
 boost_1_76_0/
 
+#user
+Translator/.vshistory
+.vshistory
+
 # User-specific files
 *.rsuser
 *.suo
@@ -388,3 +392,5 @@ MigrationBackup/
 *.exe
 *.out
 *.app
+/Translator/addons/.vshistory/
+/out/
