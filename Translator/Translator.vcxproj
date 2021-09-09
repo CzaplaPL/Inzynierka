@@ -149,6 +149,8 @@
   <ItemGroup>
     <ClCompile Include="addons\BasicTest.cpp" />
     <ClCompile Include="addons\Logger.cpp" />
+    <ClCompile Include="lekser\regex\RegexNode.cpp" />
+    <ClCompile Include="lekser\regex\RegexServices.cpp" />
     <ClCompile Include="Translator.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +160,9 @@
   <ItemGroup>
     <ClInclude Include="addons\BasicTest.h" />
     <ClInclude Include="addons\Logger.h" />
+    <ClInclude Include="lekser\regex\RegexNode.h" />
+    <ClInclude Include="lekser\regex\RegexNodeType.h" />
+    <ClInclude Include="lekser\regex\RegexServices.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

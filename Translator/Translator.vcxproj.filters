@@ -20,6 +20,15 @@
     <Filter Include="Pliki źródłowe\System\addoans\test">
       <UniqueIdentifier>{3b64ce60-43d6-44b1-a953-b07dd520f84c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki źródłowe\lekser">
+      <UniqueIdentifier>{14101935-29e4-49e0-a6f3-ca7273377162}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\lekser\regex">
+      <UniqueIdentifier>{ea2ee991-0812-4ef9-94f9-794c0ba14cac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\lekser\regex\dto">
+      <UniqueIdentifier>{36e428de-1b14-4f9a-9f8b-117001e44ffb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Translator.cpp">
@@ -30,6 +39,12 @@
     </ClCompile>
     <ClCompile Include="addons\BasicTest.cpp">
       <Filter>Pliki źródłowe\System\addoans\test</Filter>
+    </ClCompile>
+    <ClCompile Include="lekser\regex\RegexNode.cpp">
+      <Filter>Pliki źródłowe\lekser\regex\dto</Filter>
+    </ClCompile>
+    <ClCompile Include="lekser\regex\RegexServices.cpp">
+      <Filter>Pliki źródłowe\lekser\regex</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +61,15 @@
     </ClInclude>
     <ClInclude Include="addons\BasicTest.h">
       <Filter>Pliki źródłowe\System\addoans\test</Filter>
+    </ClInclude>
+    <ClInclude Include="lekser\regex\RegexServices.h">
+      <Filter>Pliki źródłowe\lekser\regex</Filter>
+    </ClInclude>
+    <ClInclude Include="lekser\regex\RegexNode.h">
+      <Filter>Pliki źródłowe\lekser\regex\dto</Filter>
+    </ClInclude>
+    <ClInclude Include="lekser\regex\RegexNodeType.h">
+      <Filter>Pliki źródłowe\lekser\regex\dto</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
