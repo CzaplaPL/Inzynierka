@@ -25,11 +25,11 @@
     <ClCompile Include="Translator.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="BasicTest.cpp">
-      <Filter>Pliki źródłowe\System\addoans\test</Filter>
-    </ClCompile>
     <ClCompile Include="addons\Logger.cpp">
       <Filter>Pliki źródłowe\System\addoans\logger</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\BasicTest.cpp">
+      <Filter>Pliki źródłowe\System\addoans\test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -41,11 +41,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BasicTest.h">
-      <Filter>Pliki źródłowe\System\addoans\test</Filter>
-    </ClInclude>
     <ClInclude Include="addons\Logger.h">
       <Filter>Pliki źródłowe\System\addoans\logger</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\BasicTest.h">
+      <Filter>Pliki źródłowe\System\addoans\test</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
