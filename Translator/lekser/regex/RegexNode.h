@@ -15,5 +15,5 @@ public:
 	RegexNodeType getType();
 	RegexNode* getFirstChild();
 	RegexNode* getSecondChild();
+	std::string getValue();
 };
-

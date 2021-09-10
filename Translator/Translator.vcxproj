@@ -160,6 +160,7 @@
   <ItemGroup>
     <ClInclude Include="addons\BasicTest.h" />
     <ClInclude Include="addons\Logger.h" />
+    <ClInclude Include="addons\RegexException.h" />
     <ClInclude Include="lekser\regex\RegexNode.h" />
     <ClInclude Include="lekser\regex\RegexNodeType.h" />
     <ClInclude Include="lekser\regex\RegexServices.h" />

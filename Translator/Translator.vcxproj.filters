@@ -29,6 +29,9 @@
     <Filter Include="Pliki źródłowe\lekser\regex\dto">
       <UniqueIdentifier>{36e428de-1b14-4f9a-9f8b-117001e44ffb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki źródłowe\System\exception">
+      <UniqueIdentifier>{5f4cbcd4-d100-48aa-983f-b38466322ab3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Translator.cpp">
@@ -70,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="lekser\regex\RegexNodeType.h">
       <Filter>Pliki źródłowe\lekser\regex\dto</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\RegexException.h">
+      <Filter>Pliki źródłowe\System\exception</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
