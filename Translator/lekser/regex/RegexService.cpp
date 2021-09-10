@@ -1,19 +1,21 @@
-#include "RegexServices.h"
+#include "RegexService.h"
 
-RegexNode* RegexServices::generateTree(std::string& reg)
+
+RegexNode* RegexService::generateTree(std::string& reg)
 {
 	RegexNode* tree = nullptr;
 
+	PreviewElement previewElement= PreviewElement(reg[0]);
 	for (int i = 1; i < reg.length(); ++i)
 	{
 		try
 		{
-			switch (reg[i])
+			switch (previewElement.type)
 			{
-			case '|':
+			case RegexNodeType::OR:
 				break;
 			default:
-
+	
 				break;
 			}
 		}
@@ -38,3 +40,25 @@ RegexNode* RegexServices::generateTree(std::string& reg)
 
 	return tree;
 }
+
+void(RegexService::* RegexService::checkAction(char value))()
+{
+	return &myfun;
+}
+
+//action RegexService::checkAction(char value)
+//{
+//	 &myfun;
+//	return &myfun();
+//}
+//
+//
+//void RegexService::myfun()
+//{
+//	this->logger->error("odp = ");
+//}
+//
+//void RegexService::nofun()
+//{
+//	this->logger->error("odp = ");
+//}

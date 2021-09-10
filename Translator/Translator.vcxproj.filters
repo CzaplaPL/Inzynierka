@@ -46,8 +46,11 @@
     <ClCompile Include="lekser\regex\RegexNode.cpp">
       <Filter>Pliki źródłowe\lekser\regex\dto</Filter>
     </ClCompile>
-    <ClCompile Include="lekser\regex\RegexServices.cpp">
+    <ClCompile Include="lekser\regex\RegexService.cpp">
       <Filter>Pliki źródłowe\lekser\regex</Filter>
+    </ClCompile>
+    <ClCompile Include="lekser\regex\PreviewElement.cpp">
+      <Filter>Pliki źródłowe\lekser\regex\dto</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -65,7 +68,7 @@
     <ClInclude Include="addons\BasicTest.h">
       <Filter>Pliki źródłowe\System\addoans\test</Filter>
     </ClInclude>
-    <ClInclude Include="lekser\regex\RegexServices.h">
+    <ClInclude Include="lekser\regex\RegexService.h">
       <Filter>Pliki źródłowe\lekser\regex</Filter>
     </ClInclude>
     <ClInclude Include="lekser\regex\RegexNode.h">
@@ -76,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="addons\RegexException.h">
       <Filter>Pliki źródłowe\System\exception</Filter>
+    </ClInclude>
+    <ClInclude Include="lekser\regex\PreviewElement.h">
+      <Filter>Pliki źródłowe\lekser\regex\dto</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
