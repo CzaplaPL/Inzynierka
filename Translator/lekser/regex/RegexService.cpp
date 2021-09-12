@@ -1,11 +1,21 @@
 #include "RegexService.h"
 
+void my_int_func(int x)
+{
+	printf("%d\n", x);
+}
 
 RegexNode* RegexService::generateTree(std::string& reg)
 {
 	RegexNode* tree = nullptr;
 
-	PreviewElement previewElement= PreviewElement(reg[0]);
+	int (RegexConstructorSyntaxTree:: * pt2ConstMember)(float, char, char) = NULL;
+
+	pt2ConstMember = this->checkAction();
+
+	(*this.*pt2ConstMember)(12, 'a', 'b');
+
+	PreviewElement previewElement = PreviewElement(reg[0]);
 	for (int i = 1; i < reg.length(); ++i)
 	{
 		try
@@ -15,7 +25,8 @@ RegexNode* RegexService::generateTree(std::string& reg)
 			case RegexNodeType::OR:
 				break;
 			default:
-	
+				//auto action = this->checkAction(reg[i]);
+				//action();
 				break;
 			}
 		}
@@ -39,11 +50,6 @@ RegexNode* RegexService::generateTree(std::string& reg)
 	}
 
 	return tree;
-}
-
-void(RegexService::* RegexService::checkAction(char value))()
-{
-	return &myfun;
 }
 
 //action RegexService::checkAction(char value)

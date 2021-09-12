@@ -3,25 +3,18 @@
 #include "../Translator/addons/Logger.h"
 #include "../Translator/addons/RegexException.h"
 #include "PreviewElement.h"
+#include "RegexConstructorSyntaxTree.h"
 
-
-
-class RegexService
+class RegexService : private RegexConstructorSyntaxTree
 {
 	Logger* logger;
 public:
 
-	RegexService(Logger& logger)
+	RegexService(Logger& logger) : RegexConstructorSyntaxTree(&logger)
 	{
 		this->logger = &logger;
 	}
 
-	
 	RegexNode* generateTree(std::string& reg);
 private:
-	void (RegexService::* checkAction(char value))();
-	void myfun();
-	void nofun();
-	void addOr(char& firstChar, char& secondChar, RegexNode* tree);
 };
-
