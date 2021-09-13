@@ -7,6 +7,8 @@
 #include "PreviewElement.h"
 #include <memory>
 
+using namespace std;
+
 class RegexConstructorSyntaxTree
 {
 	Logger* logger;
@@ -18,6 +20,6 @@ public:
 	}
 
 protected:
-	shared_ptr<RegexNode>(RegexConstructorSyntaxTree::* checkAction(char &symbol))(char& firstChar, char& secondChar, shared_ptr<RegexNode>& tree);
-	shared_ptr<RegexNode> addOr(char& firstChar, char& secondChar, shared_ptr<RegexNode>&tree);
+	RegexNode*(RegexConstructorSyntaxTree::* checkAction(char &symbol))(char& firstChar, char& secondChar, shared_ptr<RegexNode>& tree);
+	RegexNode* addOr(char& firstChar, char& secondChar, shared_ptr<RegexNode>&tree);
 };

@@ -13,8 +13,8 @@ class Logger
 {
 	bool isDebug;
 	bool isTime;
-	ofstream fileInfo;
-	ofstream fileLog;
+	fstream fileInfo;
+	fstream fileLog;
 	string environment;
 public:
 	static const string VERSION;
@@ -42,6 +42,6 @@ public:
 	void writeDebug(const char* templates, ...);
 private:
 	string now() const;
-	void writeStart(ofstream& file) const;
+	void writeStart(fstream& file) const;
 	void close() noexcept;
 };

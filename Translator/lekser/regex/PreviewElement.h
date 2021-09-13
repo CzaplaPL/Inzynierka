@@ -10,4 +10,6 @@ public:
 	RegexNodeType type;
 
 	PreviewElement(char element);
+	void setElement(char element);
+	std::string toString();
 };

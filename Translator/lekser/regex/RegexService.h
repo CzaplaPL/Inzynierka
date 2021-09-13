@@ -16,5 +16,8 @@ public:
 	}
 
 	RegexNode* generateTree(std::string& reg);
+
+	static string regexNodeTypeToString(RegexNodeType type);
 private:
+	bool isSpecialChar(char value);
 };
