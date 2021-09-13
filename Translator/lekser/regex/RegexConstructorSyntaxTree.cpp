@@ -1,11 +1,14 @@
 #include "RegexConstructorSyntaxTree.h"
 
-//void(RegexConstructorSyntaxTree::* RegexConstructorSyntaxTree::checkAction(
-//	char& regexChar))(char& firstChar, char& secondChar, RegexNode* tree)
-//{
-//	return &addOr;
-//}
-int(RegexConstructorSyntaxTree::* RegexConstructorSyntaxTree::checkAction())(float a, char b, char c)
+
+
+
+shared_ptr<RegexNode> RegexConstructorSyntaxTree::addOr(char& firstChar, char& secondChar, shared_ptr<RegexNode>& tree)
 {
-	return &RegexConstructorSyntaxTree::DoIt;
+	shared_ptr<RegexNode> newTree(new RegexNode());
+	newTree->setFirstChild(tree);
+	newTree->setType(RegexNodeType::OR);
+	return newTree;
 }
+
+

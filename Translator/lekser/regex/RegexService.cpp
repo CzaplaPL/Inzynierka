@@ -7,28 +7,37 @@ void my_int_func(int x)
 
 RegexNode* RegexService::generateTree(std::string& reg)
 {
-	RegexNode* tree = nullptr;
+	shared_ptr<RegexNode> tree;
 
-	int (RegexConstructorSyntaxTree:: * pt2ConstMember)(float, char, char) = NULL;
+	shared_ptr<RegexNode>(RegexConstructorSyntaxTree:: * action)(char&, char&, shared_ptr<RegexNode>&) = NULL;
 
-	pt2ConstMember = this->checkAction();
-
-	(*this.*pt2ConstMember)(12, 'a', 'b');
+	if (reg[0] == '(')
+	{
+		//to do
+	}
 
 	PreviewElement previewElement = PreviewElement(reg[0]);
+	tree->setType(previewElement.type);
+	tree->setValue(reg[0]);
 	for (int i = 1; i < reg.length(); ++i)
 	{
 		try
 		{
+			if (reg[i] == '(')
+			{
+				//to do
+			}
 			switch (previewElement.type)
 			{
 			case RegexNodeType::OR:
+
 				break;
 			default:
-				//auto action = this->checkAction(reg[i]);
-				//action();
+				if (reg[i] == '\\')i += 1;
+				action = this->checkAction(reg[i]);
 				break;
 			}
+			(*this.*action)(reg[i - 1], reg[i], tree);
 		}
 		catch (std::out_of_range& exception)
 		{
@@ -48,23 +57,5 @@ RegexNode* RegexService::generateTree(std::string& reg)
 			throw RegexException("b³¹d podczas tworzenia drzewa rozk³adu regexa");
 		}
 	}
-
 	return tree;
 }
-
-//action RegexService::checkAction(char value)
-//{
-//	 &myfun;
-//	return &myfun();
-//}
-//
-//
-//void RegexService::myfun()
-//{
-//	this->logger->error("odp = ");
-//}
-//
-//void RegexService::nofun()
-//{
-//	this->logger->error("odp = ");
-//}

@@ -5,6 +5,7 @@
 #include "../Translator/addons/Logger.h"
 #include "../Translator/addons/RegexException.h"
 #include "PreviewElement.h"
+#include <memory>
 
 class RegexConstructorSyntaxTree
 {
@@ -16,12 +17,7 @@ public:
 		this->logger = logger;
 	}
 
-	int DoIt(float a, char b, char c) { cout << "TMyClass::DoIt" << endl; return a + b + c; };
-	int DoMore(float a, char b, char c) const
-	{
-		cout << "TMyClass::DoMore" << endl; return a - b + c;
-	};
-	//protected:
-	int (RegexConstructorSyntaxTree::* checkAction())(float a, char b, char c);
-	//	void addOr(char& firstChar, char& secondChar, RegexNode* tree);
+protected:
+	shared_ptr<RegexNode>(RegexConstructorSyntaxTree::* checkAction(char &symbol))(char& firstChar, char& secondChar, shared_ptr<RegexNode>& tree);
+	shared_ptr<RegexNode> addOr(char& firstChar, char& secondChar, shared_ptr<RegexNode>&tree);
 };

@@ -55,9 +55,6 @@
     <ClCompile Include="lekser\regex\RegexConstructorSyntaxTree.cpp">
       <Filter>Pliki źródłowe\lekser\regex</Filter>
     </ClCompile>
-    <ClCompile Include="pointerTest.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.gitignore">
@@ -92,6 +89,5 @@
     <ClInclude Include="lekser\regex\RegexConstructorSyntaxTree.h">
       <Filter>Pliki źródłowe\lekser\regex</Filter>
     </ClInclude>
-    <ClInclude Include="pointerTest.h" />
   </ItemGroup>
 </Project>

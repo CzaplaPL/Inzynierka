@@ -1,19 +1,24 @@
 #pragma once
 #include <string>
-
+#include <memory>
 #include "RegexNodeType.h"
 
 class RegexNode
 {
-	std::string value;
-	RegexNode* firstChild = nullptr;
-	RegexNode* SecondChild = nullptr;
+	char value;
+	std::unique_ptr<RegexNode> firstChild = nullptr;
+	std::unique_ptr<RegexNode> SecondChild = nullptr;
 	RegexNodeType type;
-	RegexNode* parent;
+	std::unique_ptr<RegexNode> parent = nullptr;
 
 public:
+	RegexNode();
+	RegexNode(RegexNode& tree, RegexNode* parent);
 	RegexNodeType getType();
 	RegexNode* getFirstChild();
 	RegexNode* getSecondChild();
-	std::string getValue();
+	char getValue();
+	void setValue(char value);
+	void setFirstChild(const std::shared_ptr<RegexNode>& tree);
+	void setType(RegexNodeType type);
 };

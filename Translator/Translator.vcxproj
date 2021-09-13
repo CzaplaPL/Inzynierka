@@ -153,7 +153,6 @@
     <ClCompile Include="lekser\regex\RegexConstructorSyntaxTree.cpp" />
     <ClCompile Include="lekser\regex\RegexNode.cpp" />
     <ClCompile Include="lekser\regex\RegexService.cpp" />
-    <ClCompile Include="pointerTest.cpp" />
     <ClCompile Include="Translator.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -169,7 +168,6 @@
     <ClInclude Include="lekser\regex\RegexNode.h" />
     <ClInclude Include="lekser\regex\RegexNodeType.h" />
     <ClInclude Include="lekser\regex\RegexService.h" />
-    <ClInclude Include="pointerTest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
