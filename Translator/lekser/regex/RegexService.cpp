@@ -1,16 +1,11 @@
 #include "RegexService.h"
 
-void my_int_func(int x)
-{
-	printf("%d\n", x);
-}
-
 RegexNode* RegexService::generateTree(std::string& reg)
 {
 	this->logger->debug("budowanie drzewa rozk³adu");
-	shared_ptr<RegexNode> tree(new RegexNode);
 
-	RegexNode*(RegexConstructorSyntaxTree:: * action)(char&, char&, shared_ptr<RegexNode>&) = NULL;
+	RegexNode* tree =new RegexNode;
+	RegexNode*(RegexConstructorSyntaxTree:: * action)(char&, char&, RegexNode*) = NULL;
 
 	if (reg[0] == '(')
 	{
@@ -18,10 +13,11 @@ RegexNode* RegexService::generateTree(std::string& reg)
 	}
 
 	//todo [] operator
+
 	PreviewElement previewElement = PreviewElement(reg[0]);
-	this->logger->debug(previewElement.toString());
 	tree->setType(previewElement.type);
 	tree->setValue(reg[0]);
+	this->logger->debug(previewElement.toString());
 
 	for (int i = 1; i < reg.length(); ++i)
 	{
@@ -40,14 +36,16 @@ RegexNode* RegexService::generateTree(std::string& reg)
 			case RegexNodeType::OR:
 				if (isSpecialChar(reg[i]))throw RegexException("znak specjalny po | jest niedozwolony");
 				tree->setSecondChild(RegexNodeType::ID, reg[i]);
+
 				logger->info("dodawanie second child to or");
 				break;
+
 			default:
 				action = this->checkAction(reg[i]);
-
+				tree = (*this.*action)(reg[i - 1], reg[i], tree);
 				break;
 			}
-			tree.reset( (*this.*action)(reg[i - 1], reg[i], tree));
+
 			previewElement.setElement(reg[i]);
 		}
 		catch (std::out_of_range& exception)
@@ -75,7 +73,10 @@ RegexNode* RegexService::generateTree(std::string& reg)
 			throw RegexException("b³¹d podczas tworzenia drzewa rozk³adu regexa");
 		}
 	}
-	return tree.get();
+	logger->debug("koniec generowania drzewa");
+	logger->info(tree->toString());
+
+	return tree;
 }
 
 string RegexService::regexNodeTypeToString(RegexNodeType type)

@@ -2,7 +2,7 @@
 
 
 RegexNode*(RegexConstructorSyntaxTree::* RegexConstructorSyntaxTree::checkAction(
-	char& symbol))(char& firstChar, char& secondChar, shared_ptr<RegexNode>& tree)
+	char& symbol))(char& firstChar, char& secondChar, RegexNode* tree)
 {
 	switch (symbol)
 	{
@@ -10,10 +10,13 @@ RegexNode*(RegexConstructorSyntaxTree::* RegexConstructorSyntaxTree::checkAction
 		logger->info("return or function");
 		return &RegexConstructorSyntaxTree::addOr;
 		break;
+	default:
+		throw RegexException("nie znaleziono odpowiedniej funkcji");
+		break;
 	}
 }
 
-RegexNode* RegexConstructorSyntaxTree::addOr(char& firstChar, char& secondChar, std::shared_ptr<RegexNode>& tree)
+RegexNode* RegexConstructorSyntaxTree::addOr(char& firstChar, char& secondChar, RegexNode* tree)
 {
 	RegexNode* newTree(new RegexNode());
 	newTree->setFirstChild(tree);

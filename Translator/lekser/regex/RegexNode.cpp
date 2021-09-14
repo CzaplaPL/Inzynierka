@@ -1,5 +1,4 @@
 #include "RegexNode.h"
-
 #include "RegexService.h"
 
 RegexNode::RegexNode()
@@ -16,12 +15,12 @@ RegexNode::RegexNode(RegexNode& tree, RegexNode* parent)
 {
 	this->type = tree.getType();
 
-	this->firstChild.reset(tree.getFirstChild());
+	this->firstChild = tree.getFirstChild();
 
-	this->secondChild.reset(tree.getSecondChild());
+	this->secondChild = tree.getSecondChild();
 
 	this->value = tree.getValue();
-	//this->parent.reset(parent);
+	this->parent = parent;
 }
 
 RegexNodeType RegexNode::getType()
@@ -31,12 +30,12 @@ RegexNodeType RegexNode::getType()
 
 RegexNode* RegexNode::getFirstChild()
 {
-	return this->firstChild.release();
+	return this->firstChild;
 }
 
 RegexNode* RegexNode::getSecondChild()
 {
-	return secondChild.release();
+	return secondChild;
 }
 
 char RegexNode::getValue()
@@ -49,9 +48,9 @@ void RegexNode::setValue(char value)
 	this->value = value;
 }
 
-void RegexNode::setFirstChild(const std::shared_ptr<RegexNode>& tree)
+void RegexNode::setFirstChild(RegexNode* tree)
 {
-	this->firstChild.reset(new RegexNode(*tree, this));
+	this->firstChild = new RegexNode(*tree, this);
 }
 
 void RegexNode::setType(RegexNodeType type)
@@ -61,7 +60,7 @@ void RegexNode::setType(RegexNodeType type)
 
 void RegexNode::setSecondChild(RegexNodeType type, char value)
 {
-	this->secondChild.reset(new RegexNode(type, value));
+	this->secondChild = new RegexNode(type, value);
 }
 
 std::string RegexNode::toString()
@@ -69,6 +68,7 @@ std::string RegexNode::toString()
 	std::string toReturn = "Regex node: \n";
 	toReturn += "value = " + std::string(1, value) + "\n";
 	toReturn += "type = " + RegexService::regexNodeTypeToString(type) + "\n";
+
 	if (firstChild != nullptr)
 	{
 		toReturn += "firsChild:" + firstChild->toString() + "\n";
@@ -79,13 +79,12 @@ std::string RegexNode::toString()
 	}
 	if (secondChild != nullptr)
 	{
-		toReturn += "secondChild:" + secondChild->toString() + "\n";
+		toReturn += "secondChild:" + secondChild->toString();
 	}
 	else
 	{
-		toReturn += "secondChild = NULL\n";
+		toReturn += "secondChild = NULL";
 	}
-
 
 	return toReturn;
 }

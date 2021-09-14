@@ -5,6 +5,9 @@
 #include "PreviewElement.h"
 #include "RegexConstructorSyntaxTree.h"
 
+/// <summary>
+/// klasa dostarcza funkcje do regexow
+/// </summary>
 class RegexService : private RegexConstructorSyntaxTree
 {
 	Logger* logger;
@@ -15,9 +18,23 @@ public:
 		this->logger = &logger;
 	}
 
+	/// <summary>
+	/// klasa tworzy drzewo rozk≥adu z podanego regexa
+	/// </summary>
+	/// <param name="reg">regex</param>
+	/// <returns>wskaünik na RegexNode wskazujacy na drzewo rozk≥adu</returns>
 	RegexNode* generateTree(std::string& reg);
 
+	/// <summary>
+	/// funkcja konwertujaca RegexNodeType na stringa
+	/// </summary>
+	/// <param name="type"></param>
+	/// <returns>string z nazwa typu</returns>
 	static string regexNodeTypeToString(RegexNodeType type);
-private:
+	/// <summary>
+	/// funkcja sprawdza czy dany znak jest znakiem specjalnym
+	/// </summary>
+	/// <param name="value"></param>
+	/// <returns>true gdy znak jest znakiem specjalnym</returns>
 	bool isSpecialChar(char value);
 };

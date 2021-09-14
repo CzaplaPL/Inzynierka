@@ -147,7 +147,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="addons\BasicTest.cpp" />
     <ClCompile Include="addons\Logger.cpp" />
     <ClCompile Include="lekser\regex\PreviewElement.cpp" />
     <ClCompile Include="lekser\regex\RegexConstructorSyntaxTree.cpp" />
@@ -160,7 +159,6 @@
     <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="addons\BasicTest.h" />
     <ClInclude Include="addons\Logger.h" />
     <ClInclude Include="addons\RegexException.h" />
     <ClInclude Include="lekser\regex\PreviewElement.h" />

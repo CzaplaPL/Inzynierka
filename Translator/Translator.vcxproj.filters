@@ -17,9 +17,6 @@
     <Filter Include="Pliki źródłowe\System\addoans\logger">
       <UniqueIdentifier>{8624bc59-13a2-4ae0-89d9-738e5bf6b78c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pliki źródłowe\System\addoans\test">
-      <UniqueIdentifier>{3b64ce60-43d6-44b1-a953-b07dd520f84c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Pliki źródłowe\lekser">
       <UniqueIdentifier>{14101935-29e4-49e0-a6f3-ca7273377162}</UniqueIdentifier>
     </Filter>
@@ -39,9 +36,6 @@
     </ClCompile>
     <ClCompile Include="addons\Logger.cpp">
       <Filter>Pliki źródłowe\System\addoans\logger</Filter>
-    </ClCompile>
-    <ClCompile Include="addons\BasicTest.cpp">
-      <Filter>Pliki źródłowe\System\addoans\test</Filter>
     </ClCompile>
     <ClCompile Include="lekser\regex\RegexNode.cpp">
       <Filter>Pliki źródłowe\lekser\regex\dto</Filter>
@@ -67,9 +61,6 @@
   <ItemGroup>
     <ClInclude Include="addons\Logger.h">
       <Filter>Pliki źródłowe\System\addoans\logger</Filter>
-    </ClInclude>
-    <ClInclude Include="addons\BasicTest.h">
-      <Filter>Pliki źródłowe\System\addoans\test</Filter>
     </ClInclude>
     <ClInclude Include="lekser\regex\RegexService.h">
       <Filter>Pliki źródłowe\lekser\regex</Filter>

@@ -8,7 +8,9 @@
 #include <memory>
 
 using namespace std;
-
+/// <summary>
+/// klasa zawierajaca funkcje do tworzenia drzewa rozk³adu
+/// </summary>
 class RegexConstructorSyntaxTree
 {
 	Logger* logger;
@@ -20,6 +22,18 @@ public:
 	}
 
 protected:
-	RegexNode*(RegexConstructorSyntaxTree::* checkAction(char &symbol))(char& firstChar, char& secondChar, shared_ptr<RegexNode>& tree);
-	RegexNode* addOr(char& firstChar, char& secondChar, shared_ptr<RegexNode>&tree);
+	/// <summary>
+	/// funkcja zwraca wskaznik na funkcje któr¹ trzeba wykonaæ
+	/// </summary>
+	/// <param name="symbol">znak dla którego chcemy sprawdziæ jak¹ funkcje wykonaæ</param>
+	/// <returns>wska¿nik do odpowiedniej funkcji</returns>
+	RegexNode*(RegexConstructorSyntaxTree::* checkAction(char &symbol))(char& firstChar, char& secondChar, RegexNode* tree);
+	/// <summary>
+	/// funkcja dodaj¹ca znak | do drzewa rozkladu
+	/// </summary>
+	/// <param name="firstChar"></param>
+	/// <param name="secondChar"></param>
+	/// <param name="tree"></param>
+	/// <returns>nowe drzewo rozk³adu</returns>
+	RegexNode* addOr(char& firstChar, char& secondChar, RegexNode* tree);
 };

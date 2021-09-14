@@ -16,17 +16,8 @@ Logger::Logger(string environment)
 	string environmentDir = "log/" + environment;
 	_mkdir(environmentDir.c_str());
 
-	string sciezka = "log/" + environment + "/log-info.log";
-	
 	fileLog.open("log/"+ environment +"/log.log", ios::trunc | ios::in | ios::out);
 
-	if(fileLog.is_open())
-	{
-		cout << "ok  "<< sciezka;
-	}else
-	{
-		cout << "nie  "<< sciezka;
-	}
 	writeStart(fileLog);
 
 	this->isTime = false;

@@ -12,24 +12,24 @@ using namespace std;
 TEST(RegexTest, addOrTest)
 {
 	string reg = "a|b|c";
-	Logger logger("test3");
+	Logger logger("test");
 	RegexService regexServices(logger);
-	logger.error("start");
+
 	RegexNode* tree = regexServices.generateTree(reg);
 	EXPECT_EQ(tree->getType(), RegexNodeType::OR);
 
-	//RegexNode* firsChild = tree->getFirstChild();
-	//EXPECT_EQ(firsChild->getType(), RegexNodeType::OR);
+	RegexNode* firsChild = tree->getFirstChild();
+	EXPECT_EQ(firsChild->getType(), RegexNodeType::OR);
 
-	//RegexNode* secondChild = tree->getSecondChild();
-	//EXPECT_EQ(firsChild->getType(), RegexNodeType::ID);
-	//EXPECT_EQ(firsChild->getValue(), "c");
+	RegexNode* secondChild = tree->getSecondChild();
+	EXPECT_EQ(secondChild->getType(), RegexNodeType::ID);
+	EXPECT_EQ(secondChild->getValue(), 'c');
 
-	//RegexNode* thirdChild = firsChild->getFirstChild();
-	//EXPECT_EQ(thirdChild->getType(), RegexNodeType::ID);
-	//EXPECT_EQ(thirdChild->getValue(), "a");
+	RegexNode* thirdChild = firsChild->getFirstChild();
+	EXPECT_EQ(thirdChild->getType(), RegexNodeType::ID);
+	EXPECT_EQ(thirdChild->getValue(), 'a');
 
-	//RegexNode* fourthChild = firsChild->getSecondChild();
-	//EXPECT_EQ(fourthChild->getType(), RegexNodeType::ID);
-	//EXPECT_EQ(fourthChild->getValue(), "b");
+	RegexNode* fourthChild = firsChild->getSecondChild();
+	EXPECT_EQ(fourthChild->getType(), RegexNodeType::ID);
+	EXPECT_EQ(fourthChild->getValue(), 'b');
 }

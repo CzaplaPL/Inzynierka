@@ -1,15 +1,14 @@
 #pragma once
 #include <string>
-#include <memory>
 #include "RegexNodeType.h"
 
 class RegexNode
 {
 	char value;
-	std::unique_ptr<RegexNode> firstChild;
-	std::unique_ptr<RegexNode> secondChild;
+	RegexNode* firstChild = nullptr;
+	RegexNode* secondChild = nullptr;
 	RegexNodeType type;
-	std::unique_ptr<RegexNode> parent;
+	RegexNode* parent = nullptr;
 
 public:
 	RegexNode();
@@ -20,7 +19,7 @@ public:
 	RegexNode* getSecondChild();
 	char getValue();
 	void setValue(char value);
-	void setFirstChild(const std::shared_ptr<RegexNode>& tree);
+	void setFirstChild(RegexNode* tree);
 	void setType(RegexNodeType type);
 	void setSecondChild(RegexNodeType type, char value);
 	std::string toString();
