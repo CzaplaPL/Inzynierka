@@ -4,8 +4,8 @@ RegexNode* RegexService::generateTree(std::string& reg)
 {
 	this->logger->debug("budowanie drzewa rozk³adu");
 
-	RegexNode* tree =new RegexNode;
-	RegexNode*(RegexConstructorSyntaxTree:: * action)(char&, char&, RegexNode*) = NULL;
+	RegexNode* tree = new RegexNode;
+	RegexNode* (RegexConstructorSyntaxTree:: * action)(PreviewElement previewElement, char& curentElement, RegexNode*) = NULL;
 
 	if (reg[0] == '(')
 	{
@@ -55,7 +55,8 @@ RegexNode* RegexService::generateTree(std::string& reg)
 				logger->error("b³êdne zakoñczenie regexa");
 			logger->error(exception.what());
 			logger->debug(reg);
-		}catch (RegexException exception)
+		}
+		catch (RegexException exception)
 		{
 			logger->error("b³¹d podczas tworzeniae regexTree");
 			logger->error("b³ad na znaku" + reg[i]);
@@ -63,7 +64,8 @@ RegexNode* RegexService::generateTree(std::string& reg)
 			logger->error(exception.what());
 			logger->debug(reg);
 			throw RegexException("b³¹d podczas tworzenia drzewa rozk³adu regexa");
-		}catch (std::exception& exception)
+		}
+		catch (std::exception& exception)
 		{
 			logger->error("b³¹d podczas tworzeniae regexTree");
 			logger->error("b³ad na znaku" + reg[i]);
@@ -100,6 +102,9 @@ string RegexService::regexNodeTypeToString(RegexNodeType type)
 		break;
 	case RegexNodeType::QUESTION:
 		return "QUESTION";
+		break;
+	case RegexNodeType::COMBINE:
+		return "COMBINE";
 		break;
 	default:
 		return "nieznany";

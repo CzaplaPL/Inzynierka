@@ -8,7 +8,6 @@ string const Logger::VERSION = "0.0.5";
 
 Logger::Logger(string environment)
 {
-
 	this->isDebug = false;
 	this->isTime = true;
 	this->environment = environment;
@@ -16,14 +15,14 @@ Logger::Logger(string environment)
 	string environmentDir = "log/" + environment;
 	_mkdir(environmentDir.c_str());
 
-	fileLog.open("log/"+ environment +"/log.log", ios::trunc | ios::in | ios::out);
+	fileLog.open("log/" + environment + "/log.log", ios::trunc | ios::in | ios::out);
 
 	writeStart(fileLog);
 
 	this->isTime = false;
 }
 
-Logger::~Logger() 
+Logger::~Logger()
 {
 	close();
 }
@@ -73,7 +72,7 @@ void Logger::writeDebug(const char* templates, ...)
 		va_start(vl, templates);
 
 		union option_t {
-			int     i =0;
+			int     i = 0;
 			double   d;
 			char    c;
 			char* s;

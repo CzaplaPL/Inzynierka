@@ -1,8 +1,7 @@
 #include "RegexConstructorSyntaxTree.h"
 
-
-RegexNode*(RegexConstructorSyntaxTree::* RegexConstructorSyntaxTree::checkAction(
-	char& symbol))(char& firstChar, char& secondChar, RegexNode* tree)
+RegexNode* (RegexConstructorSyntaxTree::* RegexConstructorSyntaxTree::checkAction(
+	char& symbol))(PreviewElement previewElement, char& curentElement, RegexNode* tree)
 {
 	switch (symbol)
 	{
@@ -11,12 +10,13 @@ RegexNode*(RegexConstructorSyntaxTree::* RegexConstructorSyntaxTree::checkAction
 		return &RegexConstructorSyntaxTree::addOr;
 		break;
 	default:
-		throw RegexException("nie znaleziono odpowiedniej funkcji");
+		logger->info("return combine function");
+		return &RegexConstructorSyntaxTree::addCombine;
 		break;
 	}
 }
 
-RegexNode* RegexConstructorSyntaxTree::addOr(char& firstChar, char& secondChar, RegexNode* tree)
+RegexNode* RegexConstructorSyntaxTree::addOr(PreviewElement previewElement, char& curentElement, RegexNode* tree)
 {
 	RegexNode* newTree(new RegexNode());
 	newTree->setFirstChild(tree);
@@ -24,4 +24,11 @@ RegexNode* RegexConstructorSyntaxTree::addOr(char& firstChar, char& secondChar, 
 	return newTree;
 }
 
-
+RegexNode* RegexConstructorSyntaxTree::addCombine(PreviewElement previewElement, char& curentElement, RegexNode* tree)
+{
+	RegexNode* newTree(new RegexNode());
+	newTree->setFirstChild(tree);
+	newTree->setType(RegexNodeType::COMBINE);
+	newTree->setSecondChild(RegexNodeType::ID, curentElement);
+	return newTree;
+}

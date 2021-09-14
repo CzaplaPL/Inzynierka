@@ -27,7 +27,7 @@ protected:
 	/// </summary>
 	/// <param name="symbol">znak dla którego chcemy sprawdziæ jak¹ funkcje wykonaæ</param>
 	/// <returns>wska¿nik do odpowiedniej funkcji</returns>
-	RegexNode*(RegexConstructorSyntaxTree::* checkAction(char &symbol))(char& firstChar, char& secondChar, RegexNode* tree);
+	RegexNode* (RegexConstructorSyntaxTree::* checkAction(char& symbol))(PreviewElement previewElement, char& curentElement, RegexNode* tree);
 	/// <summary>
 	/// funkcja dodaj¹ca znak | do drzewa rozkladu
 	/// </summary>
@@ -35,5 +35,13 @@ protected:
 	/// <param name="secondChar"></param>
 	/// <param name="tree"></param>
 	/// <returns>nowe drzewo rozk³adu</returns>
-	RegexNode* addOr(char& firstChar, char& secondChar, RegexNode* tree);
+	RegexNode* addOr(PreviewElement previewElement, char& curentElement, RegexNode* tree);
+	/// <summary>
+	/// funkcja dodajca znak ° do drzewa rozk³adu
+	/// </summary>
+	/// <param name="previewElement"></param>
+	/// <param name="curentElement"></param>
+	/// <param name="tree"></param>
+	/// <returns>nowe drzewo rozk³adu</returns>
+	RegexNode* addCombine(PreviewElement previewElement, char& curentElement, RegexNode* tree);
 };

@@ -22,5 +22,6 @@ public:
 	void setFirstChild(RegexNode* tree);
 	void setType(RegexNodeType type);
 	void setSecondChild(RegexNodeType type, char value);
+	void setSecondChild(RegexNode* tree);
 	std::string toString();
 };

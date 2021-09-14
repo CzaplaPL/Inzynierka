@@ -2,7 +2,7 @@
 
 #include "addons/Logger.h"
 #define DEBUG true
-#define ENV "ddd"
+#define ENV "dev"
 
 int main()
 {

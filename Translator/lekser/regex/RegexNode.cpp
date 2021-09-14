@@ -63,6 +63,11 @@ void RegexNode::setSecondChild(RegexNodeType type, char value)
 	this->secondChild = new RegexNode(type, value);
 }
 
+void RegexNode::setSecondChild(RegexNode* tree)
+{
+	this->secondChild = new RegexNode(*tree, this);
+}
+
 std::string RegexNode::toString()
 {
 	std::string toReturn = "Regex node: \n";
