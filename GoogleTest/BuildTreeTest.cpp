@@ -19,6 +19,71 @@ protected:
 	}
 };
 
+TEST_F(RegexGenerateTreeTest, addBracketsTest)
+{
+	string reg = "a?(b|c(a|b)|a)a";
+
+	RegexNode* tree = regexService->generateTree(reg);
+
+	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
+
+	RegexNode* firstChild = tree->getFirstChild();
+	EXPECT_EQ(firstChild->getType(), RegexNodeType::COMBINE);
+
+	RegexNode* secondChild = tree->getSecondChild();
+	EXPECT_EQ(secondChild->getType(), RegexNodeType::ID);
+	EXPECT_EQ(secondChild->getValue(), 'a');
+
+	tree = tree->getFirstChild();
+
+	firstChild = tree->getFirstChild();
+	EXPECT_EQ(firstChild->getType(), RegexNodeType::QUESTION);
+
+	secondChild = tree->getSecondChild();
+	EXPECT_EQ(secondChild->getType(), RegexNodeType::OR);
+
+	RegexNode* thirdChild = firstChild->getFirstChild();
+
+	EXPECT_EQ(thirdChild->getType(), RegexNodeType::ID);
+	EXPECT_EQ(thirdChild->getValue(), 'a');
+
+	RegexNode* rightTree = tree->getSecondChild();
+
+	firstChild = rightTree->getFirstChild();
+	EXPECT_EQ(firstChild->getType(), RegexNodeType::COMBINE);
+
+	secondChild = rightTree->getSecondChild();
+	EXPECT_EQ(secondChild->getType(), RegexNodeType::ID);
+	EXPECT_EQ(secondChild->getValue(), 'a');
+
+	rightTree = rightTree->getFirstChild();
+
+	firstChild = rightTree->getFirstChild();
+	EXPECT_EQ(firstChild->getType(), RegexNodeType::OR);
+
+	secondChild = rightTree->getSecondChild();
+	EXPECT_EQ(secondChild->getType(), RegexNodeType::OR);
+
+	RegexNode* leftTree = rightTree->getFirstChild();
+	rightTree = rightTree->getSecondChild();
+
+	firstChild = rightTree->getFirstChild();
+	EXPECT_EQ(firstChild->getType(), RegexNodeType::ID);
+	EXPECT_EQ(firstChild->getValue(), 'a');
+
+	secondChild = rightTree->getSecondChild();
+	EXPECT_EQ(secondChild->getType(), RegexNodeType::ID);
+	EXPECT_EQ(secondChild->getValue(), 'b');
+
+	firstChild = leftTree->getFirstChild();
+	EXPECT_EQ(firstChild->getType(), RegexNodeType::ID);
+	EXPECT_EQ(firstChild->getValue(), 'b');
+
+	secondChild = leftTree->getSecondChild();
+	EXPECT_EQ(secondChild->getType(), RegexNodeType::ID);
+	EXPECT_EQ(secondChild->getValue(), 'c');
+}
+
 TEST_F(RegexGenerateTreeTest, addQuestionTest)
 {
 	string reg = "a?bc?";
@@ -47,6 +112,7 @@ TEST_F(RegexGenerateTreeTest, addQuestionTest)
 	EXPECT_EQ(sixthChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(sixthChild->getValue(), 'c');
 }
+
 TEST_F(RegexGenerateTreeTest, addPlusTest)
 {
 	string reg = "a+bc+";
@@ -154,6 +220,7 @@ TEST_F(RegexGenerateTreeTest, addOrTest)
 TEST_F(RegexGenerateTreeTest, BuildTreeTest)
 {
 	string reg = "a|b*c|(d+e?y{2})*ha";
+
 	RegexNode* tree = regexService->generateTree(reg);
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 

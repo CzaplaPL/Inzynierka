@@ -1,7 +1,9 @@
 #include "RegexConstructorSyntaxTree.h"
 
+#include "RegexService.h"
+
 RegexNode* (RegexConstructorSyntaxTree::* RegexConstructorSyntaxTree::checkAction(
-	char& symbol))(PreviewElement previewElement, char& curentElement, RegexNode* tree)
+	char& symbol))(PreviewElement previewElement, string& regex, RegexNode* tree)
 {
 	switch (symbol)
 	{
@@ -17,13 +19,16 @@ RegexNode* (RegexConstructorSyntaxTree::* RegexConstructorSyntaxTree::checkActio
 	case '+':
 		logger->info("return plus function");
 		return &RegexConstructorSyntaxTree::addPlus;
+	case '(':
+		logger->info("return brackets function");
+		return &RegexConstructorSyntaxTree::addBrackets;
 	default:
 		logger->info("return combine function");
 		return &RegexConstructorSyntaxTree::addCombine;
 	}
 }
 
-RegexNode* RegexConstructorSyntaxTree::addOr(PreviewElement previewElement, char& curentElement, RegexNode* tree)
+RegexNode* RegexConstructorSyntaxTree::addOr(PreviewElement previewElement, string& regex, RegexNode* tree)
 {
 	RegexNode* newTree(new RegexNode());
 	newTree->setFirstChild(tree);
@@ -31,16 +36,16 @@ RegexNode* RegexConstructorSyntaxTree::addOr(PreviewElement previewElement, char
 	return newTree;
 }
 
-RegexNode* RegexConstructorSyntaxTree::addCombine(PreviewElement previewElement, char& curentElement, RegexNode* tree)
+RegexNode* RegexConstructorSyntaxTree::addCombine(PreviewElement previewElement, string& regex, RegexNode* tree)
 {
 	RegexNode* newTree(new RegexNode());
 	newTree->setFirstChild(tree);
 	newTree->setType(RegexNodeType::COMBINE);
-	newTree->setSecondChild(RegexNodeType::ID, curentElement);
+	newTree->setSecondChild(RegexNodeType::ID, regex[0]);
 	return newTree;
 }
 
-RegexNode* RegexConstructorSyntaxTree::addStar(PreviewElement previewElement, char& curentElement, RegexNode* tree)
+RegexNode* RegexConstructorSyntaxTree::addStar(PreviewElement previewElement, string& regex, RegexNode* tree)
 {
 	RegexNode* newTree(new RegexNode());
 	RegexNode* secondChild = tree->getSecondChild();
@@ -58,7 +63,7 @@ RegexNode* RegexConstructorSyntaxTree::addStar(PreviewElement previewElement, ch
 	return newTree;
 }
 
-RegexNode* RegexConstructorSyntaxTree::addPlus(PreviewElement previewElement, char& curentElement, RegexNode* tree)
+RegexNode* RegexConstructorSyntaxTree::addPlus(PreviewElement previewElement, string& regex, RegexNode* tree)
 {
 	RegexNode* newTree(new RegexNode());
 	RegexNode* secondChild = tree->getSecondChild();
@@ -76,7 +81,7 @@ RegexNode* RegexConstructorSyntaxTree::addPlus(PreviewElement previewElement, ch
 	return newTree;
 }
 
-RegexNode* RegexConstructorSyntaxTree::addQuestion(PreviewElement previewElement, char& curentElement, RegexNode* tree)
+RegexNode* RegexConstructorSyntaxTree::addQuestion(PreviewElement previewElement, string& regex, RegexNode* tree)
 {
 	RegexNode* newTree(new RegexNode());
 	RegexNode* secondChild = tree->getSecondChild();
@@ -92,4 +97,22 @@ RegexNode* RegexConstructorSyntaxTree::addQuestion(PreviewElement previewElement
 	newSecondChild->setFirstChild(secondChild);
 	newTree->setSecondChild(newSecondChild);
 	return newTree;
+}
+
+RegexNode* RegexConstructorSyntaxTree::addBrackets(PreviewElement previewElement, string& regex, RegexNode* tree)
+{
+	RegexService regexService(*logger);
+	regex.erase(0, 1);
+	RegexNode* treeInBrackets(regexService.generateTree(regex));
+	if (previewElement.type == RegexNodeType::OR)
+	{
+		tree->setSecondChild(treeInBrackets);
+	}
+	else
+	{
+		tree->setFirstChild(tree);
+		tree->setType(RegexNodeType::COMBINE);
+		tree->setSecondChild(treeInBrackets);
+	}
+	return new RegexNode(*tree);
 }
