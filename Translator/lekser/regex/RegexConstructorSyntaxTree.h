@@ -52,7 +52,6 @@ protected:
 	/// <param name="tree"></param>
 	/// <returns>nowe drzewo rozk³adu</returns>
 	RegexNode* addStar(PreviewElement previewElement, char& curentElement, RegexNode* tree);
-
 	/// <summary>
 	/// funkcja dodajca znak + do drzewa rozk³adu
 	/// </summary>
@@ -61,4 +60,12 @@ protected:
 	/// <param name="tree"></param>
 	/// <returns>nowe drzewo rozk³adu</returns>
 	RegexNode* addPlus(PreviewElement previewElement, char& curentElement, RegexNode* tree);
+	/// <summary>
+	/// funkcja dodajca znak ? do drzewa rozk³adu
+	/// </summary>
+	/// <param name="previewElement"></param>
+	/// <param name="curentElement"></param>
+	/// <param name="tree"></param>
+	/// <returns>nowe drzewo rozk³adu</returns>
+	RegexNode* addQuestion(PreviewElement previewElement, char& curentElement, RegexNode* tree);
 };

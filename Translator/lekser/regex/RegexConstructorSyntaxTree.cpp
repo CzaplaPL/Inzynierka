@@ -11,6 +11,9 @@ RegexNode* (RegexConstructorSyntaxTree::* RegexConstructorSyntaxTree::checkActio
 	case '*':
 		logger->info("return star function");
 		return &RegexConstructorSyntaxTree::addStar;
+	case '?':
+		logger->info("return star function");
+		return &RegexConstructorSyntaxTree::addQuestion;
 	case '+':
 		logger->info("return plus function");
 		return &RegexConstructorSyntaxTree::addPlus;
@@ -68,6 +71,24 @@ RegexNode* RegexConstructorSyntaxTree::addPlus(PreviewElement previewElement, ch
 	newTree = new RegexNode(*tree, nullptr);
 	RegexNode* newSecondChild(new RegexNode());
 	newSecondChild->setType(RegexNodeType::PLUS);
+	newSecondChild->setFirstChild(secondChild);
+	newTree->setSecondChild(newSecondChild);
+	return newTree;
+}
+
+RegexNode* RegexConstructorSyntaxTree::addQuestion(PreviewElement previewElement, char& curentElement, RegexNode* tree)
+{
+	RegexNode* newTree(new RegexNode());
+	RegexNode* secondChild = tree->getSecondChild();
+	if (secondChild == nullptr)
+	{
+		newTree->setFirstChild(tree);
+		newTree->setType(RegexNodeType::QUESTION);
+		return newTree;
+	}
+	newTree = new RegexNode(*tree, nullptr);
+	RegexNode* newSecondChild(new RegexNode());
+	newSecondChild->setType(RegexNodeType::QUESTION);
 	newSecondChild->setFirstChild(secondChild);
 	newTree->setSecondChild(newSecondChild);
 	return newTree;

@@ -19,7 +19,35 @@ protected:
 	}
 };
 
-TEST_F(RegexGenerateTreeTest, addplusTest)
+TEST_F(RegexGenerateTreeTest, addQuestionTest)
+{
+	string reg = "a?bc?";
+
+	RegexNode* tree = regexService->generateTree(reg);
+	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
+
+	RegexNode* firstChild = tree->getFirstChild();
+	EXPECT_EQ(firstChild->getType(), RegexNodeType::COMBINE);
+
+	RegexNode* secondChild = tree->getSecondChild();
+	EXPECT_EQ(secondChild->getType(), RegexNodeType::QUESTION);
+
+	RegexNode* thirdChild = firstChild->getFirstChild();
+	EXPECT_EQ(thirdChild->getType(), RegexNodeType::QUESTION);
+
+	RegexNode* fourthChild = firstChild->getSecondChild();
+	EXPECT_EQ(fourthChild->getType(), RegexNodeType::ID);
+	EXPECT_EQ(fourthChild->getValue(), 'b');
+
+	RegexNode* fifthChild = thirdChild->getFirstChild();
+	EXPECT_EQ(fifthChild->getType(), RegexNodeType::ID);
+	EXPECT_EQ(fifthChild->getValue(), 'a');
+
+	RegexNode* sixthChild = secondChild->getFirstChild();
+	EXPECT_EQ(sixthChild->getType(), RegexNodeType::ID);
+	EXPECT_EQ(sixthChild->getValue(), 'c');
+}
+TEST_F(RegexGenerateTreeTest, addPlusTest)
 {
 	string reg = "a+bc+";
 
@@ -47,7 +75,8 @@ TEST_F(RegexGenerateTreeTest, addplusTest)
 	EXPECT_EQ(sixthChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(sixthChild->getValue(), 'c');
 }
-TEST_F(RegexGenerateTreeTest, addstarTest)
+
+TEST_F(RegexGenerateTreeTest, addStarTest)
 {
 	string reg = "a*bc*";
 
