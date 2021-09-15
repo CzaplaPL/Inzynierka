@@ -42,7 +42,7 @@ RegexNode* RegexService::generateTree(std::string& reg)
 
 			default:
 				action = this->checkAction(reg[i]);
-				tree = (*this.*action)(reg[i - 1], reg[i], tree);
+				tree = (*this.*action)(previewElement, reg[i], tree);
 				break;
 			}
 
