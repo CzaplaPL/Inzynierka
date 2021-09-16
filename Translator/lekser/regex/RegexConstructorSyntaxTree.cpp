@@ -22,6 +22,9 @@ RegexNode* (RegexConstructorSyntaxTree::* RegexConstructorSyntaxTree::checkActio
 	case '(':
 		logger->info("return brackets function");
 		return &RegexConstructorSyntaxTree::addBrackets;
+	case '{':
+		logger->info("return mustage brackets function");
+		return &RegexConstructorSyntaxTree::addMustageBrackets;
 	default:
 		logger->info("return combine function");
 		return &RegexConstructorSyntaxTree::addCombine;
@@ -115,4 +118,27 @@ RegexNode* RegexConstructorSyntaxTree::addBrackets(PreviewElement previewElement
 		tree->setSecondChild(treeInBrackets);
 	}
 	return new RegexNode(*tree);
+}
+
+RegexNode* RegexConstructorSyntaxTree::addMustageBrackets(PreviewElement previewElement, string& regex, RegexNode* tree)
+{
+	if(regex[1]==',')
+	{
+		regex.erase(0, 2);
+		int countChar = countCharLenght(regex);
+		if(countChar < 1) throw RegexException("oczekiwano liczby dodatniej w wyra¿eniu {x,y}");
+
+	}
+}
+
+int RegexConstructorSyntaxTree::countCharLenght(const string& regex)
+{
+	string number = "";
+	for(int i =0; regex[i]!='}' && regex[i]!=',';++i)
+	{
+		if (i == regex.length() - 1)throw RegexException("oczekiwano symbolu , lub } w wyra¿eniu {x,y}");
+		number += regex[i];
+	}
+	if (number.length() < 1)throw RegexException("oczekiwano liczby w wyra¿eniu {x,y}");
+	return std::stoi(number);
 }

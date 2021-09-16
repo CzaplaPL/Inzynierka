@@ -68,7 +68,6 @@ protected:
 	/// <param name="tree"></param>
 	/// <returns>nowe drzewo rozk³adu</returns>
 	RegexNode* addQuestion(PreviewElement previewElement, string& regex, RegexNode* tree);
-
 	/// <summary>
 	/// funkcja dodajca drzewo rozka³du z ()
 	/// </summary>
@@ -77,4 +76,14 @@ protected:
 	/// <param name="tree"></param>
 	/// <returns>nowe drzewo rozk³adu</returns>
 	RegexNode* addBrackets(PreviewElement previewElement, string& regex, RegexNode* tree);
+	/// <summary>
+/// funkcja obs³uguj¹ca {} w drzewie rozk³adu
+/// </summary>
+/// <param name="previewElement"></param>
+/// <param name="curentElement"></param>
+/// <param name="tree"></param>
+/// <returns>nowe drzewo rozk³adu</returns>
+	RegexNode* addMustageBrackets(PreviewElement previewElement, string& regex, RegexNode* tree);
+private:
+	int countCharLenght(const string& regex);
 };
