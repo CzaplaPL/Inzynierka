@@ -5,6 +5,7 @@
 class RegexNode
 {
 	char value;
+	std::string blockId;
 	RegexNode* firstChild = nullptr;
 	RegexNode* secondChild = nullptr;
 	RegexNodeType type;

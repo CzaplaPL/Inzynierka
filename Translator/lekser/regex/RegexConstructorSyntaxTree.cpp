@@ -122,23 +122,68 @@ RegexNode* RegexConstructorSyntaxTree::addBrackets(PreviewElement previewElement
 
 RegexNode* RegexConstructorSyntaxTree::addMustageBrackets(PreviewElement previewElement, string& regex, RegexNode* tree)
 {
-	if(regex[1]==',')
+	string element = previewElement.value;
+	if (regex[1] == ',')
 	{
 		regex.erase(0, 2);
 		int countChar = countCharLenght(regex);
-		if(countChar < 1) throw RegexException("oczekiwano liczby dodatniej w wyra¿eniu {x,y}");
+		if (countChar < 1) throw RegexException("oczekiwano liczby dodatniej w wyra¿eniu {x,y}");
 
+		RegexNode* newTree(new RegexNode());
+		newTree = addQuestion(previewElement, regex, tree);
+		for (int i = 1; i < countChar; ++i)
+		{
+			newTree = addCombine(previewElement, element, newTree);
+			newTree = addQuestion(previewElement, regex, newTree);
+		}
+		regex.erase(0, 1);
+		return newTree;
 	}
+	regex.erase(0, 1);
+	int countChar = countCharLenght(regex);
+	if (countChar < 1) throw RegexException("oczekiwano liczby dodatniej w wyra¿eniu {x,y}");
+	RegexNode* newTree(new RegexNode(*tree));
+	for (int i = 1; i < countChar; ++i)
+	{
+		newTree = addCombine(previewElement, element, newTree);
+	}
+	if (regex[0] == ',')
+	{
+		regex.erase(0, 1);
+		int maxCountChar = countCharLenght(regex);
+		if (maxCountChar == -1)
+		{
+			regex.erase(0, 1);
+			newTree = addCombine(previewElement, element, newTree);
+			newTree = addStar(previewElement, element, newTree);
+			return newTree;
+		}
+		if (maxCountChar < 1) throw RegexException("oczekiwano liczby dodatniej w wyra¿eniu {x,y}");
+
+		int countCharToExecute = maxCountChar - countChar;
+
+		for (int i = 0; i < countCharToExecute; ++i)
+		{
+			newTree = addCombine(previewElement, element, newTree);
+			newTree = addQuestion(previewElement, element, newTree);
+		}
+	}
+	regex.erase(0, 1);
+	return newTree;
 }
 
-int RegexConstructorSyntaxTree::countCharLenght(const string& regex)
+RegexNode* RegexConstructorSyntaxTree::addBlock(PreviewElement previewElement, string& regex, RegexNode* tree)
+{
+}
+
+int RegexConstructorSyntaxTree::countCharLenght(string& regex)
 {
 	string number = "";
-	for(int i =0; regex[i]!='}' && regex[i]!=',';++i)
+	while (regex[0] != '}' && regex[0] != ',')
 	{
-		if (i == regex.length() - 1)throw RegexException("oczekiwano symbolu , lub } w wyra¿eniu {x,y}");
-		number += regex[i];
+		number += regex[0];
+		regex.erase(0, 1);
 	}
-	if (number.length() < 1)throw RegexException("oczekiwano liczby w wyra¿eniu {x,y}");
+	if (number.length() < 1) return -1;
 	return std::stoi(number);
 }

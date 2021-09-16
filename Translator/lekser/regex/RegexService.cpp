@@ -1,5 +1,6 @@
 #include "RegexService.h"
 
+//todo ()
 RegexNode* RegexService::generateTree(std::string& reg)
 {
 	this->logger->debug("budowanie drzewa rozk³adu");
@@ -15,10 +16,15 @@ RegexNode* RegexService::generateTree(std::string& reg)
 	}
 	else
 	{
-		//todo [] operator
 		tree->setType(previewElement.type);
-		tree->setValue(reg[0]);
-		reg.erase(0, 1);
+		if (reg[0] == )
+		{
+		}
+		else
+		{
+			tree->setValue(reg[0]);
+			reg.erase(0, 1);
+		}
 	}
 	this->logger->debug(previewElement.toString());
 	while (reg.length())

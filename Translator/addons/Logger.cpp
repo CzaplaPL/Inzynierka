@@ -11,15 +11,10 @@ Logger::Logger(string environment)
 	this->isDebug = false;
 	this->isTime = true;
 	this->environment = environment;
-	if(!_mkdir("log"))
-	{
-		std::cout << "\033[1;31m " << "[ERROR] " << now() << "nie utworzono katalogu log " << "\033[0m\n" << endl;
-	}
+	_mkdir("log");
+
 	string environmentDir = "log/" + environment;
-	if(_mkdir(environmentDir.c_str()))
-	{
-		std::cout << "\033[1;31m " << "[ERROR] " << now() << "nie utworzono katalogu environment " << "\033[0m\n" << endl;
-	}
+	_mkdir(environmentDir.c_str());
 
 	fileLog.open("log/" + environment + "/log.log", ios::trunc | ios::in | ios::out);
 
