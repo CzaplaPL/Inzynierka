@@ -25,6 +25,9 @@ RegexNode* (RegexConstructorSyntaxTree::* RegexConstructorSyntaxTree::checkActio
 	case '{':
 		logger->info("return mustage brackets function");
 		return &RegexConstructorSyntaxTree::addMustageBrackets;
+	case '[':
+		logger->info("return block function");
+		return &RegexConstructorSyntaxTree::addBlock;
 	default:
 		logger->info("return combine function");
 		return &RegexConstructorSyntaxTree::addCombine;
@@ -168,12 +171,35 @@ RegexNode* RegexConstructorSyntaxTree::addMustageBrackets(PreviewElement preview
 			newTree = addQuestion(previewElement, element, newTree);
 		}
 	}
-	regex.erase(0, 1);
 	return newTree;
 }
 
 RegexNode* RegexConstructorSyntaxTree::addBlock(PreviewElement previewElement, string& regex, RegexNode* tree)
 {
+	string id = "";
+	int i = 1;
+	for (;regex[i] != ']'; ++i)
+	{
+		if (i == regex.length()) throw RegexException("oczekiwano ]");
+		id += regex[i];
+	}
+	if(id.length()<1)throw RegexException("brak wartoœci w bloku []");
+	regex.erase(0, i);
+
+	if(tree->getType() == RegexNodeType::BLOCK)
+	{
+		RegexNode* newTree(new RegexNode(*tree));
+		newTree->setBlockId(id);
+		return newTree;
+	}
+	RegexNode* newTree(new RegexNode());
+	newTree->setFirstChild(tree);
+	newTree->setType(RegexNodeType::COMBINE);
+	RegexNode* secondChild(new RegexNode);
+	secondChild->setType(RegexNodeType::BLOCK);
+	secondChild->setBlockId(id);
+	newTree->setSecondChild(secondChild);
+	return newTree;
 }
 
 int RegexConstructorSyntaxTree::countCharLenght(string& regex)

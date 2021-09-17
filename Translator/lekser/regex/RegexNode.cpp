@@ -15,6 +15,8 @@ RegexNode::RegexNode(RegexNode& tree, RegexNode* parent)
 {
 	this->type = tree.getType();
 
+	this->blockId = tree.getBlockId();
+
 	this->firstChild = tree.getFirstChild();
 
 	this->secondChild = tree.getSecondChild();
@@ -43,9 +45,19 @@ char RegexNode::getValue()
 	return this->value;
 }
 
+std::string RegexNode::getBlockId()
+{
+	return this->blockId;
+}
+
 void RegexNode::setValue(char value)
 {
 	this->value = value;
+}
+
+void RegexNode::setBlockId(std::string& blockId)
+{
+	this->blockId = blockId;
 }
 
 void RegexNode::setFirstChild(RegexNode* tree)

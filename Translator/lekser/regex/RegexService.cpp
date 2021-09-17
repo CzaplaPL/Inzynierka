@@ -1,6 +1,7 @@
 #include "RegexService.h"
 
 //todo ()
+//todo [x-a,1-2]
 RegexNode* RegexService::generateTree(std::string& reg)
 {
 	this->logger->debug("budowanie drzewa rozk³adu");
@@ -17,14 +18,21 @@ RegexNode* RegexService::generateTree(std::string& reg)
 	else
 	{
 		tree->setType(previewElement.type);
-		if (reg[0] == )
+		if (reg[0] == '|')
 		{
+			throw RegexException("regex nie mo¿e zaczynaæ siê od znaku |");
+		}
+		if (reg[0] == '[')
+		{
+			action = this->checkAction(reg[0]);
+			tree = (*this.*action)(previewElement, reg, tree);
 		}
 		else
 		{
 			tree->setValue(reg[0]);
-			reg.erase(0, 1);
+			
 		}
+		reg.erase(0, 1);
 	}
 	this->logger->debug(previewElement.toString());
 	while (reg.length())
@@ -41,6 +49,24 @@ RegexNode* RegexService::generateTree(std::string& reg)
 			{
 			case RegexNodeType::OR:
 				if (isSpecialChar(reg[0]))throw RegexException("znak specjalny po | jest niedozwolony");
+				
+				if(reg[0] == '(')
+				{
+					RegexNode* secondChild(new RegexNode());
+					reg.erase(0, 1);
+					secondChild = this->generateTree(reg);
+					tree->setSecondChild(secondChild);
+					break;
+				}
+				if (reg[0] == '[')
+				{
+					action = this->checkAction(reg[0]);
+					RegexNode* secondChild(new RegexNode());
+					secondChild->setType(RegexNodeType::BLOCK);
+					secondChild = (*this.*action)(previewElement, reg, secondChild);
+					tree->setSecondChild(secondChild);
+					break;
+				}
 				if (reg[0] == '\\')reg.erase(0, 1);
 				tree->setSecondChild(RegexNodeType::ID, reg[0]);
 				logger->info("dodawanie second child to or");
@@ -119,6 +145,6 @@ string RegexService::regexNodeTypeToString(RegexNodeType type)
 
 bool RegexService::isSpecialChar(char value)
 {
-	if (value == '|' || value == '*')return true;
+	if (value == '|' || value == '*' || value == '?' || value == '+')return true;
 	return false;
 }
