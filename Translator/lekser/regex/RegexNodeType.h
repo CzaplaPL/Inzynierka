@@ -8,4 +8,5 @@ enum class RegexNodeType
 	STAR,
 	PLUS,
 	QUESTION,
+	COMBINE,
 };
