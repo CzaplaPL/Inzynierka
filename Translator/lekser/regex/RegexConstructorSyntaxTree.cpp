@@ -22,6 +22,12 @@ RegexNode* (RegexConstructorSyntaxTree::* RegexConstructorSyntaxTree::checkActio
 	case '(':
 		logger->info("return brackets function");
 		return &RegexConstructorSyntaxTree::addBrackets;
+	case '{':
+		logger->info("return mustage brackets function");
+		return &RegexConstructorSyntaxTree::addMustageBrackets;
+	case '[':
+		logger->info("return block function");
+		return &RegexConstructorSyntaxTree::addBlock;
 	default:
 		logger->info("return combine function");
 		return &RegexConstructorSyntaxTree::addCombine;
@@ -115,4 +121,95 @@ RegexNode* RegexConstructorSyntaxTree::addBrackets(PreviewElement previewElement
 		tree->setSecondChild(treeInBrackets);
 	}
 	return new RegexNode(*tree);
+}
+
+RegexNode* RegexConstructorSyntaxTree::addMustageBrackets(PreviewElement previewElement, string& regex, RegexNode* tree)
+{
+	string element = previewElement.value;
+	if (regex[1] == ',')
+	{
+		regex.erase(0, 2);
+		int countChar = countCharLenght(regex);
+		if (countChar < 1) throw RegexException("oczekiwano liczby dodatniej w wyra¿eniu {x,y}");
+
+		RegexNode* newTree(new RegexNode());
+		newTree = addQuestion(previewElement, regex, tree);
+		for (int i = 1; i < countChar; ++i)
+		{
+			newTree = addCombine(previewElement, element, newTree);
+			newTree = addQuestion(previewElement, regex, newTree);
+		}
+		regex.erase(0, 1);
+		return newTree;
+	}
+	regex.erase(0, 1);
+	int countChar = countCharLenght(regex);
+	if (countChar < 1) throw RegexException("oczekiwano liczby dodatniej w wyra¿eniu {x,y}");
+	RegexNode* newTree(new RegexNode(*tree));
+	for (int i = 1; i < countChar; ++i)
+	{
+		newTree = addCombine(previewElement, element, newTree);
+	}
+	if (regex[0] == ',')
+	{
+		regex.erase(0, 1);
+		int maxCountChar = countCharLenght(regex);
+		if (maxCountChar == -1)
+		{
+			regex.erase(0, 1);
+			newTree = addCombine(previewElement, element, newTree);
+			newTree = addStar(previewElement, element, newTree);
+			return newTree;
+		}
+		if (maxCountChar < 1) throw RegexException("oczekiwano liczby dodatniej w wyra¿eniu {x,y}");
+
+		int countCharToExecute = maxCountChar - countChar;
+
+		for (int i = 0; i < countCharToExecute; ++i)
+		{
+			newTree = addCombine(previewElement, element, newTree);
+			newTree = addQuestion(previewElement, element, newTree);
+		}
+	}
+	return newTree;
+}
+
+RegexNode* RegexConstructorSyntaxTree::addBlock(PreviewElement previewElement, string& regex, RegexNode* tree)
+{
+	string id = "";
+	int i = 1;
+	for (;regex[i] != ']'; ++i)
+	{
+		if (i == regex.length()) throw RegexException("oczekiwano ]");
+		id += regex[i];
+	}
+	if(id.length()<1)throw RegexException("brak wartoœci w bloku []");
+	regex.erase(0, i);
+
+	if(tree->getType() == RegexNodeType::BLOCK)
+	{
+		RegexNode* newTree(new RegexNode(*tree));
+		newTree->setBlockId(id);
+		return newTree;
+	}
+	RegexNode* newTree(new RegexNode());
+	newTree->setFirstChild(tree);
+	newTree->setType(RegexNodeType::COMBINE);
+	RegexNode* secondChild(new RegexNode);
+	secondChild->setType(RegexNodeType::BLOCK);
+	secondChild->setBlockId(id);
+	newTree->setSecondChild(secondChild);
+	return newTree;
+}
+
+int RegexConstructorSyntaxTree::countCharLenght(string& regex)
+{
+	string number = "";
+	while (regex[0] != '}' && regex[0] != ',')
+	{
+		number += regex[0];
+		regex.erase(0, 1);
+	}
+	if (number.length() < 1) return -1;
+	return std::stoi(number);
 }

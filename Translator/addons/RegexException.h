@@ -12,7 +12,7 @@ public:
 	{
 		this->message = mesg;
 	}
-	const char* what() const throw () {
+	const char* what() const noexcept override  {
 		return message.data();
 	}
 };
