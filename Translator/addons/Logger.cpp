@@ -12,6 +12,7 @@ Logger::Logger(string environment)
 	this->isTime = true;
 	this->environment = environment;
 	_mkdir("log");
+
 	string environmentDir = "log/" + environment;
 	_mkdir(environmentDir.c_str());
 
