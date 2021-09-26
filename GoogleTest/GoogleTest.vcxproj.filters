@@ -5,6 +5,9 @@
     <ClCompile Include="BuildTreeTest.cpp">
       <Filter>lekser\regex</Filter>
     </ClCompile>
+    <ClCompile Include="BuildDasTest.cpp">
+      <Filter>lekser\buildDas</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -18,6 +21,9 @@
     </Filter>
     <Filter Include="lekser\regex">
       <UniqueIdentifier>{7b880f54-0320-4cea-b91c-2b077e651a87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lekser\buildDas">
+      <UniqueIdentifier>{33854f44-8580-4aa7-9ab4-096e84ae6472}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

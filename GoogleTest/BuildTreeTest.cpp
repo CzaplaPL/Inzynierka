@@ -1,12 +1,5 @@
 #include "pch.h"
 
-#include "../Translator/addons/Logger.cpp"
-#include "../Translator/lekser/regex/RegexNode.cpp"
-#include "../Translator/lekser/regex/RegexNodeType.h"
-#include "../Translator/lekser/regex/RegexService.cpp"
-#include "../Translator/lekser/regex/PreviewElement.cpp"
-#include "../Translator/lekser/regex/RegexConstructorSyntaxTree.cpp"
-
 using namespace std;
 
 class RegexGenerateTreeTest : public ::testing::Test {
@@ -14,7 +7,7 @@ protected:
 	Logger* logger;
 	RegexService* regexService;
 	void SetUp() override {
-		logger = new Logger("test");
+		logger = new Logger("RegexGenerateTreeTest");
 		regexService = new RegexService(*logger);
 	}
 };
@@ -33,10 +26,9 @@ TEST_F(RegexGenerateTreeTest, addBlockAfterIdTest)
 	RegexNode* secondChild = tree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::BLOCK);
 	EXPECT_EQ(secondChild->getBlockId(), "a-b");
-
 }
 
-TEST_F(RegexGenerateTreeTest, addBlockAfterOrTest) 
+TEST_F(RegexGenerateTreeTest, addBlockAfterOrTest)
 {
 	string reg = "a|[a-b]";
 
@@ -466,4 +458,9 @@ TEST_F(RegexGenerateTreeTest, BuildTreeTest)
 	RegexNode* fourthChild = secondChild->getFirstChild();
 	EXPECT_EQ(fourthChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(fourthChild->getValue(), 'e');
+}
+
+int main(int argc, char** argv) {
+	::testing::InitGoogleTest(&argc, argv);
+	return RUN_ALL_TESTS();
 }
