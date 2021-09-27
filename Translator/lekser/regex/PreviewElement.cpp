@@ -27,9 +27,6 @@ void PreviewElement::setElement(char element)
 	case'+':
 		this->type = RegexNodeType::PLUS;
 		break;
-	case')':
-		this->type = RegexNodeType::MUSTAGE;
-		break;
 	default:
 		this->type = RegexNodeType::ID;
 		break;

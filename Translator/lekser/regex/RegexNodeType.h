@@ -9,5 +9,4 @@ enum class RegexNodeType
 	PLUS,
 	QUESTION,
 	COMBINE,
-	MUSTAGE,
 };

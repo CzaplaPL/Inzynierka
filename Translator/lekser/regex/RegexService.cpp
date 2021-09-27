@@ -177,9 +177,6 @@ string RegexService::regexNodeTypeToString(RegexNodeType type)
 	case RegexNodeType::COMBINE:
 		return "COMBINE";
 		break;
-	case RegexNodeType::MUSTAGE:
-		return "MUSTAGE";
-		break;
 	default:
 		return "nieznany";
 	}
