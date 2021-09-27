@@ -1,12 +1,5 @@
 #include "pch.h"
 
-#include "../Translator/addons/Logger.cpp"
-#include "../Translator/lekser/regex/RegexNode.cpp"
-#include "../Translator/lekser/regex/RegexNodeType.h"
-#include "../Translator/lekser/regex/RegexService.cpp"
-#include "../Translator/lekser/regex/PreviewElement.cpp"
-#include "../Translator/lekser/regex/RegexConstructorSyntaxTree.cpp"
-
 using namespace std;
 
 class RegexGenerateTreeTest : public ::testing::Test {

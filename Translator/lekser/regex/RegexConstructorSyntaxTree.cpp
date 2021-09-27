@@ -55,7 +55,7 @@ RegexNode* RegexConstructorSyntaxTree::addStar(PreviewElement previewElement, st
 {
 	RegexNode* newTree(new RegexNode());
 	RegexNode* secondChild = tree->getSecondChild();
-	if (secondChild == nullptr)
+	if (secondChild == nullptr || tree->getType()==RegexNodeType::OR)
 	{
 		newTree->setFirstChild(tree);
 		newTree->setType(RegexNodeType::STAR);
@@ -73,7 +73,7 @@ RegexNode* RegexConstructorSyntaxTree::addPlus(PreviewElement previewElement, st
 {
 	RegexNode* newTree(new RegexNode());
 	RegexNode* secondChild = tree->getSecondChild();
-	if (secondChild == nullptr)
+	if (secondChild == nullptr || tree->getType() == RegexNodeType::OR)
 	{
 		newTree->setFirstChild(tree);
 		newTree->setType(RegexNodeType::PLUS);
@@ -91,7 +91,7 @@ RegexNode* RegexConstructorSyntaxTree::addQuestion(PreviewElement previewElement
 {
 	RegexNode* newTree(new RegexNode());
 	RegexNode* secondChild = tree->getSecondChild();
-	if (secondChild == nullptr)
+	if (secondChild == nullptr || tree->getType() == RegexNodeType::OR)
 	{
 		newTree->setFirstChild(tree);
 		newTree->setType(RegexNodeType::QUESTION);

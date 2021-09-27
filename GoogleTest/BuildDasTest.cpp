@@ -10,18 +10,17 @@ protected:
 	}
 };
 
-TEST_F(BuildDasTest, dsadaf)
+TEST_F(BuildDasTest, buildEasyDas)
 {
-	string reg = "a[a-b]";
+	string reg = "ab|c";
 
 	RegexNode* tree = regexService->generateTree(reg);
-	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
+}
 
-	RegexNode* firstChild = tree->getFirstChild();
-	EXPECT_EQ(firstChild->getType(), RegexNodeType::ID);
-	EXPECT_EQ(firstChild->getValue(), 'a');
+TEST_F(BuildDasTest, buildDasFromBook)
+{
+	string reg = "(a|b)*abb";
 
-	RegexNode* secondChild = tree->getSecondChild();
-	EXPECT_EQ(secondChild->getType(), RegexNodeType::BLOCK);
-	EXPECT_EQ(secondChild->getBlockId(), "a-b");
+	RegexNode* tree = regexService->generateTree(reg);
+	int c = 2;
 }

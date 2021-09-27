@@ -32,8 +32,9 @@ RegexNode* RegexService::generateTree(std::string& reg)
 			tree->setValue(reg[0]);
 			
 		}
-		reg.erase(0, 1);
+		
 	}
+	reg.erase(0, 1);
 	this->logger->debug(previewElement.toString());
 	while (reg.length())
 	{
