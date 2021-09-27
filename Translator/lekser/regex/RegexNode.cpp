@@ -24,6 +24,7 @@ RegexNode::RegexNode(RegexNode& tree, RegexNode* parent)
 
 	this->value = tree.getValue();
 	this->parent = parent;
+	this->id = tree.getId();
 }
 
 RegexNodeType RegexNode::getType()
@@ -81,7 +82,7 @@ void RegexNode::setType(RegexNodeType type)
 	this->type = type;
 }
 
-void RegexNode::setSecondChild(RegexNodeType type, char value,int id)
+void RegexNode::setSecondChild(RegexNodeType type, char value, int id)
 {
 	this->secondChild = new RegexNode(type, value, id);
 }
