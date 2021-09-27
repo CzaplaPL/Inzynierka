@@ -1,28 +1,29 @@
 #include "Logger.h"
-#include <boost/filesystem.hpp>
+#include <cstdarg>
 #include <ctime>
+#include <direct.h>
 #include <iostream>
 
-string const Logger::VERSION = "0.1.1";
+string const Logger::VERSION = "0.0.5";
 
 Logger::Logger(string environment)
 {
 	this->isDebug = false;
 	this->isTime = true;
 	this->environment = environment;
-	boost::filesystem::create_directory("log");
-	boost::filesystem::create_directory("log/" + environment);
+	_mkdir("log");
 
-	fileInfo.open("log/" + environment + "/log-info.log", ios::trunc | ios::in | ios::out);
+	string environmentDir = "log/" + environment;
+	_mkdir(environmentDir.c_str());
+
 	fileLog.open("log/" + environment + "/log.log", ios::trunc | ios::in | ios::out);
 
-	writeStart(fileInfo);
 	writeStart(fileLog);
 
 	this->isTime = false;
 }
 
-Logger::~Logger() 
+Logger::~Logger()
 {
 	close();
 }
@@ -39,14 +40,15 @@ void Logger::setTime(const bool isTime) noexcept
 
 void Logger::info(const string message)
 {
-	fileInfo << now() << message << endl;
+	fileLog << now() << message << endl;
 }
 
 void Logger::debug(const string message)
 {
+	fileLog << "[DEBUG] " << now() << " " << message << endl;
 	if (isDebug)
 	{
-		fileLog << "[DEBUG] " << now() << " " << message << endl;
+		std::cout << "[DEBUG] " << now() << " " << message << endl;
 	}
 }
 
@@ -71,7 +73,7 @@ void Logger::writeDebug(const char* templates, ...)
 		va_start(vl, templates);
 
 		union option_t {
-			int     i =0;
+			int     i = 0;
 			double   d;
 			char    c;
 			char* s;
@@ -124,7 +126,7 @@ string Logger::now() const
 	return "";
 }
 
-void Logger::writeStart(ofstream& file) const
+void Logger::writeStart(fstream& file) const
 {
 	file << "log Translator " << VERSION << endl;
 	file << "autor: Czapla " << endl;
@@ -135,7 +137,6 @@ void Logger::close() noexcept
 {
 	try
 	{
-		fileInfo.close();
 		fileLog.close();
 	}
 	catch (exception e)

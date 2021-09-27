@@ -20,6 +20,9 @@
     <element xsi:type="archimate:ApplicationService" name="Budowanie Leksera" id="id-9b2f08e55c4b46cf998b55f08c13f41c"/>
     <element xsi:type="archimate:ApplicationService" name="budowanie automatów" id="id-8b5e365652704a52b2a0bd8c31cddaf5"/>
     <element xsi:type="archimate:ApplicationFunction" name="tworzenie tokenów" id="id-bbec768465b047b28645a2d68039ef5b"/>
+    <element xsi:type="archimate:DataObject" name="mapa słów kluczowych" id="id-28dffeb4460d46e3b113529c86fb84fb"/>
+    <element xsi:type="archimate:DataObject" name="zmienne do wyrazen regularnych" id="id-5e58e7d7d125401b9089e74dfedcb2d1"/>
+    <element xsi:type="archimate:DataObject" name="wyrażenia regularne" id="id-c98f78bc2c1944dbb3687d619a9e66a1"/>
   </folder>
   <folder name="Technology &amp; Physical" id="id-58cf366e588f4f6aa89b28303f2d790f" type="technology"/>
   <folder name="Motivation" id="id-986385490cf64954aa17d1b88aa531aa" type="motivation"/>
@@ -78,6 +81,15 @@
         <child xsi:type="archimate:DiagramObject" id="id-e8aeb78e45fc4eacbe5d544eacc19eb5" archimateElement="id-a14a1ea67ded4354a0ed825709f7d945">
           <bounds x="51" y="24" width="120" height="55"/>
           <sourceConnection xsi:type="archimate:Connection" id="id-73d9f6ae1e8f4d3cbb0c4884b66b46d1" source="id-e8aeb78e45fc4eacbe5d544eacc19eb5" target="id-71fd2d78427048d2a253f2008e0b2812" archimateRelationship="id-6f9022f461634be78cb5ffc93e012fef"/>
+        </child>
+        <child xsi:type="archimate:DiagramObject" id="id-dfa03424532b4076881e66d12b602d1a" archimateElement="id-28dffeb4460d46e3b113529c86fb84fb">
+          <bounds x="264" y="132" width="120" height="55"/>
+        </child>
+        <child xsi:type="archimate:DiagramObject" id="id-f09366579e66475f88a93f893257bb3f" archimateElement="id-5e58e7d7d125401b9089e74dfedcb2d1">
+          <bounds x="420" y="132" width="120" height="55"/>
+        </child>
+        <child xsi:type="archimate:DiagramObject" id="id-98d1bb07cf9147a4bab60263b04ccc1c" archimateElement="id-c98f78bc2c1944dbb3687d619a9e66a1">
+          <bounds x="564" y="132" width="120" height="55"/>
         </child>
       </element>
     </folder>
