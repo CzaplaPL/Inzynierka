@@ -5,10 +5,11 @@ RegexNode::RegexNode()
 {
 }
 
-RegexNode::RegexNode(RegexNodeType type, char value)
+RegexNode::RegexNode(RegexNodeType type, char value, int id)
 {
 	this->type = type;
 	this->value = value;
+	this->id = id;
 }
 
 RegexNode::RegexNode(RegexNode& tree, RegexNode* parent)
@@ -50,6 +51,16 @@ std::string RegexNode::getBlockId()
 	return this->blockId;
 }
 
+int RegexNode::getId()
+{
+	return this->id;
+}
+
+void RegexNode::setId(int id)
+{
+	this->id = id;
+}
+
 void RegexNode::setValue(char value)
 {
 	this->value = value;
@@ -70,9 +81,9 @@ void RegexNode::setType(RegexNodeType type)
 	this->type = type;
 }
 
-void RegexNode::setSecondChild(RegexNodeType type, char value)
+void RegexNode::setSecondChild(RegexNodeType type, char value,int id)
 {
-	this->secondChild = new RegexNode(type, value);
+	this->secondChild = new RegexNode(type, value, id);
 }
 
 void RegexNode::setSecondChild(RegexNode* tree)

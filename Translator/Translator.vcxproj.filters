@@ -49,6 +49,9 @@
     <ClCompile Include="lekser\regex\RegexConstructorSyntaxTree.cpp">
       <Filter>Pliki źródłowe\lekser\regex</Filter>
     </ClCompile>
+    <ClCompile Include="lekser\DAS\DasServices.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.gitignore">
@@ -71,7 +74,7 @@
     <ClInclude Include="lekser\regex\RegexNodeType.h">
       <Filter>Pliki źródłowe\lekser\regex\dto</Filter>
     </ClInclude>
-    <ClInclude Include="addons\RegexException.h">
+    <ClInclude Include="addons\LekserException.h">
       <Filter>Pliki źródłowe\System\exception</Filter>
     </ClInclude>
     <ClInclude Include="lekser\regex\PreviewElement.h">
@@ -80,5 +83,6 @@
     <ClInclude Include="lekser\regex\RegexConstructorSyntaxTree.h">
       <Filter>Pliki źródłowe\lekser\regex</Filter>
     </ClInclude>
+    <ClInclude Include="lekser\DAS\DasServices.h" />
   </ItemGroup>
 </Project>

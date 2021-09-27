@@ -4,11 +4,11 @@
 
 using namespace std;
 
-class RegexException : public exception
+class LekserException : public exception
 {
 	string message;
 public:
-	RegexException(string mesg)
+	LekserException(string mesg)
 	{
 		this->message = mesg;
 	}

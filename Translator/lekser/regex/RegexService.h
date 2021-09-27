@@ -1,7 +1,7 @@
 #pragma once
 #include "../Translator/lekser/regex/RegexNode.h"
 #include "../Translator/addons/Logger.h"
-#include "../Translator/addons/RegexException.h"
+#include "../Translator/addons/LekserException.h"
 #include "PreviewElement.h"
 #include "RegexConstructorSyntaxTree.h"
 
@@ -10,6 +10,7 @@
 /// </summary>
 class RegexService : private RegexConstructorSyntaxTree
 {
+	int nextid = 0;
 	Logger* logger;
 public:
 

@@ -3,7 +3,7 @@
 
 #include "../Translator/lekser/regex/RegexNode.h"
 #include "../Translator/addons/Logger.h"
-#include "../Translator/addons/RegexException.h"
+#include "../Translator/addons/LekserException.h"
 #include "PreviewElement.h"
 #include <memory>
 
@@ -27,7 +27,7 @@ protected:
 	/// </summary>
 	/// <param name="symbol">znak dla którego chcemy sprawdziæ jak¹ funkcje wykonaæ</param>
 	/// <returns>wska¿nik do odpowiedniej funkcji</returns>
-	RegexNode* (RegexConstructorSyntaxTree::* checkAction(char& symbol))(PreviewElement previewElement, string& regex, RegexNode* tree);
+	RegexNode* (RegexConstructorSyntaxTree::* checkAction(char& symbol))(PreviewElement previewElement, string& regex, RegexNode* tree,int& id);
 	/// <summary>
 	/// funkcja dodaj¹ca znak | do drzewa rozkladu
 	/// </summary>
@@ -35,7 +35,7 @@ protected:
 	/// <param name="secondChar"></param>
 	/// <param name="tree"></param>
 	/// <returns>nowe drzewo rozk³adu</returns>
-	RegexNode* addOr(PreviewElement previewElement, string& regex, RegexNode* tree);
+	RegexNode* addOr(PreviewElement previewElement, string& regex, RegexNode* tree, int& id);
 	/// <summary>
 	/// funkcja dodajca znak ° do drzewa rozk³adu
 	/// </summary>
@@ -43,7 +43,7 @@ protected:
 	/// <param name="curentElement"></param>
 	/// <param name="tree"></param>
 	/// <returns>nowe drzewo rozk³adu</returns>
-	RegexNode* addCombine(PreviewElement previewElement, string& regex, RegexNode* tree);
+	RegexNode* addCombine(PreviewElement previewElement, string& regex, RegexNode* tree, int& id);
 	/// <summary>
 	/// funkcja dodajca znak * do drzewa rozk³adu
 	/// </summary>
@@ -51,7 +51,7 @@ protected:
 	/// <param name="curentElement"></param>
 	/// <param name="tree"></param>
 	/// <returns>nowe drzewo rozk³adu</returns>
-	RegexNode* addStar(PreviewElement previewElement, string& regex, RegexNode* tree);
+	RegexNode* addStar(PreviewElement previewElement, string& regex, RegexNode* tree, int& id);
 	/// <summary>
 	/// funkcja dodajca znak + do drzewa rozk³adu
 	/// </summary>
@@ -59,7 +59,7 @@ protected:
 	/// <param name="curentElement"></param>
 	/// <param name="tree"></param>
 	/// <returns>nowe drzewo rozk³adu</returns>
-	RegexNode* addPlus(PreviewElement previewElement, string& regex, RegexNode* tree);
+	RegexNode* addPlus(PreviewElement previewElement, string& regex, RegexNode* tree, int& id);
 	/// <summary>
 	/// funkcja dodajca znak ? do drzewa rozk³adu
 	/// </summary>
@@ -67,7 +67,7 @@ protected:
 	/// <param name="curentElement"></param>
 	/// <param name="tree"></param>
 	/// <returns>nowe drzewo rozk³adu</returns>
-	RegexNode* addQuestion(PreviewElement previewElement, string& regex, RegexNode* tree);
+	RegexNode* addQuestion(PreviewElement previewElement, string& regex, RegexNode* tree, int& id);
 	/// <summary>
 	/// funkcja dodajca drzewo rozka³du z ()
 	/// </summary>
@@ -75,7 +75,7 @@ protected:
 	/// <param name="curentElement"></param>
 	/// <param name="tree"></param>
 	/// <returns>nowe drzewo rozk³adu</returns>
-	RegexNode* addBrackets(PreviewElement previewElement, string& regex, RegexNode* tree);
+	RegexNode* addBrackets(PreviewElement previewElement, string& regex, RegexNode* tree, int& id);
 	/// <summary>
 /// funkcja obs³uguj¹ca {} w drzewie rozk³adu
 /// </summary>
@@ -83,14 +83,14 @@ protected:
 /// <param name="curentElement"></param>
 /// <param name="tree"></param>
 /// <returns>nowe drzewo rozk³adu</returns>
-	RegexNode* addMustageBrackets(PreviewElement previewElement, string& regex, RegexNode* tree);
+	RegexNode* addMustageBrackets(PreviewElement previewElement, string& regex, RegexNode* tree, int& id);
 	/// funkcja obs³uguj¹ca [] w drzewie rozk³adu
 	/// </summary>
 	/// <param name="previewElement"></param>
 	/// <param name="curentElement"></param>
 	/// <param name="tree"></param>
 	/// <returns>nowe drzewo rozk³adu</returns>
-	RegexNode* addBlock(PreviewElement previewElement, string& regex, RegexNode* tree);
+	RegexNode* addBlock(PreviewElement previewElement, string& regex, RegexNode* tree, int& id);
 private:
 	int countCharLenght(string& regex);
 };

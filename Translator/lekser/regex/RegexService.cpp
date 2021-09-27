@@ -1,13 +1,16 @@
 #include "RegexService.h"
 
-//todo ()
+//todo puste ()
 //todo [x-a,1-2]
+//todo inteligentne wskazniki
+//todo zamienic earse na indexowanie;
+
 RegexNode* RegexService::generateTree(std::string& reg)
 {
 	this->logger->debug("budowanie drzewa rozk³adu");
 
 	RegexNode* tree = new RegexNode;
-	RegexNode* (RegexConstructorSyntaxTree:: * action)(PreviewElement previewElement, string & regex, RegexNode*) = NULL;
+	RegexNode* (RegexConstructorSyntaxTree:: * action)(PreviewElement previewElement, string & regex, RegexNode*, int& id) = NULL;
 	PreviewElement previewElement = PreviewElement(reg[0]);
 	if (reg[0] == '(')
 	{
@@ -20,17 +23,18 @@ RegexNode* RegexService::generateTree(std::string& reg)
 		tree->setType(previewElement.type);
 		if (reg[0] == '|')
 		{
-			throw RegexException("regex nie mo¿e zaczynaæ siê od znaku |");
+			throw LekserException("regex nie mo¿e zaczynaæ siê od znaku |");
 		}
 		if (reg[0] == '[')
 		{
 			action = this->checkAction(reg[0]);
-			tree = (*this.*action)(previewElement, reg, tree);
+			tree = (*this.*action)(previewElement, reg, tree, this->nextid);
+			++this->nextid;
 		}
 		else
 		{
 			tree->setValue(reg[0]);
-			
+			tree->setId(this->nextid++);
 		}
 		
 	}
@@ -49,7 +53,7 @@ RegexNode* RegexService::generateTree(std::string& reg)
 			switch (previewElement.type)
 			{
 			case RegexNodeType::OR:
-				if (isSpecialChar(reg[0]))throw RegexException("znak specjalny po | jest niedozwolony");
+				if (isSpecialChar(reg[0]))throw LekserException("znak specjalny po | jest niedozwolony");
 				
 				if(reg[0] == '(')
 				{
@@ -65,11 +69,12 @@ RegexNode* RegexService::generateTree(std::string& reg)
 					RegexNode* secondChild(new RegexNode());
 					secondChild->setType(RegexNodeType::BLOCK);
 					secondChild = (*this.*action)(previewElement, reg, secondChild);
+					secondChild->setId(this->nextid++);
 					tree->setSecondChild(secondChild);
 					break;
 				}
 				if (reg[0] == '\\')reg.erase(0, 1);
-				tree->setSecondChild(RegexNodeType::ID, reg[0]);
+				tree->setSecondChild(RegexNodeType::ID, reg[0], this->nextid++);
 				logger->info("dodawanie second child to or");
 				break;
 			default:
@@ -91,13 +96,13 @@ RegexNode* RegexService::generateTree(std::string& reg)
 			logger->error(exception.what());
 			logger->debug(reg);
 		}
-		catch (RegexException exception)
+		catch (LekserException exception)
 		{
 			logger->error("b³¹d podczas tworzeniae regexTree");
 			logger->error("b³ad na znaku" + reg[0]);
 			logger->error(exception.what());
 			logger->debug(reg);
-			throw RegexException("b³¹d podczas tworzenia drzewa rozk³adu regexa");
+			throw LekserException("b³¹d podczas tworzenia drzewa rozk³adu regexa");
 		}
 		catch (std::exception& exception)
 		{
@@ -105,7 +110,7 @@ RegexNode* RegexService::generateTree(std::string& reg)
 			logger->error("b³ad na znaku" + reg[0]);
 			logger->error(exception.what());
 			logger->debug(reg);
-			throw RegexException("b³¹d podczas tworzenia drzewa rozk³adu regexa");
+			throw LekserException("b³¹d podczas tworzenia drzewa rozk³adu regexa");
 		}
 	}
 	logger->debug("koniec generowania drzewa");
