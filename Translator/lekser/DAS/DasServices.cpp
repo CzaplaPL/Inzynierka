@@ -1,10 +1,15 @@
 #include "DasServices.h"
 
+#include <map>
+#include <queue>
+
+#include "MachineStep.h"
+
 vector<int> DasServices::firstPos(RegexNode* tree)
 {
 	vector<int> toReturn;
 	vector<int> secondFirstPos;
-	if(tree == nullptr) throw LekserException("nie istnieje firstpos dla pustego drzewa");
+	if (tree == nullptr) throw LekserException("nie istnieje firstpos dla pustego drzewa");
 	switch (tree->getType())
 	{
 	case RegexNodeType::BLOCK:
@@ -13,7 +18,7 @@ vector<int> DasServices::firstPos(RegexNode* tree)
 		return toReturn;
 	case RegexNodeType::COMBINE:
 		toReturn = firstPos(tree->getFirstChild());
-		if(nullable(tree->getFirstChild()))
+		if (nullable(tree->getFirstChild()))
 		{
 			secondFirstPos = firstPos(tree->getSecondChild());
 			toReturn.insert(toReturn.end(), secondFirstPos.begin(), secondFirstPos.end());
@@ -51,4 +56,34 @@ bool DasServices::nullable(RegexNode* tree)
 	case RegexNodeType::STAR:
 		return true;
 	}
+}
+
+Das DasServices::generateDas(RegexNode* tree)
+{
+	Das toReturn;
+	queue<string> indefiniteStep;
+	map<string, MachineStep*> machineSteps;
+
+	vector<int>  firstPositions = this->firstPos(tree);
+	string firstPositionsId = generateId(firstPositions);
+	indefiniteStep.push(firstPositionsId);
+
+	while (indefiniteStep.size() > 0)
+	{
+		for (int node : firstPositions)
+		{
+			tree[node].getType();
+		}
+	}
+	return toReturn;
+}
+
+string DasServices::generateId(const vector<int>& vector)
+{
+	string toReturn = "";
+	for (int element : vector)
+	{
+		toReturn += to_string(element);
+	}
+	return toReturn;
 }

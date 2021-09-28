@@ -27,6 +27,21 @@ RegexNode::RegexNode(RegexNode& tree, RegexNode* parent)
 	this->id = tree.getId();
 }
 
+RegexNode& RegexNode::operator[](int id)
+{
+	if (this->id == id)
+	{
+		return *this;
+	}
+	if (this->id < id)
+	{
+		if (this->secondChild == nullptr) throw LekserException("index poza zakresem");
+		return (*this->secondChild)[id];
+	}
+	if (this->firstChild == nullptr) throw LekserException("index poza zakresem");
+	return (*this->firstChild)[id];
+}
+
 RegexNodeType RegexNode::getType()
 {
 	return this->type;

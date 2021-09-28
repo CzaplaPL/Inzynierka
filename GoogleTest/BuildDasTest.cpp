@@ -54,7 +54,7 @@ TEST_F(BuildDasTest, testFirstPosFunction)
 	reg = "a?";
 	tree = regexService->generateTree(reg, id);
 	result = dasServices->firstPos(tree);
-	expected = {0};
+	expected = { 0 };
 	EXPECT_EQ(result, expected);
 	id = 0;
 	reg = "a*";
@@ -72,6 +72,16 @@ TEST_F(BuildDasTest, testFirstPosFunction)
 	reg = "(a|b)*abb";
 	tree = regexService->generateTree(reg, id);
 	result = dasServices->firstPos(tree);
-	expected = {0,2,5};
+	expected = { 0,2,5 };
 	EXPECT_EQ(result, expected);
+}
+
+TEST_F(BuildDasTest, genrateSimpleDasTest)
+{
+	string reg = "abc";
+	RegexNode* tree = regexService->generateTree(reg, id);
+	RegexNode one = (*tree)[0];
+	RegexNode two = (*tree)[1];
+	RegexNode three = (*tree)[2];
+	int c = 0;
 }

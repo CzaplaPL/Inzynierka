@@ -148,11 +148,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="addons\Logger.cpp" />
+    <ClCompile Include="lekser\DAS\Das.cpp" />
     <ClCompile Include="lekser\DAS\DasServices.cpp" />
     <ClCompile Include="lekser\regex\PreviewElement.cpp" />
     <ClCompile Include="lekser\regex\RegexConstructorSyntaxTree.cpp" />
     <ClCompile Include="lekser\regex\RegexNode.cpp" />
     <ClCompile Include="lekser\regex\RegexService.cpp" />
+    <ClCompile Include="lekser\DAS\MachineStep.cpp" />
     <ClCompile Include="Translator.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,12 +164,14 @@
   <ItemGroup>
     <ClInclude Include="addons\Logger.h" />
     <ClInclude Include="addons\LekserException.h" />
+    <ClInclude Include="lekser\DAS\Das.h" />
     <ClInclude Include="lekser\DAS\DasServices.h" />
     <ClInclude Include="lekser\regex\PreviewElement.h" />
     <ClInclude Include="lekser\regex\RegexConstructorSyntaxTree.h" />
     <ClInclude Include="lekser\regex\RegexNode.h" />
     <ClInclude Include="lekser\regex\RegexNodeType.h" />
     <ClInclude Include="lekser\regex\RegexService.h" />
+    <ClInclude Include="lekser\DAS\MachineStep.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
