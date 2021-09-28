@@ -5,22 +5,54 @@
 //todo inteligentne wskazniki
 //todo zamienic earse na indexowanie;
 
-RegexNode* RegexService::generateTree(std::string& reg)
+RegexNode* RegexService::generateTree(std::string& reg, int& nextId)
 {
 	this->logger->debug("budowanie drzewa rozk³adu");
 
 	RegexNode* tree = new RegexNode;
-	RegexNode* (RegexConstructorSyntaxTree:: * action)(PreviewElement previewElement, string & regex, RegexNode*, int& id) = NULL;
+	RegexNode* (RegexConstructorSyntaxTree:: * action)(PreviewElement previewElement, string & regex, RegexNode*, int& nextId) = NULL;
 	PreviewElement previewElement = PreviewElement(reg[0]);
 	if (reg[0] == '(')
 	{
 		this->logger->debug("zaczynam od nawiasu");
 		reg.erase(0, 1);
-		tree = this->generateTree(reg);
+		tree = this->generateTree(reg, nextId);
+		reg.erase(0, 1);
+		if (reg[0] == '*')
+		{
+			RegexNode* newTree(new RegexNode());
+			newTree->setFirstChild(tree);
+			newTree->setType(RegexNodeType::STAR);
+			newTree->setId(nextId);
+			nextId += 1;
+			tree = newTree;
+			reg.erase(0, 1);
+		}
+		else if (reg[0] == '+')
+		{
+			RegexNode* newTree(new RegexNode());
+			newTree->setFirstChild(tree);
+			newTree->setType(RegexNodeType::PLUS);
+			newTree->setId(nextId);
+			nextId += 1;
+			tree = newTree;
+			reg.erase(0, 1);
+		}
+		else if (reg[0] == '?')
+		{
+			RegexNode* newTree(new RegexNode());
+			newTree->setFirstChild(tree);
+			newTree->setType(RegexNodeType::QUESTION);
+			newTree->setId(nextId);
+			nextId += 1;
+			tree = newTree;
+			reg.erase(0, 1);
+		}
 	}
 	else
 	{
 		tree->setType(previewElement.type);
+
 		if (reg[0] == '|')
 		{
 			throw LekserException("regex nie mo¿e zaczynaæ siê od znaku |");
@@ -28,17 +60,17 @@ RegexNode* RegexService::generateTree(std::string& reg)
 		if (reg[0] == '[')
 		{
 			action = this->checkAction(reg[0]);
-			tree = (*this.*action)(previewElement, reg, tree, this->nextid);
-			++this->nextid;
+			tree = (*this.*action)(previewElement, reg, tree, nextId);
 		}
 		else
 		{
+			if (isSpecialChar(reg[0]))throw LekserException("nie mo¿na rozpoczynaæ znakiem specjalnym");
 			tree->setValue(reg[0]);
-			tree->setId(this->nextid++);
+			tree->setId(nextId);
+			nextId += 1;
 		}
-		
+		reg.erase(0, 1);
 	}
-	reg.erase(0, 1);
 	this->logger->debug(previewElement.toString());
 	while (reg.length())
 	{
@@ -54,12 +86,12 @@ RegexNode* RegexService::generateTree(std::string& reg)
 			{
 			case RegexNodeType::OR:
 				if (isSpecialChar(reg[0]))throw LekserException("znak specjalny po | jest niedozwolony");
-				
-				if(reg[0] == '(')
+
+				if (reg[0] == '(')
 				{
 					RegexNode* secondChild(new RegexNode());
 					reg.erase(0, 1);
-					secondChild = this->generateTree(reg);
+					secondChild = this->generateTree(reg, nextId);
 					tree->setSecondChild(secondChild);
 					break;
 				}
@@ -68,20 +100,21 @@ RegexNode* RegexService::generateTree(std::string& reg)
 					action = this->checkAction(reg[0]);
 					RegexNode* secondChild(new RegexNode());
 					secondChild->setType(RegexNodeType::BLOCK);
-					secondChild = (*this.*action)(previewElement, reg, secondChild);
-					secondChild->setId(this->nextid++);
+					secondChild = (*this.*action)(previewElement, reg, secondChild, nextId);
 					tree->setSecondChild(secondChild);
 					break;
 				}
 				if (reg[0] == '\\')reg.erase(0, 1);
-				tree->setSecondChild(RegexNodeType::ID, reg[0], this->nextid++);
+				tree->setSecondChild(RegexNodeType::ID, reg[0], nextId);
+				nextId += 1;
 				logger->info("dodawanie second child to or");
 				break;
+
 			default:
 				action = this->checkAction(reg[0]);
 
 				if (reg[0] == '\\')reg.erase(0, 1);
-				tree = (*this.*action)(previewElement, reg, tree);
+				tree = (*this.*action)(previewElement, reg, tree, nextId);
 
 				break;
 			}

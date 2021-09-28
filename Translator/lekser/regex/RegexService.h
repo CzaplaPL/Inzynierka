@@ -10,7 +10,6 @@
 /// </summary>
 class RegexService : private RegexConstructorSyntaxTree
 {
-	int nextid = 0;
 	Logger* logger;
 public:
 
@@ -24,7 +23,7 @@ public:
 	/// </summary>
 	/// <param name="reg">regex</param>
 	/// <returns>wskaünik na RegexNode wskazujacy na drzewo rozk≥adu</returns>
-	RegexNode* generateTree(std::string& reg);
+	RegexNode* generateTree(std::string& reg, int& id);
 
 	/// <summary>
 	/// funkcja konwertujaca RegexNodeType na stringa
