@@ -16,7 +16,6 @@ protected:
 		id = 0;
 	}
 	void SetUp() override {
-
 		id = 0;
 	}
 };
@@ -24,7 +23,7 @@ protected:
 TEST_F(BuildDasTest, testNullableFunction)
 {
 	string reg = "ab|c";
-	RegexNode* tree = regexService->generateTree(reg,id);
+	RegexNode* tree = regexService->generateTree(reg, id);
 	EXPECT_FALSE(dasServices->nullable(tree));
 
 	reg = "a?";
@@ -38,12 +37,41 @@ TEST_F(BuildDasTest, testNullableFunction)
 	reg = "a*|b";
 	tree = regexService->generateTree(reg, id);
 	EXPECT_FALSE(!dasServices->nullable(tree));
+
+	reg = "(a|b)*abb";
+	tree = regexService->generateTree(reg, id);
+	EXPECT_FALSE(dasServices->nullable(tree));
 }
 
-TEST_F(BuildDasTest, buildDasFromBook)
+TEST_F(BuildDasTest, testFirstPosFunction)
 {
-	string reg = "(a|b)*abb";
-	
+	string reg = "ab|c";
 	RegexNode* tree = regexService->generateTree(reg, id);
-	int c = 2;
+	vector<int> result = dasServices->firstPos(tree);
+	vector<int> expected = { 0,4 };
+	EXPECT_EQ(result, expected);
+	id = 0;
+	reg = "a?";
+	tree = regexService->generateTree(reg, id);
+	result = dasServices->firstPos(tree);
+	expected = {0};
+	EXPECT_EQ(result, expected);
+	id = 0;
+	reg = "a*";
+	tree = regexService->generateTree(reg, id);
+	result = dasServices->firstPos(tree);
+	expected = { 0 };
+	EXPECT_EQ(result, expected);
+	id = 0;
+	reg = "a*|b";
+	tree = regexService->generateTree(reg, id);
+	result = dasServices->firstPos(tree);
+	expected = { 0,3 };
+	EXPECT_EQ(result, expected);
+	id = 0;
+	reg = "(a|b)*abb";
+	tree = regexService->generateTree(reg, id);
+	result = dasServices->firstPos(tree);
+	expected = {0,2,5};
+	EXPECT_EQ(result, expected);
 }

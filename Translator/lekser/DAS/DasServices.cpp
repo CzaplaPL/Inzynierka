@@ -3,6 +3,7 @@
 vector<int> DasServices::firstPos(RegexNode* tree)
 {
 	vector<int> toReturn;
+	vector<int> secondFirstPos;
 	if(tree == nullptr) throw LekserException("nie istnieje firstpos dla pustego drzewa");
 	switch (tree->getType())
 	{
@@ -14,12 +15,23 @@ vector<int> DasServices::firstPos(RegexNode* tree)
 		toReturn = firstPos(tree->getFirstChild());
 		if(nullable(tree->getFirstChild()))
 		{
-
-			
+			secondFirstPos = firstPos(tree->getSecondChild());
+			toReturn.insert(toReturn.end(), secondFirstPos.begin(), secondFirstPos.end());
 		}
-
+		return toReturn;
+	case RegexNodeType::OR:
+		toReturn = firstPos(tree->getFirstChild());
+		secondFirstPos = firstPos(tree->getSecondChild());
+		toReturn.insert(toReturn.end(), secondFirstPos.begin(), secondFirstPos.end());
+		return toReturn;
+	case RegexNodeType::PLUS:
+	case RegexNodeType::STAR:
+	case RegexNodeType::QUESTION:
+		toReturn = firstPos(tree->getFirstChild());
+		return toReturn;
+	default:
+		throw LekserException("nie znaleziono firstPos");
 	}
-	return toReturn;
 }
 
 bool DasServices::nullable(RegexNode* tree)
