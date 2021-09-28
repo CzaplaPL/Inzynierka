@@ -1,10 +1,42 @@
 #include "DasServices.h"
 
-void DasServices::firstPos(RegexNode* tree)
+vector<int> DasServices::firstPos(RegexNode* tree)
 {
+	vector<int> toReturn;
 	if(tree == nullptr) throw LekserException("nie istnieje firstpos dla pustego drzewa");
-	if(tree->getType() == RegexNodeType::ID)
+	switch (tree->getType())
 	{
-		
+	case RegexNodeType::BLOCK:
+	case RegexNodeType::ID:
+		toReturn.push_back(tree->getId());
+		return toReturn;
+	case RegexNodeType::COMBINE:
+		toReturn = firstPos(tree->getFirstChild());
+		if(nullable(tree->getFirstChild()))
+		{
+
+			
+		}
+
+	}
+	return toReturn;
+}
+
+bool DasServices::nullable(RegexNode* tree)
+{
+	switch (tree->getType())
+	{
+	case RegexNodeType::BLOCK:
+	case RegexNodeType::ID:
+		return false;
+	case RegexNodeType::COMBINE:
+		return nullable(tree->getFirstChild()) && nullable(tree->getSecondChild());
+	case RegexNodeType::OR:
+		return nullable(tree->getFirstChild()) || nullable(tree->getSecondChild());
+	case RegexNodeType::PLUS:
+		return nullable(tree->getFirstChild());
+	case RegexNodeType::QUESTION:
+	case RegexNodeType::STAR:
+		return true;
 	}
 }
