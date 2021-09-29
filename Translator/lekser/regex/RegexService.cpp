@@ -115,7 +115,6 @@ RegexNode* RegexService::generateTree(std::string& reg, int& nextId)
 
 				if (reg[0] == '\\')reg.erase(0, 1);
 				tree = (*this.*action)(previewElement, reg, tree, nextId);
-
 				break;
 			}
 

@@ -78,10 +78,9 @@ TEST_F(BuildDasTest, testFirstPosFunction)
 
 TEST_F(BuildDasTest, genrateSimpleDasTest)
 {
-	string reg = "abc";
+	string reg = "a|bc";
 	RegexNode* tree = regexService->generateTree(reg, id);
-	RegexNode one = (*tree)[0];
-	RegexNode two = (*tree)[1];
-	RegexNode three = (*tree)[2];
+	RegexNode* tmp = (*tree)[0];
+	vector<int>result = dasServices->followPos(tmp,tree);
 	int c = 0;
 }

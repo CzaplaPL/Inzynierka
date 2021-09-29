@@ -15,6 +15,7 @@ public:
 		this->log = &logger;
 	}
 	vector<int> firstPos(RegexNode* tree);
+	vector<int> followPos(RegexNode* tree,RegexNode* tree2);
 	bool nullable(RegexNode* tree);
 	string generateId(const vector<int>& vector);
 	Das generateDas(RegexNode* tree);

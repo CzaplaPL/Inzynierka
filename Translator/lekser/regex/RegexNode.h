@@ -17,11 +17,12 @@ class RegexNode
 public:
 	RegexNode();
 	RegexNode(RegexNodeType type, char value, int id);
-	RegexNode(RegexNode& tree, RegexNode* parent);
-	RegexNode& operator[](int id);
+	RegexNode(RegexNode* tree, RegexNode* parent);
+	RegexNode* operator[](int id);
 	RegexNodeType getType();
 	RegexNode* getFirstChild();
 	RegexNode* getSecondChild();
+	RegexNode* getParent();
 	char getValue();
 	string getBlockId();
 	int getId();
@@ -32,5 +33,10 @@ public:
 	void setType(RegexNodeType type);
 	void setSecondChild(RegexNodeType type, char value, int id);
 	void setSecondChild(RegexNode* tree);
+	void setParents(RegexNode* parent);
 	std::string toString();
 };
+
+
+
+

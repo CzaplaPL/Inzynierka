@@ -47,9 +47,9 @@ RegexNode* RegexConstructorSyntaxTree::addOr(PreviewElement previewElement, stri
 RegexNode* RegexConstructorSyntaxTree::addCombine(PreviewElement previewElement, string& regex, RegexNode* tree, int& id)
 {
 	RegexNode* newTree(new RegexNode());
-	newTree->setFirstChild(tree);
 	newTree->setType(RegexNodeType::COMBINE);
 	newTree->setId(id);
+	newTree->setFirstChild(tree);
 	id += 1;
 	newTree->setSecondChild(RegexNodeType::ID, regex[0], id);
 	id += 1;
@@ -68,7 +68,7 @@ RegexNode* RegexConstructorSyntaxTree::addStar(PreviewElement previewElement, st
 		id += 1;
 		return newTree;
 	}
-	newTree = new RegexNode(*tree, nullptr);
+	newTree = new RegexNode(tree, nullptr);
 	RegexNode* newSecondChild(new RegexNode());
 	newSecondChild->setType(RegexNodeType::STAR);
 	newSecondChild->setFirstChild(secondChild);
@@ -90,7 +90,7 @@ RegexNode* RegexConstructorSyntaxTree::addPlus(PreviewElement previewElement, st
 		id += 1;
 		return newTree;
 	}
-	newTree = new RegexNode(*tree, nullptr);
+	newTree = new RegexNode(tree, nullptr);
 	RegexNode* newSecondChild(new RegexNode());
 	newSecondChild->setType(RegexNodeType::PLUS);
 	newSecondChild->setFirstChild(secondChild);
@@ -112,7 +112,7 @@ RegexNode* RegexConstructorSyntaxTree::addQuestion(PreviewElement previewElement
 		id += 1;
 		return newTree;
 	}
-	newTree = new RegexNode(*tree, nullptr);
+	newTree = new RegexNode(tree, nullptr);
 	RegexNode* newSecondChild(new RegexNode());
 	newSecondChild->setType(RegexNodeType::QUESTION);
 	newSecondChild->setFirstChild(secondChild);
