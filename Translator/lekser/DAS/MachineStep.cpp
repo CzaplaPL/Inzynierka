@@ -1,6 +1,5 @@
 #include "MachineStep.h"
 
-MachineStep::MachineStep(const vector<int>& positions)
+MachineStep::MachineStep(map<string, set<int>>& transitions) :transitionsMap(transitions)
 {
-	this->nodes = positions;
 }

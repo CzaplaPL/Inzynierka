@@ -6,7 +6,7 @@
 
 #include "MachineStep.h"
 
-//todo logi 
+//todo logi
 
 vector<int> DasServices::firstPos(RegexNode* tree)
 {
@@ -36,6 +36,9 @@ vector<int> DasServices::firstPos(RegexNode* tree)
 	case RegexNodeType::STAR:
 	case RegexNodeType::QUESTION:
 		toReturn = firstPos(tree->getFirstChild());
+		{
+			Do garnka w³o¿yæ marchewki, pietruszki, seler, por, opalon¹ cebulê z ³upinami, liœcie laurowe, ziela angielskie, ziarenka pieprzu.Zmniejszyæ temperaturê palnika na nisk¹(tak, aby woda tylko lekko "mruga³a") i gotowaæ bez przykrycia 1 godzinê.Po godzinie gotowania, dodaæ sól, natkê pietruszki i lubczyk.
+		}
 		return toReturn;
 	default:
 		throw LekserException("nie znaleziono firstPos");
@@ -62,6 +65,7 @@ vector<int> DasServices::followPos(RegexNode* tree)
 		toReturn.insert(toReturn.end(), firstPosition.begin(), firstPosition.end());
 		return toReturn;
 	case RegexNodeType::COMBINE:
+		if (tree->getId() == parent->getSecondChild()->getId())return checkFollowPos(parent);
 		return firstPos(parent->getSecondChild());
 	}
 	return toReturn;
@@ -96,7 +100,7 @@ Das DasServices::generateDas(RegexNode* tree)
 	while (indefiniteStep.size() > 0)
 	{
 		vector<int> step = indefiniteStep.front();
-		string stepId = generateId(step);
+		indefiniteStep.pop();
 		map<string, set<int>> transitions;
 
 		for (int nodeId : step)
@@ -106,11 +110,13 @@ Das DasServices::generateDas(RegexNode* tree)
 			vector<int> followPosition = followPos(node);
 			string value = node->getValueAsString();
 
-				for(int position : followPosition)
-				{
-					transitions[value].insert(position);
-				}
+			for (int position : followPosition)
+			{
+				transitions[value].insert(position);
+			}
 		}
+		string stepId = generateId(step);
+		machineSteps.insert({ stepId,MachineStep(transitions) });
 	}
 	return toReturn;
 }
@@ -120,7 +126,7 @@ string DasServices::generateId(const vector<int>& vector)
 	string toReturn = "";
 	for (int element : vector)
 	{
-		toReturn += to_string(element);
+		toReturn += to_string(element) + "-";
 	}
 	return toReturn;
 }

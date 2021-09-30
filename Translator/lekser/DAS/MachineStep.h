@@ -1,20 +1,14 @@
 #pragma once
+#include <map>
+#include <set>
 #include <vector>
+#include <xstring>
 
 using namespace std;
 
 class MachineStep
 {
-	vector<int> nodes;
+	map<string, set<int>>& transitionsMap;
 public:
-	MachineStep(const vector<int>& positions);
-
-	void setNodes(vector<int> nodes)
-	{
-		this->nodes = nodes;
-	}
-	vector<int>getNodes()
-	{
-		return this->nodes;
-	}
+	MachineStep(map<string, set<int>>& transitions);
 };
