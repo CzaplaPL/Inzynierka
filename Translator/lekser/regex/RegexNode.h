@@ -1,4 +1,5 @@
 #pragma once
+#include <map>
 #include <string>
 #include "RegexNodeType.h"
 
@@ -35,6 +36,7 @@ public:
 	void setSecondChild(RegexNode* tree);
 	void setParents(RegexNode* parent);
 	std::string toString();
+	string getValueAsString();
 };
 
 

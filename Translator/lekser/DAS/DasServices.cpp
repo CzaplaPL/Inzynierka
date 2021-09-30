@@ -2,8 +2,11 @@
 
 #include <map>
 #include <queue>
+#include <set>
 
 #include "MachineStep.h"
+
+//todo logi 
 
 vector<int> DasServices::firstPos(RegexNode* tree)
 {
@@ -86,17 +89,27 @@ bool DasServices::nullable(RegexNode* tree)
 Das DasServices::generateDas(RegexNode* tree)
 {
 	Das toReturn;
-	queue<MachineStep> indefiniteStep;
-	map<string, MachineStep*> machineSteps;
-
-	vector<int> firstPositions = this->firstPos(tree);
-	indefiniteStep.push();
+	queue<vector<int>> indefiniteStep;
+	map<string, MachineStep> machineSteps;
+	indefiniteStep.push(this->firstPos(tree));
 
 	while (indefiniteStep.size() > 0)
 	{
-		for (int node : firstPositions)
+		vector<int> step = indefiniteStep.front();
+		string stepId = generateId(step);
+		map<string, set<int>> transitions;
+
+		for (int nodeId : step)
 		{
-			tree[node].getType();
+			RegexNode* node = (*tree)[nodeId];
+			if (!typeIsIdOrBlock(node))throw LekserException("typ wezla jest inny niz block lub id");
+			vector<int> followPosition = followPos(node);
+			string value = node->getValueAsString();
+
+				for(int position : followPosition)
+				{
+					transitions[value].insert(position);
+				}
 		}
 	}
 	return toReturn;
@@ -138,4 +151,9 @@ vector<int> DasServices::checkFollowPos(RegexNode* parent)
 			break;
 		}
 	}
+}
+
+bool DasServices::typeIsIdOrBlock(RegexNode* node)
+{
+	return (node->getType() == RegexNodeType::BLOCK || node->getType() == RegexNodeType::ID);
 }

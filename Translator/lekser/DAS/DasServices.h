@@ -20,5 +20,8 @@ public:
 	vector<int> followPos(RegexNode* tree);
 	bool nullable(RegexNode* tree);
 	string generateId(const vector<int>& vector);
+	bool typeIsIdOrBlock(RegexNode* node);
 	Das generateDas(RegexNode* tree);
 };
+
+

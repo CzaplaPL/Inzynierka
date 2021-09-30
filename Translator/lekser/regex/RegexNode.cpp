@@ -105,11 +105,14 @@ void RegexNode::setType(RegexNodeType type)
 
 void RegexNode::setSecondChild(RegexNodeType type, char value, int id)
 {
-	this->secondChild = new RegexNode(type, value, id);
+	RegexNode* secondChild = new RegexNode(type, value, id);
+	secondChild->setParents(this);
+	this->secondChild = secondChild;
 }
 
 void RegexNode::setSecondChild(RegexNode* tree)
 {
+	tree->setParents(this);
 	this->secondChild = new RegexNode(tree, this);
 }
 
@@ -142,4 +145,11 @@ std::string RegexNode::toString()
 	}
 
 	return toReturn;
+}
+
+string RegexNode::getValueAsString()
+{
+	if (this->type == RegexNodeType::BLOCK) return blockId;
+	if (this->type == RegexNodeType::ID) return string(1,this->value);
+	return "";
 }

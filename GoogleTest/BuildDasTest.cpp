@@ -78,8 +78,8 @@ TEST_F(BuildDasTest, testFirstPosFunction)
 
 TEST_F(BuildDasTest, genrateSimpleDasTest)
 {
-	string reg = "a|bc";
+	string reg = "(a|b)*abb";
 	RegexNode* tree = regexService->generateTree(reg, id);
-
+	Das as = dasServices->generateDas(tree);
 	int c = 0;
 }
