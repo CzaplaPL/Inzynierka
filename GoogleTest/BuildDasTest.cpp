@@ -80,7 +80,6 @@ TEST_F(BuildDasTest, genrateSimpleDasTest)
 {
 	string reg = "a|bc";
 	RegexNode* tree = regexService->generateTree(reg, id);
-	RegexNode* tmp = (*tree)[0];
-	vector<int>result = dasServices->followPos(tmp,tree);
+
 	int c = 0;
 }

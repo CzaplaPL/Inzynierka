@@ -39,39 +39,27 @@ vector<int> DasServices::firstPos(RegexNode* tree)
 	}
 }
 
-vector<int> DasServices::followPos(RegexNode* tree, RegexNode* tree2)
+vector<int> DasServices::followPos(RegexNode* tree)
 {
 	if (tree == nullptr) throw LekserException("nie istnieje followPos dla pustego drzewa");
 	RegexNode* parent = tree->getParent();
 	vector<int> toReturn;
+	vector<int> firstPosition;
+	RegexNode* actualParent;
 	if (parent == nullptr) return toReturn;
 
 	switch (parent->getType())
 	{
 	case RegexNodeType::OR:
-		RegexNode* actualParent = parent->getParent();
-		vector<int> firstPosition;
-		while(true)
-		{
-			if (actualParent == nullptr) return toReturn;
-			switch (actualParent->getType())
-			{
-			case RegexNodeType::QUESTION:
-			case RegexNodeType::OR:
-				actualParent = actualParent->getParent();
-				break;
-			case RegexNodeType::COMBINE:
-				firstPosition = firstPos(actualParent->getSecondChild());
-				toReturn.insert(toReturn.end(), firstPosition.begin(), firstPosition.end());
-				return toReturn;
-			case RegexNodeType::PLUS:
-			case RegexNodeType::STAR:
-				firstPosition = firstPos(actualParent->getFirstChild());
-				toReturn.insert(toReturn.end(), firstPosition.begin(), firstPosition.end());
-				actualParent = actualParent->getParent();
-				break;
-			}
-		}
+		return  checkFollowPos(parent);
+	case RegexNodeType::PLUS:
+	case RegexNodeType::STAR:
+		toReturn.push_back(tree->getId());
+		firstPosition = checkFollowPos(parent);
+		toReturn.insert(toReturn.end(), firstPosition.begin(), firstPosition.end());
+		return toReturn;
+	case RegexNodeType::COMBINE:
+		return firstPos(parent->getSecondChild());
 	}
 	return toReturn;
 }
@@ -98,12 +86,11 @@ bool DasServices::nullable(RegexNode* tree)
 Das DasServices::generateDas(RegexNode* tree)
 {
 	Das toReturn;
-	queue<string> indefiniteStep;
+	queue<MachineStep> indefiniteStep;
 	map<string, MachineStep*> machineSteps;
 
-	vector<int>  firstPositions = this->firstPos(tree);
-	string firstPositionsId = generateId(firstPositions);
-	indefiniteStep.push(firstPositionsId);
+	vector<int> firstPositions = this->firstPos(tree);
+	indefiniteStep.push();
 
 	while (indefiniteStep.size() > 0)
 	{
@@ -123,4 +110,32 @@ string DasServices::generateId(const vector<int>& vector)
 		toReturn += to_string(element);
 	}
 	return toReturn;
+}
+
+vector<int> DasServices::checkFollowPos(RegexNode* parent)
+{
+	vector<int> toReturn;
+	vector<int>  firstPosition;
+	RegexNode* actualParent = parent->getParent();
+	while (true)
+	{
+		if (actualParent == nullptr) return toReturn;
+		switch (actualParent->getType())
+		{
+		case RegexNodeType::QUESTION:
+		case RegexNodeType::OR:
+			actualParent = actualParent->getParent();
+			break;
+		case RegexNodeType::COMBINE:
+			firstPosition = firstPos(actualParent->getSecondChild());
+			toReturn.insert(toReturn.end(), firstPosition.begin(), firstPosition.end());
+			return toReturn;
+		case RegexNodeType::PLUS:
+		case RegexNodeType::STAR:
+			firstPosition = firstPos(actualParent->getFirstChild());
+			toReturn.insert(toReturn.end(), firstPosition.begin(), firstPosition.end());
+			actualParent = actualParent->getParent();
+			break;
+		}
+	}
 }
