@@ -8,7 +8,8 @@ using namespace std;
 
 class MachineStep
 {
+	bool isAccepting;
 	map<string, set<int>> transitionsMap;
 public:
-	MachineStep(map<string, set<int>>& transitions);
+	MachineStep(map<string, set<int>>& transitions, bool isAccepting);
 };

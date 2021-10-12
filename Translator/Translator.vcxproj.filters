@@ -49,7 +49,7 @@
     <ClCompile Include="lekser\regex\RegexConstructorSyntaxTree.cpp">
       <Filter>Pliki źródłowe\lekser\regex</Filter>
     </ClCompile>
-    <ClCompile Include="lekser\DAS\DasServices.cpp">
+    <ClCompile Include="lekser\DAS\DasService.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="lekser\DAS\MachineStep.cpp">
@@ -89,7 +89,7 @@
     <ClInclude Include="lekser\regex\RegexConstructorSyntaxTree.h">
       <Filter>Pliki źródłowe\lekser\regex</Filter>
     </ClInclude>
-    <ClInclude Include="lekser\DAS\DasServices.h" />
+    <ClInclude Include="lekser\DAS\DasService.h" />
     <ClInclude Include="lekser\DAS\MachineStep.h" />
     <ClInclude Include="lekser\DAS\Das.h" />
   </ItemGroup>

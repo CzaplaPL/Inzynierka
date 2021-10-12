@@ -1,18 +1,18 @@
 #include "pch.h"
 #include <vector>
-#include "../Translator/lekser/DAS/DasServices.h"
+#include "../Translator/lekser/DAS/DasService.h"
 class BuildDasTest : public ::testing::Test {
 protected:
 	Logger* logger;
 	int id;
 	RegexService* regexService;
-	DasServices* dasServices;
+	DasService* dasServices;
 
 	BuildDasTest()
 	{
 		logger = new Logger("BuildDasTest");
 		regexService = new RegexService(*logger);
-		dasServices = new DasServices(*logger);
+		dasServices = new DasService(*logger);
 		id = 0;
 	}
 	void SetUp() override {

@@ -149,7 +149,7 @@
   <ItemGroup>
     <ClCompile Include="addons\Logger.cpp" />
     <ClCompile Include="lekser\DAS\Das.cpp" />
-    <ClCompile Include="lekser\DAS\DasServices.cpp" />
+    <ClCompile Include="lekser\DAS\DasService.cpp" />
     <ClCompile Include="lekser\regex\PreviewElement.cpp" />
     <ClCompile Include="lekser\regex\RegexConstructorSyntaxTree.cpp" />
     <ClCompile Include="lekser\regex\RegexNode.cpp" />
@@ -165,7 +165,7 @@
     <ClInclude Include="addons\Logger.h" />
     <ClInclude Include="addons\LekserException.h" />
     <ClInclude Include="lekser\DAS\Das.h" />
-    <ClInclude Include="lekser\DAS\DasServices.h" />
+    <ClInclude Include="lekser\DAS\DasService.h" />
     <ClInclude Include="lekser\regex\PreviewElement.h" />
     <ClInclude Include="lekser\regex\RegexConstructorSyntaxTree.h" />
     <ClInclude Include="lekser\regex\RegexNode.h" />

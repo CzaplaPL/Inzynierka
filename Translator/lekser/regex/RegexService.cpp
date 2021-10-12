@@ -147,7 +147,12 @@ RegexNode* RegexService::generateTree(std::string& reg, int& nextId)
 	logger->debug("koniec generowania drzewa");
 	logger->info(tree->toString());
 
-	return tree;
+	RegexNode* completeTree = new RegexNode(RegexNodeType::COMBINE, ' ', nextId);
+	nextId++;
+	completeTree->setFirstChild(tree);
+	RegexNode* endElement = new RegexNode(RegexNodeType::END, '#', nextId);
+	completeTree->setSecondChild(endElement);
+	return completeTree;
 }
 
 string RegexService::regexNodeTypeToString(RegexNodeType type)
@@ -156,25 +161,20 @@ string RegexService::regexNodeTypeToString(RegexNodeType type)
 	{
 	case RegexNodeType::ID:
 		return "ID";
-		break;
 	case RegexNodeType::BLOCK:
 		return "BLOCK";
-		break;
 	case RegexNodeType::OR:
 		return "OR";
-		break;
 	case RegexNodeType::STAR:
 		return "STAR";
-		break;
 	case RegexNodeType::PLUS:
 		return "PLUS";
-		break;
 	case RegexNodeType::QUESTION:
 		return "QUESTION";
-		break;
 	case RegexNodeType::COMBINE:
 		return "COMBINE";
-		break;
+	case RegexNodeType::END:
+		return"END";
 	default:
 		return "nieznany";
 	}

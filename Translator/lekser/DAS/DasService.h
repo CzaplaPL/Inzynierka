@@ -6,12 +6,14 @@
 #include "../../addons/LekserException.h"
 #include "../../addons/Logger.h"
 
-class DasServices
+//todo cashe dal folowpos firstpos i nullable
+
+class DasService
 {
 	Logger* log;
 	vector<int> checkFollowPos(RegexNode* parent);
 public:
-	DasServices(Logger& logger)
+	DasService(Logger& logger)
 	{
 		this->log = &logger;
 	}

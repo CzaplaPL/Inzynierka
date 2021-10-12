@@ -1,4 +1,4 @@
-#include "DasServices.h"
+#include "DasService.h"
 
 #include <map>
 #include <queue>
@@ -8,7 +8,7 @@
 
 //todo logi
 
-vector<int> DasServices::firstPos(RegexNode* tree)
+vector<int> DasService::firstPos(RegexNode* tree)
 {
 	vector<int> toReturn;
 	vector<int> secondFirstPos;
@@ -16,6 +16,7 @@ vector<int> DasServices::firstPos(RegexNode* tree)
 	switch (tree->getType())
 	{
 	case RegexNodeType::BLOCK:
+	case RegexNodeType::END:
 	case RegexNodeType::ID:
 		toReturn.push_back(tree->getId());
 		return toReturn;
@@ -42,7 +43,7 @@ vector<int> DasServices::firstPos(RegexNode* tree)
 	}
 }
 
-vector<int> DasServices::followPos(RegexNode* tree)
+vector<int> DasService::followPos(RegexNode* tree)
 {
 	if (tree == nullptr) throw LekserException("nie istnieje followPos dla pustego drzewa");
 	RegexNode* parent = tree->getParent();
@@ -68,7 +69,7 @@ vector<int> DasServices::followPos(RegexNode* tree)
 	return toReturn;
 }
 
-bool DasServices::nullable(RegexNode* tree)
+bool DasService::nullable(RegexNode* tree)
 {
 	switch (tree->getType())
 	{
@@ -87,7 +88,7 @@ bool DasServices::nullable(RegexNode* tree)
 	}
 }
 
-Das DasServices::generateDas(RegexNode* tree)
+Das DasService::generateDas(RegexNode* tree)
 {
 	Das toReturn;
 	queue<vector<int>> indefiniteStep;
@@ -99,7 +100,7 @@ Das DasServices::generateDas(RegexNode* tree)
 		vector<int> step = indefiniteStep.front();
 		indefiniteStep.pop();
 		map<string, set<int>> transitions;
-
+		bool isAccepting = false;
 		for (int nodeId : step)
 		{
 			RegexNode* node = (*tree)[nodeId];
@@ -111,9 +112,10 @@ Das DasServices::generateDas(RegexNode* tree)
 			{
 				transitions[value].insert(position);
 			}
+			if (node->getType() == RegexNodeType::END)isAccepting = true;
 		}
 		string stepId = generateId(step);
-		machineSteps.insert({ stepId,MachineStep(transitions) });
+		machineSteps.insert({ stepId,MachineStep(transitions,isAccepting) });
 		for (pair< string, set<int>> transition : transitions)
 		{
 			vector<int> transitionSteps(transition.second.begin(), transition.second.end());
@@ -130,7 +132,7 @@ Das DasServices::generateDas(RegexNode* tree)
 	return toReturn;
 }
 
-string DasServices::generateId(const vector<int>& vector)
+string DasService::generateId(const vector<int>& vector)
 {
 	string toReturn = "";
 	for (int element : vector)
@@ -140,7 +142,7 @@ string DasServices::generateId(const vector<int>& vector)
 	return toReturn;
 }
 
-vector<int> DasServices::checkFollowPos(RegexNode* parent)
+vector<int> DasService::checkFollowPos(RegexNode* parent)
 {
 	vector<int> toReturn;
 	vector<int>  firstPosition;
@@ -168,7 +170,7 @@ vector<int> DasServices::checkFollowPos(RegexNode* parent)
 	}
 }
 
-bool DasServices::typeIsIdOrBlock(RegexNode* node)
+bool DasService::typeIsIdOrBlock(RegexNode* node)
 {
-	return (node->getType() == RegexNodeType::BLOCK || node->getType() == RegexNodeType::ID);
+	return (node->getType() == RegexNodeType::BLOCK || node->getType() == RegexNodeType::ID || node->getType() == RegexNodeType::END);
 }
