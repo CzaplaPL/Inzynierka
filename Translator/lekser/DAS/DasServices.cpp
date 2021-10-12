@@ -36,9 +36,6 @@ vector<int> DasServices::firstPos(RegexNode* tree)
 	case RegexNodeType::STAR:
 	case RegexNodeType::QUESTION:
 		toReturn = firstPos(tree->getFirstChild());
-		{
-			Do garnka w³o¿yæ marchewki, pietruszki, seler, por, opalon¹ cebulê z ³upinami, liœcie laurowe, ziela angielskie, ziarenka pieprzu.Zmniejszyæ temperaturê palnika na nisk¹(tak, aby woda tylko lekko "mruga³a") i gotowaæ bez przykrycia 1 godzinê.Po godzinie gotowania, dodaæ sól, natkê pietruszki i lubczyk.
-		}
 		return toReturn;
 	default:
 		throw LekserException("nie znaleziono firstPos");
@@ -117,6 +114,18 @@ Das DasServices::generateDas(RegexNode* tree)
 		}
 		string stepId = generateId(step);
 		machineSteps.insert({ stepId,MachineStep(transitions) });
+		for (pair< string, set<int>> transition : transitions)
+		{
+			vector<int> transitionSteps(transition.second.begin(), transition.second.end());
+			if (machineSteps.find(generateId(transitionSteps)) == machineSteps.end()) {
+				indefiniteStep.push(transitionSteps);
+			}
+		}
+	}
+
+	for (pair< string, MachineStep> el : machineSteps)
+	{
+		int c = 0;
 	}
 	return toReturn;
 }

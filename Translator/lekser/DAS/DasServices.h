@@ -23,5 +23,3 @@ public:
 	bool typeIsIdOrBlock(RegexNode* node);
 	Das generateDas(RegexNode* tree);
 };
-
-

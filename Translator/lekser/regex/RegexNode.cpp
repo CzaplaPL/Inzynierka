@@ -19,9 +19,9 @@ RegexNode::RegexNode(RegexNode* tree, RegexNode* parent)
 	this->blockId = tree->getBlockId();
 
 	this->firstChild = tree->getFirstChild();
-
+	if (this->firstChild != nullptr) this->firstChild->setParents(this);
 	this->secondChild = tree->getSecondChild();
-
+	if (this->secondChild != nullptr) this->secondChild->setParents(this);
 	this->value = tree->getValue();
 	this->parent = parent;
 	this->id = tree->getId();
@@ -150,6 +150,6 @@ std::string RegexNode::toString()
 string RegexNode::getValueAsString()
 {
 	if (this->type == RegexNodeType::BLOCK) return blockId;
-	if (this->type == RegexNodeType::ID) return string(1,this->value);
+	if (this->type == RegexNodeType::ID) return string(1, this->value);
 	return "";
 }

@@ -8,7 +8,7 @@ using namespace std;
 
 class MachineStep
 {
-	map<string, set<int>>& transitionsMap;
+	map<string, set<int>> transitionsMap;
 public:
 	MachineStep(map<string, set<int>>& transitions);
 };
