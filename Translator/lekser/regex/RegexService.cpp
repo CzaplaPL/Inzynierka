@@ -8,7 +8,6 @@
 RegexNode* RegexService::generateTree(std::string& reg, int& nextId)
 {
 	this->logger->debug("budowanie drzewa rozk³adu");
-
 	RegexNode* tree = new RegexNode;
 	RegexNode* (RegexConstructorSyntaxTree:: * action)(PreviewElement previewElement, string & regex, RegexNode*, int& nextId) = NULL;
 	PreviewElement previewElement = PreviewElement(reg[0]);
@@ -115,7 +114,6 @@ RegexNode* RegexService::generateTree(std::string& reg, int& nextId)
 
 				if (reg[0] == '\\')reg.erase(0, 1);
 				tree = (*this.*action)(previewElement, reg, tree, nextId);
-
 				break;
 			}
 

@@ -7,9 +7,14 @@ protected:
 	int id;
 	Logger* logger;
 	RegexService* regexService;
-	void SetUp() override {
+	RegexGenerateTreeTest()
+	{
 		logger = new Logger("RegexGenerateTreeTest");
 		regexService = new RegexService(*logger);
+		id = 0;
+	}
+	void SetUp() override {
+
 		id = 0;
 	}
 };

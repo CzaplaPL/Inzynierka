@@ -52,6 +52,12 @@
     <ClCompile Include="lekser\DAS\DasServices.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="lekser\DAS\MachineStep.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="lekser\DAS\Das.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.gitignore">
@@ -84,5 +90,7 @@
       <Filter>Pliki źródłowe\lekser\regex</Filter>
     </ClInclude>
     <ClInclude Include="lekser\DAS\DasServices.h" />
+    <ClInclude Include="lekser\DAS\MachineStep.h" />
+    <ClInclude Include="lekser\DAS\Das.h" />
   </ItemGroup>
 </Project>
