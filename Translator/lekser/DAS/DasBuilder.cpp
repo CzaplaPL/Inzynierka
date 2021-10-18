@@ -1,14 +1,11 @@
-#include "DasServices.h"
+#include "DasBuilder.h"
 
-#include <map>
-#include <queue>
-#include <set>
+DasBuilder::DasBuilder(Logger& log)
+{
+	this->log = &log;
+}
 
-#include "MachineStep.h"
-
-//todo logi
-
-vector<int> DasServices::firstPos(RegexNode* tree)
+vector<int> DasBuilder::firstPos(RegexNode* tree)
 {
 	vector<int> toReturn;
 	vector<int> secondFirstPos;
@@ -17,6 +14,7 @@ vector<int> DasServices::firstPos(RegexNode* tree)
 	{
 	case RegexNodeType::BLOCK:
 	case RegexNodeType::ID:
+	case RegexNodeType::END:
 		toReturn.push_back(tree->getId());
 		return toReturn;
 	case RegexNodeType::COMBINE:
@@ -42,7 +40,7 @@ vector<int> DasServices::firstPos(RegexNode* tree)
 	}
 }
 
-vector<int> DasServices::followPos(RegexNode* tree)
+vector<int> DasBuilder::followPos(RegexNode* tree)
 {
 	if (tree == nullptr) throw LekserException("nie istnieje followPos dla pustego drzewa");
 	RegexNode* parent = tree->getParent();
@@ -68,7 +66,7 @@ vector<int> DasServices::followPos(RegexNode* tree)
 	return toReturn;
 }
 
-bool DasServices::nullable(RegexNode* tree)
+bool DasBuilder::nullable(RegexNode* tree)
 {
 	switch (tree->getType())
 	{
@@ -83,11 +81,12 @@ bool DasServices::nullable(RegexNode* tree)
 		return nullable(tree->getFirstChild());
 	case RegexNodeType::QUESTION:
 	case RegexNodeType::STAR:
+	case RegexNodeType::END:
 		return true;
 	}
 }
 
-Das DasServices::generateDas(RegexNode* tree)
+Das DasBuilder::generateDas(RegexNode* tree)
 {
 	Das toReturn;
 	queue<vector<int>> indefiniteStep;
@@ -129,18 +128,9 @@ Das DasServices::generateDas(RegexNode* tree)
 	}
 	return toReturn;
 }
+////////////////////funkcje prywatne////////////////////////////////////
 
-string DasServices::generateId(const vector<int>& vector)
-{
-	string toReturn = "";
-	for (int element : vector)
-	{
-		toReturn += to_string(element) + "-";
-	}
-	return toReturn;
-}
-
-vector<int> DasServices::checkFollowPos(RegexNode* parent)
+vector<int> DasBuilder::checkFollowPos(RegexNode* parent)
 {
 	vector<int> toReturn;
 	vector<int>  firstPosition;
@@ -164,11 +154,26 @@ vector<int> DasServices::checkFollowPos(RegexNode* parent)
 			toReturn.insert(toReturn.end(), firstPosition.begin(), firstPosition.end());
 			actualParent = actualParent->getParent();
 			break;
+		case RegexNodeType::ID:
+		case RegexNodeType::BLOCK:
+		case RegexNodeType::END:
+		default:
+			throw LekserException("nie mo¿na wywo³aæ funkcji checkFollowPos dla ID,block i end");
 		}
 	}
 }
 
-bool DasServices::typeIsIdOrBlock(RegexNode* node)
+string DasBuilder::generateId(const vector<int>& vector)
 {
-	return (node->getType() == RegexNodeType::BLOCK || node->getType() == RegexNodeType::ID);
+	string toReturn = "";
+	for (int element : vector)
+	{
+		toReturn += to_string(element) + "-";
+	}
+	return toReturn;
+}
+
+bool DasBuilder::typeIsIdOrBlock(RegexNode* node)
+{
+	return (node->getType() == RegexNodeType::BLOCK || node->getType() == RegexNodeType::ID || node->getType() == RegexNodeType::END);
 }

@@ -8,6 +8,9 @@
     <ClCompile Include="BuildDasTest.cpp">
       <Filter>lekser\buildDas</Filter>
     </ClCompile>
+    <ClCompile Include="BuildDasFunctionsTest.cpp">
+      <Filter>lekser\buildDas</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

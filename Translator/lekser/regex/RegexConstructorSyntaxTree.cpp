@@ -133,7 +133,7 @@ RegexNode* RegexConstructorSyntaxTree::addBrackets(PreviewElement previewElement
 	}
 	else
 	{
-		tree->setFirstChild(tree);
+		tree->setFirstChild(new RegexNode(*tree));
 		tree->setType(RegexNodeType::COMBINE);
 		tree->setId(id);
 		id += 1;

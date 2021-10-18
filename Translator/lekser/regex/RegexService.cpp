@@ -147,7 +147,11 @@ RegexNode* RegexService::generateTree(std::string& reg, int& nextId)
 	logger->debug("koniec generowania drzewa");
 	logger->info(tree->toString());
 
-	return tree;
+	RegexNode* treeToReturn = new RegexNode(RegexNodeType::COMBINE, ' ', nextId);
+	treeToReturn->setFirstChild(tree);
+	++nextId;
+	treeToReturn->setSecondChild(RegexNodeType::END, '#', nextId);
+	return treeToReturn;
 }
 
 string RegexService::regexNodeTypeToString(RegexNodeType type)
