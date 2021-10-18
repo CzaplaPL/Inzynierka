@@ -47,7 +47,6 @@ vector<int> DasBuilder::followPos(RegexNode* tree)
 	RegexNode* parent = tree->getParent();
 	vector<int> toReturn;
 	vector<int> firstPosition;
-	RegexNode* actualParent;
 	if (parent == nullptr) return toReturn;
 
 	switch (parent->getType())
@@ -89,6 +88,7 @@ bool DasBuilder::nullable(RegexNode* tree)
 }
 
 /// todo logi
+///	todo cashe
 Das DasBuilder::generateDas(RegexNode* tree, string token)
 {
 	this->stepIds.clear();
