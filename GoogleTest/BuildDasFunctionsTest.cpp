@@ -103,3 +103,11 @@ TEST_F(BuildDasFunctionsTest, testFollowPosFunction)
 	expected = { 0,2,5 };
 	EXPECT_EQ(result, expected);
 }
+
+TEST_F(BuildDasFunctionsTest, testGenerateDas)
+{
+	string reg = "a(b|c)";
+	RegexNode* tree = regexService->generateTree(reg, id);
+	Das result = dasBuilder->generateDas(tree, "TOKEN");
+	int c = 0;
+}

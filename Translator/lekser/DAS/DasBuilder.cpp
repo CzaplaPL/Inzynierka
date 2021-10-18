@@ -92,9 +92,8 @@ bool DasBuilder::nullable(RegexNode* tree)
 Das DasBuilder::generateDas(RegexNode* tree, string token)
 {
 	this->stepIds.clear();
-	Das dasToReturn;
+	Das dasToReturn(token);
 	queue<vector<int>> indefiniteStep;
-	map<string, MachineStep> machineSteps;
 	indefiniteStep.push(this->firstPos(tree));
 
 	while (indefiniteStep.size() > 0)
@@ -102,7 +101,7 @@ Das DasBuilder::generateDas(RegexNode* tree, string token)
 		vector<int> step = indefiniteStep.front();
 		indefiniteStep.pop();
 		map<string, set<int>> transitions;
-
+		bool isAccepting = false;
 		for (int nodeId : step)
 		{
 			RegexNode* node = (*tree)[nodeId];
@@ -114,23 +113,21 @@ Das DasBuilder::generateDas(RegexNode* tree, string token)
 			{
 				transitions[value].insert(position);
 			}
+			if (node->getType() == RegexNodeType::END) isAccepting = true;
 		}
 		string stepId = generateId(step);
-		dasToReturn.addStep(stepId, MachineStep(transitions));
+		map <string, string> transitionWithId;
 		for (pair<string, set<int>> transition : transitions)
 		{
 			vector<int> transitionSteps(transition.second.begin(), transition.second.end());
-
-			if (!dasToReturn.hasStep(generateId(transitionSteps)))
+			string transitionStepId = generateId(transitionSteps);
+			if (!dasToReturn.hasStep(transitionStepId))
 			{
 				indefiniteStep.push(transitionSteps);
 			}
+			transitionWithId.insert_or_assign(transition.first, transitionStepId);
 		}
-	}
-
-	for (pair<string, MachineStep> el : machineSteps)
-	{
-		int c = 0;
+		dasToReturn.addStep(stepId, MachineStep(transitionWithId, isAccepting));
 	}
 	return dasToReturn;
 }
