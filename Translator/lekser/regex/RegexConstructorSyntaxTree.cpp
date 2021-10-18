@@ -140,7 +140,7 @@ RegexNode* RegexConstructorSyntaxTree::addBrackets(PreviewElement previewElement
 		RegexNode* treeInBrackets(regexService.generateTree(regex, id));
 		tree->setSecondChild(treeInBrackets);
 	}
-	return new RegexNode(*tree);
+	return new RegexNode(tree, nullptr);
 }
 
 RegexNode* RegexConstructorSyntaxTree::addMustageBrackets(PreviewElement previewElement, string& regex, RegexNode* tree, int& id)

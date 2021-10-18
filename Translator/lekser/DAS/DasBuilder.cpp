@@ -14,6 +14,7 @@ vector<int> DasBuilder::firstPos(RegexNode* tree)
 	{
 	case RegexNodeType::BLOCK:
 	case RegexNodeType::ID:
+	case RegexNodeType::END:
 		toReturn.push_back(tree->getId());
 		return toReturn;
 	case RegexNodeType::COMBINE:
@@ -34,8 +35,7 @@ vector<int> DasBuilder::firstPos(RegexNode* tree)
 	case RegexNodeType::QUESTION:
 		toReturn = firstPos(tree->getFirstChild());
 		return toReturn;
-	case RegexNodeType::END:
-		return toReturn;
+
 	default:
 		throw LekserException("nie znaleziono firstPos");
 	}
@@ -149,6 +149,11 @@ vector<int> DasBuilder::checkFollowPos(RegexNode* parent)
 			actualParent = actualParent->getParent();
 			break;
 		case RegexNodeType::COMBINE:
+			if (parent->getId() == actualParent->getSecondChild()->getId())
+			{
+				actualParent = actualParent->getParent();
+				break;
+			}
 			firstPosition = firstPos(actualParent->getSecondChild());
 			toReturn.insert(toReturn.end(), firstPosition.begin(), firstPosition.end());
 			return toReturn;

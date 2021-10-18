@@ -55,19 +55,19 @@ TEST_F(BuildDasFunctionsTest, testFirstPosFunction)
 	reg = "a?";
 	tree = regexService->generateTree(reg, id);
 	result = dasBuilder->firstPos(tree);
-	expected = { 0 };
+	expected = { 0,3 };
 	EXPECT_EQ(result, expected);
 	id = 0;
 	reg = "a*";
 	tree = regexService->generateTree(reg, id);
 	result = dasBuilder->firstPos(tree);
-	expected = { 0 };
+	expected = { 0,3 };
 	EXPECT_EQ(result, expected);
 	id = 0;
 	reg = "a*|b";
 	tree = regexService->generateTree(reg, id);
 	result = dasBuilder->firstPos(tree);
-	expected = { 0,3 };
+	expected = { 0,3,5 };
 	EXPECT_EQ(result, expected);
 	id = 0;
 	reg = "(a|b)*abb";
@@ -101,6 +101,12 @@ TEST_F(BuildDasFunctionsTest, testFollowPosFunction)
 	tree = regexService->generateTree(reg, id);
 	result = dasBuilder->followPos((*tree)[0]);
 	expected = { 0,2,5 };
+	EXPECT_EQ(result, expected);
+	id = 0;
+	reg = "a(b|c)d";
+	tree = regexService->generateTree(reg, id);
+	result = dasBuilder->followPos((*tree)[2]);
+	expected = { 6 };
 	EXPECT_EQ(result, expected);
 }
 

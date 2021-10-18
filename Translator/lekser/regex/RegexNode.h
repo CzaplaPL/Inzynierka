@@ -38,7 +38,3 @@ public:
 	std::string toString();
 	string getValueAsString();
 };
-
-
-
-
