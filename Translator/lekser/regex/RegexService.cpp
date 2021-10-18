@@ -7,7 +7,7 @@
 
 RegexNode* RegexService::generateTree(std::string& reg, int& nextId)
 {
-	this->logger->debug("budowanie drzewa rozk³adu");
+	this->logger->debug("budowanie drzewa rozk³adu dla" + reg);
 	RegexNode* tree = new RegexNode;
 	RegexNode* (RegexConstructorSyntaxTree:: * action)(PreviewElement previewElement, string & regex, RegexNode*, int& nextId) = NULL;
 	PreviewElement previewElement = PreviewElement(reg[0]);

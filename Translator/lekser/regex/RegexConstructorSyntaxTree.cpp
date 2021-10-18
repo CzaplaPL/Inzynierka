@@ -126,9 +126,9 @@ RegexNode* RegexConstructorSyntaxTree::addBrackets(PreviewElement previewElement
 {
 	RegexService regexService(*logger);
 	regex.erase(0, 1);
-	RegexNode* treeInBrackets(regexService.generateTree(regex, id));
 	if (previewElement.type == RegexNodeType::OR)
 	{
+		RegexNode* treeInBrackets(regexService.generateTree(regex, id));
 		tree->setSecondChild(treeInBrackets);
 	}
 	else
@@ -137,6 +137,7 @@ RegexNode* RegexConstructorSyntaxTree::addBrackets(PreviewElement previewElement
 		tree->setType(RegexNodeType::COMBINE);
 		tree->setId(id);
 		id += 1;
+		RegexNode* treeInBrackets(regexService.generateTree(regex, id));
 		tree->setSecondChild(treeInBrackets);
 	}
 	return new RegexNode(*tree);

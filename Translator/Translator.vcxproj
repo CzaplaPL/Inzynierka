@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClCompile Include="addons\Logger.cpp" />
     <ClCompile Include="addons\Uuid.cpp" />
+    <ClCompile Include="lekser\Lekser.cpp" />
     <ClCompile Include="lekser\DAS\DasBuilder.cpp" />
     <ClCompile Include="lekser\DAS\Das.cpp" />
     <ClCompile Include="lekser\DAS\DasService.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="addons\Logger.h" />
     <ClInclude Include="addons\LekserException.h" />
     <ClInclude Include="addons\Uuid.h" />
+    <ClInclude Include="lekser\Lekser.h" />
     <ClInclude Include="lekser\DAS\DasBuilder.h" />
     <ClInclude Include="lekser\DAS\Das.h" />
     <ClInclude Include="lekser\DAS\DasService.h" />

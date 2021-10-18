@@ -67,6 +67,9 @@
     <ClCompile Include="lekser\DAS\DasBuilder.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="lekser\Lekser.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.gitignore">
@@ -104,5 +107,6 @@
     <ClInclude Include="lekser\sys\LekserConfigReader.h" />
     <ClInclude Include="addons\Uuid.h" />
     <ClInclude Include="lekser\DAS\DasBuilder.h" />
+    <ClInclude Include="lekser\Lekser.h" />
   </ItemGroup>
 </Project>

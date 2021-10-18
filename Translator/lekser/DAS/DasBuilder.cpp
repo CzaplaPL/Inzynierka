@@ -14,7 +14,6 @@ vector<int> DasBuilder::firstPos(RegexNode* tree)
 	{
 	case RegexNodeType::BLOCK:
 	case RegexNodeType::ID:
-	case RegexNodeType::END:
 		toReturn.push_back(tree->getId());
 		return toReturn;
 	case RegexNodeType::COMBINE:
@@ -35,6 +34,8 @@ vector<int> DasBuilder::firstPos(RegexNode* tree)
 	case RegexNodeType::QUESTION:
 		toReturn = firstPos(tree->getFirstChild());
 		return toReturn;
+	case RegexNodeType::END:
+		return toReturn;
 	default:
 		throw LekserException("nie znaleziono firstPos");
 	}
@@ -52,6 +53,7 @@ vector<int> DasBuilder::followPos(RegexNode* tree)
 	switch (parent->getType())
 	{
 	case RegexNodeType::OR:
+	case RegexNodeType::QUESTION:
 		return  checkFollowPos(parent);
 	case RegexNodeType::PLUS:
 	case RegexNodeType::STAR:
@@ -86,9 +88,11 @@ bool DasBuilder::nullable(RegexNode* tree)
 	}
 }
 
-Das DasBuilder::generateDas(RegexNode* tree)
+/// todo logi
+Das DasBuilder::generateDas(RegexNode* tree, string token)
 {
-	Das toReturn;
+	this->stepIds.clear();
+	Das dasToReturn;
 	queue<vector<int>> indefiniteStep;
 	map<string, MachineStep> machineSteps;
 	indefiniteStep.push(this->firstPos(tree));
@@ -112,22 +116,25 @@ Das DasBuilder::generateDas(RegexNode* tree)
 			}
 		}
 		string stepId = generateId(step);
-		machineSteps.insert({ stepId,MachineStep(transitions) });
-		for (pair< string, set<int>> transition : transitions)
+		dasToReturn.addStep(stepId, MachineStep(transitions));
+		for (pair<string, set<int>> transition : transitions)
 		{
 			vector<int> transitionSteps(transition.second.begin(), transition.second.end());
-			if (machineSteps.find(generateId(transitionSteps)) == machineSteps.end()) {
+
+			if (!dasToReturn.hasStep(generateId(transitionSteps)))
+			{
 				indefiniteStep.push(transitionSteps);
 			}
 		}
 	}
 
-	for (pair< string, MachineStep> el : machineSteps)
+	for (pair<string, MachineStep> el : machineSteps)
 	{
 		int c = 0;
 	}
-	return toReturn;
+	return dasToReturn;
 }
+
 ////////////////////funkcje prywatne////////////////////////////////////
 
 vector<int> DasBuilder::checkFollowPos(RegexNode* parent)
@@ -165,12 +172,18 @@ vector<int> DasBuilder::checkFollowPos(RegexNode* parent)
 
 string DasBuilder::generateId(const vector<int>& vector)
 {
-	string toReturn = "";
+	string vectorId = "";
 	for (int element : vector)
 	{
-		toReturn += to_string(element) + "-";
+		vectorId += to_string(element) + "-";
 	}
-	return toReturn;
+	if (this->stepIds.find(vectorId) == this->stepIds.end())
+	{
+		string newId = Uuid::generateUUID();
+		this->stepIds.insert_or_assign(vectorId, newId);
+		return newId;
+	}
+	return this->stepIds[vectorId];
 }
 
 bool DasBuilder::typeIsIdOrBlock(RegexNode* node)
