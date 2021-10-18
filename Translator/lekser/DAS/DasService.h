@@ -3,7 +3,7 @@
 
 #include "Das.h"
 #include "../regex/RegexNode.h"
-#include "../../addons/LekserException.h"
+#include "../sys/LekserException.h"
 #include "../../addons/Logger.h"
 #include "../Lekser.h"
 #include "DasBuilder.h"
@@ -21,5 +21,5 @@ public:
 		this->log = &logger;
 	}
 
-	/*Lekser generateLekser(vector<pair<string, string>> elements);*/
+	Lekser generateLekser(vector<pair<string, string>> elements);
 };

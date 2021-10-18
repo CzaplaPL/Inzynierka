@@ -156,6 +156,11 @@ vector<int> DasBuilder::checkFollowPos(RegexNode* parent)
 			}
 			firstPosition = firstPos(actualParent->getSecondChild());
 			toReturn.insert(toReturn.end(), firstPosition.begin(), firstPosition.end());
+			if (nullable(actualParent->getSecondChild()))
+			{
+				actualParent = actualParent->getParent();
+				break;
+			}
 			return toReturn;
 		case RegexNodeType::PLUS:
 		case RegexNodeType::STAR:

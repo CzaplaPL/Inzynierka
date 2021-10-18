@@ -21,4 +21,9 @@ public:
 	{
 		return this->firsStepId;
 	}
+	MachineStep getStep(string stepId);
+	int getStepSize()
+	{
+		return steps.size();
+	}
 };

@@ -92,7 +92,7 @@
     <ClInclude Include="lekser\regex\RegexNodeType.h">
       <Filter>Pliki źródłowe\lekser\regex\dto</Filter>
     </ClInclude>
-    <ClInclude Include="addons\LekserException.h">
+    <ClInclude Include="lekser\sys\LekserException.h">
       <Filter>Pliki źródłowe\System\exception</Filter>
     </ClInclude>
     <ClInclude Include="lekser\regex\PreviewElement.h">
@@ -108,5 +108,6 @@
     <ClInclude Include="addons\Uuid.h" />
     <ClInclude Include="lekser\DAS\DasBuilder.h" />
     <ClInclude Include="lekser\Lekser.h" />
+    <ClInclude Include="lekser\sys\NoStepException.h" />
   </ItemGroup>
 </Project>

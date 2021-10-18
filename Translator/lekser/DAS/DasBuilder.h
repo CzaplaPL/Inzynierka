@@ -4,7 +4,7 @@
 #include <queue>
 
 #include "Das.h"
-#include "../../addons/LekserException.h"
+#include "../sys/LekserException.h"
 #include "../../addons/Uuid.h"
 #include "../../addons/Logger.h"
 #include "../regex/RegexNode.h"
