@@ -21,5 +21,6 @@ public:
 		this->log = &logger;
 	}
 
+	Das mergeDases(const vector<Das>& dases);
 	Lekser generateLekser(vector<pair<string, string>> elements);
 };

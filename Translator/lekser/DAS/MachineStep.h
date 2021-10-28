@@ -11,9 +11,10 @@ using namespace std;
 class MachineStep
 {
 	bool isAccepting;
+	string token;
 	map<string, string> transitionsMap;
 public:
-	MachineStep(map<string, string>& transitions, bool isAccepting);
+	MachineStep(map<string, string>& transitions, bool isAccepting, string token = "");
 	MachineStep();
 
 	bool stepIsAccepting()

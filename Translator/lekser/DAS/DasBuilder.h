@@ -7,6 +7,7 @@
 #include "../sys/LekserException.h"
 #include "../../addons/Uuid.h"
 #include "../../addons/Logger.h"
+#include "../../addons/IdCreator.h"
 #include "../regex/RegexNode.h"
 #include "MachineStep.h"
 
@@ -14,7 +15,7 @@ class DasBuilder
 {
 	Logger* log;
 	vector<int> checkFollowPos(RegexNode* parent);
-	map<string, string> stepIds;
+	IdCreator idCreator;
 public:
 	DasBuilder(Logger& log);
 
@@ -23,6 +24,6 @@ public:
 	bool nullable(RegexNode* tree);
 	Das generateDas(RegexNode* tree, string token);
 private:
-	string generateId(const vector<int>& vector);
+
 	bool typeIsIdOrBlock(RegexNode* node);
 };

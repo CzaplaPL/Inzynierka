@@ -91,7 +91,7 @@ bool DasBuilder::nullable(RegexNode* tree)
 ///	todo cashe
 Das DasBuilder::generateDas(RegexNode* tree, string token)
 {
-	this->stepIds.clear();
+	this->idCreator.clearMap();
 	Das dasToReturn(token);
 	queue<vector<int>> indefiniteStep;
 	indefiniteStep.push(this->firstPos(tree));
@@ -115,12 +115,12 @@ Das DasBuilder::generateDas(RegexNode* tree, string token)
 			}
 			if (node->getType() == RegexNodeType::END) isAccepting = true;
 		}
-		string stepId = generateId(step);
+		string stepId = this->idCreator.generateId(step);
 		map <string, string> transitionWithId;
 		for (pair<string, set<int>> transition : transitions)
 		{
 			vector<int> transitionSteps(transition.second.begin(), transition.second.end());
-			string transitionStepId = generateId(transitionSteps);
+			string transitionStepId = this->idCreator.generateId(transitionSteps);
 			if (!dasToReturn.hasStep(transitionStepId))
 			{
 				indefiniteStep.push(transitionSteps);
@@ -175,22 +175,6 @@ vector<int> DasBuilder::checkFollowPos(RegexNode* parent)
 			throw LekserException("nie mo¿na wywo³aæ funkcji checkFollowPos dla ID,block i end");
 		}
 	}
-}
-
-string DasBuilder::generateId(const vector<int>& vector)
-{
-	string vectorId = "";
-	for (int element : vector)
-	{
-		vectorId += to_string(element) + "-";
-	}
-	if (this->stepIds.find(vectorId) == this->stepIds.end())
-	{
-		string newId = Uuid::generateUUID();
-		this->stepIds.insert_or_assign(vectorId, newId);
-		return newId;
-	}
-	return this->stepIds[vectorId];
 }
 
 bool DasBuilder::typeIsIdOrBlock(RegexNode* node)

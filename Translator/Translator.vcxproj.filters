@@ -70,6 +70,9 @@
     <ClCompile Include="lekser\Lekser.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="addons\IdCreator.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.gitignore">
@@ -109,5 +112,6 @@
     <ClInclude Include="lekser\DAS\DasBuilder.h" />
     <ClInclude Include="lekser\Lekser.h" />
     <ClInclude Include="lekser\sys\NoStepException.h" />
+    <ClInclude Include="addons\IdCreator.h" />
   </ItemGroup>
 </Project>
