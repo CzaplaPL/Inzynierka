@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <unordered_set>
 
 #include "Das.h"
 #include "../regex/RegexNode.h"
@@ -9,18 +10,18 @@
 #include "DasBuilder.h"
 #include "../regex/RegexService.h"
 
-class DasServices
+class DasService
 {
 	Logger* log;
 	RegexService regexService;
 	DasBuilder dasBuilder;
-
+	IdCreator idCreator;
 public:
-	DasServices(Logger& logger) : regexService(logger), dasBuilder(logger)
+	DasService(Logger& logger) : regexService(logger), dasBuilder(logger)
 	{
 		this->log = &logger;
 	}
 
-	Das mergeDases(const vector<Das>& dases);
+	Das mergeDases(vector<Das>& dases);
 	Lekser generateLekser(vector<pair<string, string>> elements);
 };

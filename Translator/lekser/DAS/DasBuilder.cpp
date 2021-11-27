@@ -89,6 +89,7 @@ bool DasBuilder::nullable(RegexNode* tree)
 
 /// todo logi
 ///	todo cashe
+///	todo set to vectorSet
 Das DasBuilder::generateDas(RegexNode* tree, string token)
 {
 	this->idCreator.clearMap();

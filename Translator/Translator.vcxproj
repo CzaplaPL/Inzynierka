@@ -160,6 +160,8 @@
     <ClCompile Include="lekser\regex\RegexService.cpp" />
     <ClCompile Include="lekser\DAS\MachineStep.cpp" />
     <ClCompile Include="lekser\sys\LekserConfigReader.cpp" />
+    <ClCompile Include="lekser\DAS\NasStep.cpp" />
+    <ClCompile Include="lekser\DAS\StepInDas.cpp" />
     <ClCompile Include="Translator.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +185,8 @@
     <ClInclude Include="lekser\DAS\MachineStep.h" />
     <ClInclude Include="lekser\sys\LekserConfigReader.h" />
     <ClInclude Include="lekser\sys\NoStepException.h" />
+    <ClInclude Include="lekser\DAS\NasStep.h" />
+    <ClInclude Include="lekser\DAS\StepInDas.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

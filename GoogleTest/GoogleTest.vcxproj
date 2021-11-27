@@ -73,7 +73,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>D:\Programowanie\inzynierka\Translator\Translator\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Uuid.obj;DasBuilder.obj;MachineStep.obj;Logger.obj;PreviewElement.obj;RegexConstructorSyntaxTree.obj;RegexNode.obj;RegexService.obj;Das.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Das.obj;DasBuilder.obj;DasService.obj;IdCreator.obj;Lekser.obj;LekserConfigReader.obj;Logger.obj;MachineStep.obj;NasStep.obj;PreviewElement.obj;RegexConstructorSyntaxTree.obj;RegexNode.obj;RegexService.obj;StepInDas.obj;Uuid.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

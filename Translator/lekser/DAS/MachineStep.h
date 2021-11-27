@@ -22,4 +22,13 @@ public:
 		return this->isAccepting;
 	}
 	string getStepIdForString(string key);
+
+	map<string, string> getTransitionsMap()
+	{
+		return this->transitionsMap;
+	}
+	string getAcceptingToken()
+	{
+		return token;
+	}
 };
