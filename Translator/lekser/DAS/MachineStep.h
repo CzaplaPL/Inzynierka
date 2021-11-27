@@ -4,11 +4,31 @@
 #include <vector>
 #include <xstring>
 
+#include "../sys/NoStepException.h"
+
 using namespace std;
 
 class MachineStep
 {
-	map<string, set<int>> transitionsMap;
+	bool isAccepting;
+	string token;
+	map<string, string> transitionsMap;
 public:
-	MachineStep(map<string, set<int>>& transitions);
+	MachineStep(map<string, string>& transitions, bool isAccepting, string token = "");
+	MachineStep();
+
+	bool stepIsAccepting()
+	{
+		return this->isAccepting;
+	}
+	string getStepIdForString(string key);
+
+	map<string, string> getTransitionsMap()
+	{
+		return this->transitionsMap;
+	}
+	string getAcceptingToken()
+	{
+		return token;
+	}
 };

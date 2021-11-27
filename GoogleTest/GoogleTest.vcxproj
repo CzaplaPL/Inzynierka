@@ -36,6 +36,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BuildDasFunctionsTest.cpp" />
     <ClCompile Include="BuildDasTest.cpp" />
     <ClCompile Include="BuildTreeTest.cpp" />
     <ClCompile Include="pch.cpp">
@@ -72,7 +73,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>D:\Programowanie\inzynierka\Translator\Translator\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Logger.obj;PreviewElement.obj;RegexConstructorSyntaxTree.obj;RegexNode.obj;RegexService.obj;Das.obj;DasServices.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Das.obj;DasBuilder.obj;DasService.obj;IdCreator.obj;Lekser.obj;LekserConfigReader.obj;Logger.obj;MachineStep.obj;NasStep.obj;PreviewElement.obj;RegexConstructorSyntaxTree.obj;RegexNode.obj;RegexService.obj;StepInDas.obj;Uuid.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -89,7 +90,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>C:\Users\Czapla\source\repos\Inzynierka\Translator\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>DasServices.obj;Logger.obj;PreviewElement.obj;RegexConstructorSyntaxTree.obj;RegexNode.obj;RegexService.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Logger.obj;PreviewElement.obj;RegexConstructorSyntaxTree.obj;RegexNode.obj;RegexService.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

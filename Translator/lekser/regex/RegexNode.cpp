@@ -35,10 +35,10 @@ RegexNode* RegexNode::operator[](int id)
 	}
 	if (this->id < id)
 	{
-		if (this->secondChild == nullptr) throw LekserException("index poza zakresem");
+		if (this->secondChild == nullptr) throw out_of_range("index poza zakresem");
 		return (*this->secondChild)[id];
 	}
-	if (this->firstChild == nullptr) throw LekserException("index poza zakresem");
+	if (this->firstChild == nullptr) throw out_of_range("index poza zakresem");
 	return (*this->firstChild)[id];
 }
 

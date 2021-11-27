@@ -3,7 +3,7 @@
 
 #include "../Translator/lekser/regex/RegexNode.h"
 #include "../Translator/addons/Logger.h"
-#include "../Translator/addons/LekserException.h"
+#include "../sys/LekserException.h"
 #include "PreviewElement.h"
 #include <memory>
 
@@ -27,7 +27,7 @@ protected:
 	/// </summary>
 	/// <param name="symbol">znak dla którego chcemy sprawdziæ jak¹ funkcje wykonaæ</param>
 	/// <returns>wska¿nik do odpowiedniej funkcji</returns>
-	RegexNode* (RegexConstructorSyntaxTree::* checkAction(char& symbol))(PreviewElement previewElement, string& regex, RegexNode* tree,int& id);
+	RegexNode* (RegexConstructorSyntaxTree::* checkAction(char& symbol))(PreviewElement previewElement, string& regex, RegexNode* tree, int& id);
 	/// <summary>
 	/// funkcja dodaj¹ca znak | do drzewa rozkladu
 	/// </summary>

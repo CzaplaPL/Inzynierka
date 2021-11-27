@@ -1,7 +1,7 @@
 #pragma once
 #include "../Translator/lekser/regex/RegexNode.h"
 #include "../Translator/addons/Logger.h"
-#include "../Translator/addons/LekserException.h"
+#include "../sys/LekserException.h"
 #include "PreviewElement.h"
 #include "RegexConstructorSyntaxTree.h"
 

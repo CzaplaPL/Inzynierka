@@ -126,20 +126,21 @@ RegexNode* RegexConstructorSyntaxTree::addBrackets(PreviewElement previewElement
 {
 	RegexService regexService(*logger);
 	regex.erase(0, 1);
-	RegexNode* treeInBrackets(regexService.generateTree(regex, id));
 	if (previewElement.type == RegexNodeType::OR)
 	{
+		RegexNode* treeInBrackets(regexService.generateTree(regex, id));
 		tree->setSecondChild(treeInBrackets);
 	}
 	else
 	{
-		tree->setFirstChild(tree);
+		tree->setFirstChild(new RegexNode(*tree));
 		tree->setType(RegexNodeType::COMBINE);
 		tree->setId(id);
 		id += 1;
+		RegexNode* treeInBrackets(regexService.generateTree(regex, id));
 		tree->setSecondChild(treeInBrackets);
 	}
-	return new RegexNode(*tree);
+	return new RegexNode(tree, nullptr);
 }
 
 RegexNode* RegexConstructorSyntaxTree::addMustageBrackets(PreviewElement previewElement, string& regex, RegexNode* tree, int& id)
@@ -164,7 +165,7 @@ RegexNode* RegexConstructorSyntaxTree::addMustageBrackets(PreviewElement preview
 	regex.erase(0, 1);
 	int countChar = countCharLenght(regex);
 	if (countChar < 1) throw LekserException("oczekiwano liczby dodatniej w wyra¿eniu {x,y}");
-	RegexNode* newTree(new RegexNode(*tree));
+	RegexNode* newTree(new RegexNode(tree, nullptr));
 	for (int i = 1; i < countChar; ++i)
 	{
 		newTree = addCombine(previewElement, element, newTree, id);
