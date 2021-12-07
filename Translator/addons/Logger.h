@@ -3,13 +3,14 @@
 #include <string>
 #include <fstream>
 
+#include "LoggerInterface.h"
+
 using namespace std;
 
 /// <summary>
 /// Klasa odpowiedzialna za zapisywanie danych do logów
 /// </summary>
-class Logger
-
+class Logger : public ILogger
 {
 	bool isDebug;
 	bool isTime;

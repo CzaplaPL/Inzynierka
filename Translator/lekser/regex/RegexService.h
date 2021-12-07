@@ -1,6 +1,6 @@
 #pragma once
-#include "../Translator/lekser/regex/RegexNode.h"
-#include "../Translator/addons/Logger.h"
+#include "../../lekser/regex/RegexNode.h"
+#include "../../addons/Logger.h"
 #include "../sys/LekserException.h"
 #include "PreviewElement.h"
 #include "RegexConstructorSyntaxTree.h"

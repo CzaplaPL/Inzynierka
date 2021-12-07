@@ -1,13 +1,16 @@
 #pragma once
 #include <vector>
 
-#include "../Translator/addons/Logger.h"
+#include"../../addons/LoggerInterface.h"
+#include <fstream>
+
+using namespace std;
 
 class LekserConfigReader
 {
-	Logger* log;
+	ILogger* log;
 	vector<pair<string, string>> readData;
 public:
-	LekserConfigReader(Logger& log);
+	LekserConfigReader(ILogger& log);
 	bool readConfig(fstream& file);
 };

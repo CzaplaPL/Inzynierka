@@ -1,8 +1,6 @@
 #include "LekserConfigReader.h"
 
-#include <iostream>
-
-LekserConfigReader::LekserConfigReader(Logger& log)
+LekserConfigReader::LekserConfigReader(ILogger& log)
 {
 	this->log = &log;
 }
@@ -17,7 +15,7 @@ bool LekserConfigReader::readConfig(fstream& file)
 		file >> token >> separator >> regex;
 		if (separator != ':')
 		{
-			log->error("b³ad odczytywania pliku lekserConfig");
+			log->error("b³ad odczytywania pliku z tokenami");
 			return false;
 		}
 		log->writeDebug("ssscss", "token = ", token.c_str(), "  separator = ", separator, " regex = ", regex.c_str());

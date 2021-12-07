@@ -13,10 +13,13 @@ int main()
 {
 	Logger log(ENV);
 	log.setDebug(DEBUG);
-	fstream lekserConfig;
+
+	Lekser* lekser = new Lekser(&log);
+	/*fstream lekserConfig;
 	lekserConfig.open("lekserConfig.leks", ios::in);
 	if (!lekserConfig.is_open())log.error("nie udalo się otworzyć lekserConfig.leks");
 	LekserConfigReader lekserConfigReader(log);
-	lekserConfigReader.readConfig(lekserConfig);
+	lekserConfigReader.readConfig(lekserConfig);*/
+	Lekser* lekser2 = new Lekser();
 	cin.get();
 }
