@@ -1,6 +1,6 @@
 #pragma once
 
-#include"addons/LoggerInterface.h"
+#include"addons/ILogger.h"
 #include"addons/Logger.h"
 
 class __declspec(dllexport) Lekser

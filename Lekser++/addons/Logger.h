@@ -6,7 +6,7 @@
 #include <string>
 #include <fstream>
 
-#include "LoggerInterface.h"
+#include "ILogger.h"
 
 using namespace std;
 
@@ -19,9 +19,8 @@ namespace Lex
 	{
 		bool isDebug;
 		bool isTime;
-		fstream fileInfo;
-		fstream fileLog;
 		string environment;
+		fstream fileLog;
 	public:
 		static const string VERSION;
 
@@ -41,11 +40,11 @@ namespace Lex
 		/// <param name="isTime"></param>
 		void setTime(bool isTime)  noexcept;
 
-		void info(string message);
-		void debug(string message);
-		void warning(string message);
-		void error(string message);
-		void writeDebug(const char* templates, ...);
+		void info(string message) override;
+		void debug(string message) override;
+		void warning(string message) override;
+		void error(string message) override;
+		void writeDebug(const char* templates, ...) override;
 	private:
 		string now() const;
 		void writeStart(fstream& file) const;

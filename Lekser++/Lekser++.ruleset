@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="Reguły dla elementu Lekser++" Description="Reguły analizy kodu dla elementu Lekser++.vcxproj." ToolsVersion="16.0">
+  <Include Path="allrules.ruleset" Action="Default" />
+  <Include Path="basicdesignguidelinerules.ruleset" Action="Default" />
+  <Include Path="cppcorecheckarithmeticrules.ruleset" Action="Default" />
+  <Include Path="cppcorecheckboundsrules.ruleset" Action="Default" />
+  <Include Path="cppcorecheckclassrules.ruleset" Action="Default" />
+  <Include Path="cppcorecheckconcurrencyrules.ruleset" Action="Default" />
+  <Include Path="cppcorecheckconstrules.ruleset" Action="Default" />
+  <Include Path="cppcorecheckdeclrules.ruleset" Action="Default" />
+  <Include Path="cppcorecheckenumrules.ruleset" Action="Default" />
+  <Include Path="cppcorecheckfuncrules.ruleset" Action="Default" />
+  <Include Path="cppcorecheckgslrules.ruleset" Action="Default" />
+  <Include Path="cppcorechecklifetimerules.ruleset" Action="Default" />
+  <Include Path="cppcorecheckownerpointerrules.ruleset" Action="Default" />
+  <Include Path="cppcorecheckrules.ruleset" Action="Default" />
+  <Include Path="cppcorechecksharedpointerrules.ruleset" Action="Default" />
+  <Include Path="cppcorecheckstlrules.ruleset" Action="Default" />
+  <Include Path="cppcorecheckstylerules.ruleset" Action="Default" />
+  <Include Path="cppcorechecktyperules.ruleset" Action="Default" />
+  <Include Path="cppcorecheckuniquepointerrules.ruleset" Action="Default" />
+  <Include Path="extendedcorrectnessrules.ruleset" Action="Default" />
+  <Include Path="extendeddesignguidelinerules.ruleset" Action="Default" />
+  <Include Path="securityrules.ruleset" Action="Default" />
+  <Rules AnalyzerId="Microsoft.Analyzers.NativeCodeAnalysis" RuleNamespace="Microsoft.Rules.Native">
+    <Rule Id="C26459" Action="Warning" />
+  </Rules>
+</RuleSet>
