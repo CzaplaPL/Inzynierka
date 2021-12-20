@@ -159,14 +159,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="addons\IdCreator.h" />
     <ClInclude Include="addons\Logger.h" />
     <ClInclude Include="addons\ILogger.h" />
+    <ClInclude Include="addons\Uuid.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Lekser++.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="addons\IdCreator.cpp" />
     <ClCompile Include="addons\Logger.cpp" />
+    <ClCompile Include="addons\Uuid.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Lekser++.cpp" />
     <ClCompile Include="pch.cpp" />
