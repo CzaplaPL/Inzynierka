@@ -111,4 +111,7 @@
     <ClInclude Include="addons\IdCreator.h" />
     <ClInclude Include="addons\Uuid.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="tekst.txt" />
+  </ItemGroup>
 </Project>

@@ -190,6 +190,9 @@
     <ClInclude Include="lekser\sys\LekserException.h" />
     <ClInclude Include="lekser\sys\NoStepException.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="tekst.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

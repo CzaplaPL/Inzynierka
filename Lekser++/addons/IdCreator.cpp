@@ -1,38 +1,41 @@
 #include "IdCreator.h"
 
-void IdCreator::clearMap()
+namespace Lex
 {
-	this->stepIds.clear();
-}
+	void IdCreator::clearMap()
+	{
+		this->stepIds.clear();
+	}
 
-string IdCreator::generateId(const vector<int>& vector)
-{
-	string vectorId = "";
-	for (int const element : vector)
+	std::string IdCreator::generateId(const std::vector<int>& vector)
 	{
-		vectorId += to_string(element) + "-";
+		std::string vectorId = "";
+		for (int const element : vector)
+		{
+			vectorId += std::to_string(element) + "-";
+		}
+		if (this->stepIds.find(vectorId) == this->stepIds.end())
+		{
+			std::string newId = Uuid::generateUUID();
+			this->stepIds.insert_or_assign(vectorId, newId);
+			return newId;
+		}
+		return this->stepIds[vectorId];
 	}
-	if (this->stepIds.find(vectorId) == this->stepIds.end())
-	{
-		string newId = Uuid::generateUUID();
-		this->stepIds.insert_or_assign(vectorId, newId);
-		return newId;
-	}
-	return this->stepIds[vectorId];
-}
 
-string IdCreator::generateId(const vector<string>& vector)
-{
-	string vectorId = "";
-	for (string element : vector)
+	std::string IdCreator::generateId(const std::vector<std::string>& vector)
 	{
-		vectorId += element + "-";
+		std::string vectorId = "";
+		for (std::string element : vector)
+		{
+			vectorId += element + "-";
+		}
+		if (this->stepIds.find(vectorId) == this->stepIds.end())
+		{
+			std::string newId = Uuid::generateUUID();
+			this->stepIds.insert_or_assign(vectorId, newId);
+			return newId;
+		}
+		return this->stepIds[vectorId];
 	}
-	if (this->stepIds.find(vectorId) == this->stepIds.end())
-	{
-		string newId = Uuid::generateUUID();
-		this->stepIds.insert_or_assign(vectorId, newId);
-		return newId;
-	}
-	return this->stepIds[vectorId];
 }

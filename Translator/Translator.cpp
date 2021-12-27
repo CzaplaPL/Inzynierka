@@ -5,12 +5,25 @@
 #define DEBUG true
 #define ENV "dev"
 
+string readToken(std::string::iterator it, std::string::iterator end)
+{
+	try {
+		for (; it != end; ++it)
+		{
+			std::cout << *it << " ";
+		}
+	}
+	catch (std::exception& exception)
+	{
+		cout << exception.what();
+	}
+
+	return "bbb";
+}
+
 int main()
 {
-	Lex::Logger log(ENV);
-	log.setDebug(DEBUG);
+	Lekser lex("tekst.txt");
 
-	Lekser* lekser = new Lekser(&log);
-	Lekser* lekser2 = new Lekser();
 	cin.get();
 }
