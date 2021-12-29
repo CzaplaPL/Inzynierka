@@ -46,16 +46,10 @@
     <ClCompile Include="lekser\regex\PreviewElement.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="lekser\regex\RegexConstructorSyntaxTree.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
     <ClCompile Include="lekser\regex\RegexNode.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="lekser\regex\RegexService.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="lekser\DAS\Das.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="lekser\DAS\DasBuilder.cpp">
@@ -77,6 +71,12 @@
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="addons\Uuid.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="lekser\DAS\Das.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="lekser\regex\RegexConstructorSyntaxTree.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
@@ -102,7 +102,6 @@
     <ClInclude Include="lekser\regex\RegexNode.h" />
     <ClInclude Include="lekser\regex\RegexNodeType.h" />
     <ClInclude Include="lekser\regex\RegexService.h" />
-    <ClInclude Include="lekser\DAS\Das.h" />
     <ClInclude Include="lekser\DAS\DasBuilder.h" />
     <ClInclude Include="lekser\DAS\DasService.h" />
     <ClInclude Include="lekser\DAS\MachineStep.h" />
@@ -110,6 +109,7 @@
     <ClInclude Include="lekser\DAS\StepInDas.h" />
     <ClInclude Include="addons\IdCreator.h" />
     <ClInclude Include="addons\Uuid.h" />
+    <ClInclude Include="lekser\DAS\Das.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="tekst.txt" />

@@ -2,11 +2,11 @@
 #include <exception>
 #include <string>
 
-class LekserReaderException : public std::exception
+class NoStepException : public std::exception
 {
 	std::string message;
 public:
-	LekserReaderException(std::string mesg)
+	NoStepException(std::string mesg)
 	{
 		this->message = mesg;
 	}

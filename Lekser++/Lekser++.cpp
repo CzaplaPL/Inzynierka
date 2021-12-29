@@ -28,11 +28,7 @@ Lekser::Lekser(string file, ILogger* log)
 void Lekser::generateLexer(string file)
 {
 	try {
-		auto tmp = this->definitionReader->readDefinition(file);
-		for (auto val : tmp)
-		{
-			std::cout << val.first << " " << val.second << std::endl;
-		}
+		std::map<std::string, std::string> definitions = this->definitionReader->readDefinition(file);
 	}
 	catch (LekserReaderException exception)
 	{

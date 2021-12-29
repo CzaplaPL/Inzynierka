@@ -47,12 +47,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Translator\Translator.vcxproj">
-      <Project>{8bf8153f-0185-4a3d-9b18-e8e676211597}</Project>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\Lekser++\Lekser++.vcxproj">
+      <Project>{26ef3a34-9ac8-4253-a0ac-74b48313bd64}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
@@ -72,8 +72,8 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>D:\Programowanie\inzynierka\Translator\Translator\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Das.obj;DasBuilder.obj;DasService.obj;IdCreator.obj;Lekser.obj;LekserConfigReader.obj;Logger.obj;MachineStep.obj;NasStep.obj;PreviewElement.obj;RegexConstructorSyntaxTree.obj;RegexNode.obj;RegexService.obj;StepInDas.obj;Uuid.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Programowanie\inzynierka\Translator\Lekser++\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>IdCreator.obj;Logger.obj;RegexConstructorSyntaxTree.obj;RegexNode.obj;RegexService.obj;Uuid.obj;PreviewElement.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

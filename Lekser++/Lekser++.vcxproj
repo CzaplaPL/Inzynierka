@@ -163,8 +163,16 @@
     <ClInclude Include="addons\Logger.h" />
     <ClInclude Include="addons\ILogger.h" />
     <ClInclude Include="addons\Uuid.h" />
+    <ClInclude Include="Das\MachineStep.h" />
+    <ClInclude Include="Das\Das.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Lekser++.h" />
+    <ClInclude Include="Regex\PreviewElement.h" />
+    <ClInclude Include="Regex\RegexConstructorSyntaxTree.h" />
+    <ClInclude Include="Regex\RegexNode.h" />
+    <ClInclude Include="Regex\RegexNodeType.h" />
+    <ClInclude Include="Regex\RegexService.h" />
+    <ClInclude Include="sys\exception\NoStepException.h" />
     <ClInclude Include="sys\LekserDefinitionReader.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="sys\exception\LekserException.h" />
@@ -174,8 +182,14 @@
     <ClCompile Include="addons\IdCreator.cpp" />
     <ClCompile Include="addons\Logger.cpp" />
     <ClCompile Include="addons\Uuid.cpp" />
+    <ClCompile Include="Das\MachineStep.cpp" />
+    <ClCompile Include="Das\Das.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Lekser++.cpp" />
+    <ClCompile Include="Regex\PreviewElement.cpp" />
+    <ClCompile Include="Regex\RegexConstructorSyntaxTree.cpp" />
+    <ClCompile Include="Regex\RegexNode.cpp" />
+    <ClCompile Include="Regex\RegexService.cpp" />
     <ClCompile Include="sys\LekserDefinitionReader.cpp" />
     <ClCompile Include="pch.cpp" />
   </ItemGroup>

@@ -3,8 +3,8 @@
 //
 
 #pragma once
-#include "../Translator/addons/Logger.h"
-#include "../Translator/lekser/regex/RegexNode.h"
-#include "../Translator/lekser/regex/RegexNodeType.h"
-#include "../Translator/lekser/regex/RegexService.h"
+#include "../Lekser++/addons/Logger.h"
+#include "../Lekser++/regex/RegexNode.h"
+#include "../Lekser++/regex/RegexNodeType.h"
+#include "../Lekser++/regex/RegexService.h"
 #include "gtest/gtest.h"
