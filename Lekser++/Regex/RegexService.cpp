@@ -19,7 +19,7 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 		if (reg[0] == '*')
 		{
 			RegexNode* newTree(new RegexNode());
-			newTree->setFirstChild(std::shared_ptr < RegexNode>(tree));
+			newTree->setFirstChild(tree);
 			newTree->setType(RegexNodeType::STAR);
 			newTree->setId(nextId);
 			nextId += 1;
@@ -29,7 +29,7 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 		else if (reg[0] == '+')
 		{
 			RegexNode* newTree(new RegexNode());
-			newTree->setFirstChild(std::shared_ptr < RegexNode>(tree));
+			newTree->setFirstChild(tree);
 			newTree->setType(RegexNodeType::PLUS);
 			newTree->setId(nextId);
 			nextId += 1;
@@ -39,7 +39,7 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 		else if (reg[0] == '?')
 		{
 			RegexNode* newTree(new RegexNode());
-			newTree->setFirstChild(std::shared_ptr < RegexNode>(tree));
+			newTree->setFirstChild(tree);
 			newTree->setType(RegexNodeType::QUESTION);
 			newTree->setId(nextId);
 			nextId += 1;
@@ -88,7 +88,7 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 					RegexNode* secondChild(new RegexNode());
 					reg.erase(0, 1);
 					secondChild = this->generateTree(reg, nextId);
-					tree->setSecondChild(std::shared_ptr < RegexNode>(secondChild));
+					tree->setSecondChild(secondChild);
 					break;
 				}
 				if (reg[0] == '[')
@@ -97,7 +97,7 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 					RegexNode* secondChild(new RegexNode());
 					secondChild->setType(RegexNodeType::BLOCK);
 					secondChild = (*action)(previewElement, reg, secondChild, nextId);
-					tree->setSecondChild(std::shared_ptr < RegexNode>(secondChild));
+					tree->setSecondChild(secondChild);
 					break;
 				}
 				if (reg[0] == '\\')reg.erase(0, 1);
@@ -153,9 +153,9 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 
 	RegexNode* completeTree = new RegexNode(RegexNodeType::COMBINE, ' ', nextId);
 	nextId++;
-	completeTree->setFirstChild(std::shared_ptr < RegexNode>(tree));
+	completeTree->setFirstChild(tree);
 	RegexNode* endElement = new RegexNode(RegexNodeType::END, '#', nextId);
-	completeTree->setSecondChild(std::shared_ptr < RegexNode>(endElement));
+	completeTree->setSecondChild(endElement);
 	return completeTree;
 }
 

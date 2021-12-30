@@ -11,25 +11,25 @@ Lex::RegexNode::RegexNode(RegexNodeType type, char value, int id)
 	this->id = id;
 }
 
-Lex::RegexNode::RegexNode(std::shared_ptr < RegexNode> tree, std::shared_ptr < RegexNode> parent)
+Lex::RegexNode::RegexNode(RegexNode* tree, RegexNode* parent)
 {
 	this->type = tree->getType();
 	this->blockId = tree->getBlockId();
 
-	this->firstChild.reset(tree->getFirstChild().get());
+	this->firstChild.reset(tree->getFirstChild());
 	if (this->firstChild != nullptr) this->firstChild->setParents(this);
-	this->secondChild.reset(tree->getSecondChild().get());
+	this->secondChild.reset(tree->getSecondChild());
 	if (this->secondChild != nullptr) this->secondChild->setParents(this);
 	this->value = tree->getValue();
-	this->parent = parent;
+	this->parent.reset(parent);
 	this->id = tree->getId();
 }
 
-std::shared_ptr < Lex::RegexNode> Lex::RegexNode::operator[](int id)
+Lex::RegexNode* Lex::RegexNode::operator[](int id)
 {
 	if (this->id == id)
 	{
-		return std::shared_ptr< RegexNode>(this);
+		return this;
 	}
 	if (this->id < id)
 	{
@@ -45,19 +45,19 @@ Lex::RegexNodeType Lex::RegexNode::getType()
 	return this->type;
 }
 
-std::shared_ptr < Lex::RegexNode> Lex::RegexNode::getFirstChild()
+Lex::RegexNode* Lex::RegexNode::getFirstChild()
 {
-	return this->firstChild;
+	return this->firstChild.get();
 }
 
-std::shared_ptr < Lex::RegexNode> Lex::RegexNode::getSecondChild()
+Lex::RegexNode* Lex::RegexNode::getSecondChild()
 {
-	return secondChild;
+	return secondChild.get();
 }
 
-std::shared_ptr < Lex::RegexNode> Lex::RegexNode::getParent()
+Lex::RegexNode* Lex::RegexNode::getParent()
 {
-	return this->parent;
+	return this->parent.get();
 }
 
 char Lex::RegexNode::getValue()
@@ -90,10 +90,10 @@ void Lex::RegexNode::setBlockId(std::string& blockId)
 	this->blockId = blockId;
 }
 
-void Lex::RegexNode::setFirstChild(std::shared_ptr < RegexNode> tree)
+void Lex::RegexNode::setFirstChild(Lex::RegexNode* tree)
 {
 	tree->setParents(this);
-	this->firstChild = tree;
+	this->firstChild.reset( tree);
 }
 
 void Lex::RegexNode::setType(RegexNodeType type)
@@ -108,14 +108,15 @@ void Lex::RegexNode::setSecondChild(RegexNodeType type, char value, int id)
 	this->secondChild = secondChild;
 }
 
-void Lex::RegexNode::setSecondChild(std::shared_ptr < RegexNode> tree)
+void Lex::RegexNode::setSecondChild(Lex::RegexNode* tree)
 {
 	tree->setParents(this);
-	this->secondChild.reset(new RegexNode(tree, std::shared_ptr < RegexNode>(this)));
+	this->secondChild.reset(new RegexNode(tree, this));
 }
 
 void Lex::RegexNode::setParents(RegexNode* parent)
 {
+	this->parent.reset();
 	this->parent.reset(parent);
 }
 

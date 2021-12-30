@@ -27,14 +27,14 @@ TEST_F(RegexGenerateTreeTest, addBlockAfterIdTest)
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 	EXPECT_EQ(tree->getSecondChild()->getType(), RegexNodeType::END);
 
-	tree = tree->getFirstChild().get();
+	tree = tree->getFirstChild();
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 
-	RegexNode* firstChild = tree->getFirstChild().get();
+	RegexNode* firstChild = tree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(firstChild->getValue(), 'a');
 
-	RegexNode* secondChild = tree->getSecondChild().get();
+	RegexNode* secondChild = tree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::BLOCK);
 	EXPECT_EQ(secondChild->getBlockId(), "a-b");
 }
@@ -47,14 +47,14 @@ TEST_F(RegexGenerateTreeTest, addBlockAfterOrTest)
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 	EXPECT_EQ(tree->getSecondChild()->getType(), RegexNodeType::END);
 
-	tree = tree->getFirstChild().get();
+	tree = tree->getFirstChild();
 	EXPECT_EQ(tree->getType(), RegexNodeType::OR);
 
-	RegexNode* firstChild = tree->getFirstChild().get();
+	RegexNode* firstChild = tree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(firstChild->getValue(), 'a');
 
-	RegexNode* secondChild = tree->getSecondChild().get();
+	RegexNode* secondChild = tree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::BLOCK);
 	EXPECT_EQ(secondChild->getBlockId(), "a-b");
 }
@@ -67,14 +67,14 @@ TEST_F(RegexGenerateTreeTest, addBlockTest)
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 	EXPECT_EQ(tree->getSecondChild()->getType(), RegexNodeType::END);
 
-	tree = tree->getFirstChild().get();
+	tree = tree->getFirstChild();
 	EXPECT_EQ(tree->getType(), RegexNodeType::OR);
 
-	RegexNode* firstChild = tree->getFirstChild().get();
+	RegexNode* firstChild = tree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::BLOCK);
 	EXPECT_EQ(firstChild->getBlockId(), "a-b");
 
-	RegexNode* secondChild = tree->getSecondChild().get();
+	RegexNode* secondChild = tree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(secondChild->getValue(), 'a');
 }
@@ -87,14 +87,14 @@ TEST_F(RegexGenerateTreeTest, addBlockWithVariableTest)
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 	EXPECT_EQ(tree->getSecondChild()->getType(), RegexNodeType::END);
 
-	tree = tree->getFirstChild().get();
+	tree = tree->getFirstChild();
 	EXPECT_EQ(tree->getType(), RegexNodeType::OR);
 
-	RegexNode* firstChild = tree->getFirstChild().get();
+	RegexNode* firstChild = tree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::BLOCK);
 	EXPECT_EQ(firstChild->getBlockId(), "znak");
 
-	RegexNode* secondChild = tree->getSecondChild().get();
+	RegexNode* secondChild = tree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(secondChild->getValue(), 'a');
 }
@@ -107,24 +107,24 @@ TEST_F(RegexGenerateTreeTest, addMaximumAndMinimumCharWithMustageBracketsTest)
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 	EXPECT_EQ(tree->getSecondChild()->getType(), RegexNodeType::END);
 
-	tree = tree->getFirstChild().get();
+	tree = tree->getFirstChild();
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 
-	RegexNode* firstChild = tree->getFirstChild().get();
+	RegexNode* firstChild = tree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::COMBINE);
 
-	RegexNode* secondChild = tree->getSecondChild().get();
+	RegexNode* secondChild = tree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::QUESTION);
 
-	RegexNode* thirdChild = secondChild->getFirstChild().get();
+	RegexNode* thirdChild = secondChild->getFirstChild();
 	EXPECT_EQ(thirdChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(thirdChild->getValue(), 'a');
 
-	RegexNode* fourthChild = firstChild->getFirstChild().get();
+	RegexNode* fourthChild = firstChild->getFirstChild();
 	EXPECT_EQ(fourthChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(fourthChild->getValue(), 'a');
 
-	RegexNode* fifthChild = firstChild->getSecondChild().get();
+	RegexNode* fifthChild = firstChild->getSecondChild();
 	EXPECT_EQ(fifthChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(fifthChild->getValue(), 'a');
 }
@@ -137,20 +137,20 @@ TEST_F(RegexGenerateTreeTest, addMaximumCharWithMustageBracketsTest)
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 	EXPECT_EQ(tree->getSecondChild()->getType(), RegexNodeType::END);
 
-	tree = tree->getFirstChild().get();
+	tree = tree->getFirstChild();
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 
-	RegexNode* firstChild = tree->getFirstChild().get();
+	RegexNode* firstChild = tree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::QUESTION);
 
-	RegexNode* secondChild = tree->getSecondChild().get();
+	RegexNode* secondChild = tree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::QUESTION);
 
-	RegexNode* thirdChild = secondChild->getFirstChild().get();
+	RegexNode* thirdChild = secondChild->getFirstChild();
 	EXPECT_EQ(thirdChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(thirdChild->getValue(), 'a');
 
-	RegexNode* fourthChild = firstChild->getFirstChild().get();
+	RegexNode* fourthChild = firstChild->getFirstChild();
 	EXPECT_EQ(fourthChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(fourthChild->getValue(), 'a');
 }
@@ -163,24 +163,24 @@ TEST_F(RegexGenerateTreeTest, addMinimumCharWithMustageBracketsTest)
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 	EXPECT_EQ(tree->getSecondChild()->getType(), RegexNodeType::END);
 
-	tree = tree->getFirstChild().get();
+	tree = tree->getFirstChild();
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 
-	RegexNode* firstChild = tree->getFirstChild().get();
+	RegexNode* firstChild = tree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::COMBINE);
 
-	RegexNode* secondChild = tree->getSecondChild().get();
+	RegexNode* secondChild = tree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::STAR);
 
-	RegexNode* thirdChild = secondChild->getFirstChild().get();
+	RegexNode* thirdChild = secondChild->getFirstChild();
 	EXPECT_EQ(thirdChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(thirdChild->getValue(), 'a');
 
-	RegexNode* fourthChild = firstChild->getFirstChild().get();
+	RegexNode* fourthChild = firstChild->getFirstChild();
 	EXPECT_EQ(fourthChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(fourthChild->getValue(), 'a');
 
-	RegexNode* fifthChild = firstChild->getSecondChild().get();
+	RegexNode* fifthChild = firstChild->getSecondChild();
 	EXPECT_EQ(fifthChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(fifthChild->getValue(), 'a');
 }
@@ -193,21 +193,21 @@ TEST_F(RegexGenerateTreeTest, addthreeCharWithMustageBracketsTest)
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 	EXPECT_EQ(tree->getSecondChild()->getType(), RegexNodeType::END);
 
-	tree = tree->getFirstChild().get();
+	tree = tree->getFirstChild();
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 
-	RegexNode* firstChild = tree->getFirstChild().get();
+	RegexNode* firstChild = tree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::COMBINE);
 
-	RegexNode* secondChild = tree->getSecondChild().get();
+	RegexNode* secondChild = tree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(secondChild->getValue(), 'a');
 
-	RegexNode* thirdChild = firstChild->getFirstChild().get();
+	RegexNode* thirdChild = firstChild->getFirstChild();
 	EXPECT_EQ(thirdChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(thirdChild->getValue(), 'a');
 
-	RegexNode* fourthChild = firstChild->getSecondChild().get();
+	RegexNode* fourthChild = firstChild->getSecondChild();
 	EXPECT_EQ(fourthChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(fourthChild->getValue(), 'a');
 }
@@ -220,27 +220,27 @@ TEST_F(RegexGenerateTreeTest, addQuestionTest)
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 	EXPECT_EQ(tree->getSecondChild()->getType(), RegexNodeType::END);
 
-	tree = tree->getFirstChild().get();
+	tree = tree->getFirstChild();
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 
-	RegexNode* firstChild = tree->getFirstChild().get();
+	RegexNode* firstChild = tree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::COMBINE);
 
-	RegexNode* secondChild = tree->getSecondChild().get();
+	RegexNode* secondChild = tree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::QUESTION);
 
-	RegexNode* thirdChild = firstChild->getFirstChild().get();
+	RegexNode* thirdChild = firstChild->getFirstChild();
 	EXPECT_EQ(thirdChild->getType(), RegexNodeType::QUESTION);
 
-	RegexNode* fourthChild = firstChild->getSecondChild().get();
+	RegexNode* fourthChild = firstChild->getSecondChild();
 	EXPECT_EQ(fourthChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(fourthChild->getValue(), 'b');
 
-	RegexNode* fifthChild = thirdChild->getFirstChild().get();
+	RegexNode* fifthChild = thirdChild->getFirstChild();
 	EXPECT_EQ(fifthChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(fifthChild->getValue(), 'a');
 
-	RegexNode* sixthChild = secondChild->getFirstChild().get();
+	RegexNode* sixthChild = secondChild->getFirstChild();
 	EXPECT_EQ(sixthChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(sixthChild->getValue(), 'c');
 }
@@ -253,62 +253,62 @@ TEST_F(RegexGenerateTreeTest, addBracketsTest)
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 	EXPECT_EQ(tree->getSecondChild()->getType(), RegexNodeType::END);
 
-	tree = tree->getFirstChild().get();
+	tree = tree->getFirstChild();
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 
-	RegexNode* firstChild = tree->getFirstChild().get();
+	RegexNode* firstChild = tree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::COMBINE);
 
-	RegexNode* secondChild = tree->getSecondChild().get();
+	RegexNode* secondChild = tree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(secondChild->getValue(), 'a');
 
-	tree = tree->getFirstChild().get();
+	tree = tree->getFirstChild();
 
-	firstChild = tree->getFirstChild().get();
+	firstChild = tree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::QUESTION);
 
-	secondChild = tree->getSecondChild().get();
+	secondChild = tree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::OR);
 
-	RegexNode* thirdChild = firstChild->getFirstChild().get();
+	RegexNode* thirdChild = firstChild->getFirstChild();
 
 	EXPECT_EQ(thirdChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(thirdChild->getValue(), 'a');
 
-	RegexNode* rightTree = tree->getSecondChild().get();
+	RegexNode* rightTree = tree->getSecondChild();
 
-	firstChild = rightTree->getFirstChild().get();
+	firstChild = rightTree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::COMBINE);
 
-	secondChild = rightTree->getSecondChild().get();
+	secondChild = rightTree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(secondChild->getValue(), 'a');
 
-	rightTree = rightTree->getFirstChild().get();
+	rightTree = rightTree->getFirstChild();
 
-	firstChild = rightTree->getFirstChild().get();
+	firstChild = rightTree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::OR);
 
-	secondChild = rightTree->getSecondChild().get();
+	secondChild = rightTree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::OR);
 
-	RegexNode* leftTree = rightTree->getFirstChild().get();
-	rightTree = rightTree->getSecondChild().get();
+	RegexNode* leftTree = rightTree->getFirstChild();
+	rightTree = rightTree->getSecondChild();
 
-	firstChild = rightTree->getFirstChild().get();
+	firstChild = rightTree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(firstChild->getValue(), 'a');
 
-	secondChild = rightTree->getSecondChild().get();
+	secondChild = rightTree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(secondChild->getValue(), 'b');
 
-	firstChild = leftTree->getFirstChild().get();
+	firstChild = leftTree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(firstChild->getValue(), 'b');
 
-	secondChild = leftTree->getSecondChild().get();
+	secondChild = leftTree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(secondChild->getValue(), 'c');
 }
@@ -321,27 +321,27 @@ TEST_F(RegexGenerateTreeTest, addPlusTest)
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 	EXPECT_EQ(tree->getSecondChild()->getType(), RegexNodeType::END);
 
-	tree = tree->getFirstChild().get();
+	tree = tree->getFirstChild();
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 
-	RegexNode* firstChild = tree->getFirstChild().get();
+	RegexNode* firstChild = tree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::COMBINE);
 
-	RegexNode* secondChild = tree->getSecondChild().get();
+	RegexNode* secondChild = tree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::PLUS);
 
-	RegexNode* thirdChild = firstChild->getFirstChild().get();
+	RegexNode* thirdChild = firstChild->getFirstChild();
 	EXPECT_EQ(thirdChild->getType(), RegexNodeType::PLUS);
 
-	RegexNode* fourthChild = firstChild->getSecondChild().get();
+	RegexNode* fourthChild = firstChild->getSecondChild();
 	EXPECT_EQ(fourthChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(fourthChild->getValue(), 'b');
 
-	RegexNode* fifthChild = thirdChild->getFirstChild().get();
+	RegexNode* fifthChild = thirdChild->getFirstChild();
 	EXPECT_EQ(fifthChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(fifthChild->getValue(), 'a');
 
-	RegexNode* sixthChild = secondChild->getFirstChild().get();
+	RegexNode* sixthChild = secondChild->getFirstChild();
 	EXPECT_EQ(sixthChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(sixthChild->getValue(), 'c');
 }
@@ -354,27 +354,27 @@ TEST_F(RegexGenerateTreeTest, addStarTest)
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 	EXPECT_EQ(tree->getSecondChild()->getType(), RegexNodeType::END);
 
-	tree = tree->getFirstChild().get();
+	tree = tree->getFirstChild();
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 
-	RegexNode* firstChild = tree->getFirstChild().get();
+	RegexNode* firstChild = tree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::COMBINE);
 
-	RegexNode* secondChild = tree->getSecondChild().get();
+	RegexNode* secondChild = tree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::STAR);
 
-	RegexNode* thirdChild = firstChild->getFirstChild().get();
+	RegexNode* thirdChild = firstChild->getFirstChild();
 	EXPECT_EQ(thirdChild->getType(), RegexNodeType::STAR);
 
-	RegexNode* fourthChild = firstChild->getSecondChild().get();
+	RegexNode* fourthChild = firstChild->getSecondChild();
 	EXPECT_EQ(fourthChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(fourthChild->getValue(), 'b');
 
-	RegexNode* fifthChild = thirdChild->getFirstChild().get();
+	RegexNode* fifthChild = thirdChild->getFirstChild();
 	EXPECT_EQ(fifthChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(fifthChild->getValue(), 'a');
 
-	RegexNode* sixthChild = secondChild->getFirstChild().get();
+	RegexNode* sixthChild = secondChild->getFirstChild();
 	EXPECT_EQ(sixthChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(sixthChild->getValue(), 'c');
 }
@@ -387,21 +387,21 @@ TEST_F(RegexGenerateTreeTest, addCombineTest)
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 	EXPECT_EQ(tree->getSecondChild()->getType(), RegexNodeType::END);
 
-	tree = tree->getFirstChild().get();
+	tree = tree->getFirstChild();
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 
-	RegexNode* firstChild = tree->getFirstChild().get();
+	RegexNode* firstChild = tree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::COMBINE);
 
-	RegexNode* secondChild = tree->getSecondChild().get();
+	RegexNode* secondChild = tree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(secondChild->getValue(), 'c');
 
-	RegexNode* thirdChild = firstChild->getFirstChild().get();
+	RegexNode* thirdChild = firstChild->getFirstChild();
 	EXPECT_EQ(thirdChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(thirdChild->getValue(), 'a');
 
-	RegexNode* fourthChild = firstChild->getSecondChild().get();
+	RegexNode* fourthChild = firstChild->getSecondChild();
 	EXPECT_EQ(fourthChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(fourthChild->getValue(), 'b');
 }
@@ -414,21 +414,21 @@ TEST_F(RegexGenerateTreeTest, addOrTest)
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 	EXPECT_EQ(tree->getSecondChild()->getType(), RegexNodeType::END);
 
-	tree = tree->getFirstChild().get();
+	tree = tree->getFirstChild();
 	EXPECT_EQ(tree->getType(), RegexNodeType::OR);
 
-	RegexNode* firstChild = tree->getFirstChild().get();
+	RegexNode* firstChild = tree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::OR);
 
-	RegexNode* secondChild = tree->getSecondChild().get();
+	RegexNode* secondChild = tree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(secondChild->getValue(), 'c');
 
-	RegexNode* thirdChild = firstChild->getFirstChild().get();
+	RegexNode* thirdChild = firstChild->getFirstChild();
 	EXPECT_EQ(thirdChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(thirdChild->getValue(), 'a');
 
-	RegexNode* fourthChild = firstChild->getSecondChild().get();
+	RegexNode* fourthChild = firstChild->getSecondChild();
 	EXPECT_EQ(fourthChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(fourthChild->getValue(), 'b');
 }
@@ -441,87 +441,87 @@ TEST_F(RegexGenerateTreeTest, BuildTreeTest)
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 	EXPECT_EQ(tree->getSecondChild()->getType(), RegexNodeType::END);
 
-	tree = tree->getFirstChild().get();
+	tree = tree->getFirstChild();
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
 
-	RegexNode* firstChild = tree->getFirstChild().get();
+	RegexNode* firstChild = tree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::COMBINE);
 
-	RegexNode* secondChild = tree->getSecondChild().get();
+	RegexNode* secondChild = tree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(secondChild->getValue(), 'a');
 
-	tree = tree->getFirstChild().get();
+	tree = tree->getFirstChild();
 
-	firstChild = tree->getFirstChild().get();
+	firstChild = tree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::OR);
 
-	secondChild = tree->getSecondChild().get();
+	secondChild = tree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(secondChild->getValue(), 'h');
 
-	tree = tree->getFirstChild().get();
+	tree = tree->getFirstChild();
 
-	firstChild = tree->getFirstChild().get();
+	firstChild = tree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::COMBINE);
 
-	RegexNode* leftTree = tree->getFirstChild().get();
+	RegexNode* leftTree = tree->getFirstChild();
 
-	firstChild = leftTree->getFirstChild().get();
+	firstChild = leftTree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::OR);
 
-	secondChild = leftTree->getSecondChild().get();
+	secondChild = leftTree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(secondChild->getValue(), 'c');
 
-	leftTree = leftTree->getFirstChild().get();
+	leftTree = leftTree->getFirstChild();
 
-	firstChild = leftTree->getFirstChild().get();
+	firstChild = leftTree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(firstChild->getValue(), 'a');
 
-	secondChild = leftTree->getSecondChild().get();
+	secondChild = leftTree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::STAR);
 
-	RegexNode* thirdChild = secondChild->getFirstChild().get();
+	RegexNode* thirdChild = secondChild->getFirstChild();
 	EXPECT_EQ(thirdChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(thirdChild->getValue(), 'b');
 
-	RegexNode* rightTree = tree->getSecondChild().get();
+	RegexNode* rightTree = tree->getSecondChild();
 	EXPECT_EQ(rightTree->getType(), RegexNodeType::STAR);
 
-	rightTree = rightTree->getFirstChild().get();
+	rightTree = rightTree->getFirstChild();
 	EXPECT_EQ(rightTree->getType(), RegexNodeType::COMBINE);
 
-	firstChild = rightTree->getFirstChild().get();
+	firstChild = rightTree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::COMBINE);
 
-	secondChild = rightTree->getSecondChild().get();
+	secondChild = rightTree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(secondChild->getValue(), 'y');
 
-	rightTree = rightTree->getFirstChild().get();
+	rightTree = rightTree->getFirstChild();
 
-	firstChild = rightTree->getFirstChild().get();
+	firstChild = rightTree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::COMBINE);
 
-	secondChild = rightTree->getSecondChild().get();
+	secondChild = rightTree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(secondChild->getValue(), 'y');
 
-	rightTree = rightTree->getFirstChild().get();
+	rightTree = rightTree->getFirstChild();
 
-	firstChild = rightTree->getFirstChild().get();
+	firstChild = rightTree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::PLUS);
 
-	secondChild = rightTree->getSecondChild().get();
+	secondChild = rightTree->getSecondChild();
 	EXPECT_EQ(secondChild->getType(), RegexNodeType::QUESTION);
 
-	thirdChild = firstChild->getFirstChild().get();
+	thirdChild = firstChild->getFirstChild();
 	EXPECT_EQ(thirdChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(thirdChild->getValue(), 'd');
 
-	RegexNode* fourthChild = secondChild->getFirstChild().get();
+	RegexNode* fourthChild = secondChild->getFirstChild();
 	EXPECT_EQ(fourthChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(fourthChild->getValue(), 'e');
 }

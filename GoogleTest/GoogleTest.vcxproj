@@ -72,7 +72,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>D:\Programowanie\inzynierka\Translator\Lekser++\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Czapla\source\repos\Inzynierka\Lekser++\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>IdCreator.obj;Logger.obj;RegexConstructorSyntaxTree.obj;RegexNode.obj;RegexService.obj;Uuid.obj;PreviewElement.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
