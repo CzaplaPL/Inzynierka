@@ -190,9 +190,17 @@ Lex::RegexNode* Lex::RegexConstructorSyntaxTree::addBlock(PreviewElement preview
 {
 	string index = "";
 	int i = 1;
+	RegexNode* newTree(new RegexNode());
 	for (; regex[i] != ']'; ++i)
 	{
-		if (i == regex.length()) throw LekserException("oczekiwano ]");
+		if (i == regex.length()-1) throw LekserException("oczekiwano ]");
+		if (regex[i] == ',')
+		{
+			if (newTree->getSecondChild() != nullptr)
+			{
+				newTree
+			}
+		}
 		index += regex[i];
 	}
 	if (index.length() < 1)throw LekserException("brak wartoœci w bloku []");
@@ -200,13 +208,11 @@ Lex::RegexNode* Lex::RegexConstructorSyntaxTree::addBlock(PreviewElement preview
 
 	if (tree->getType() == RegexNodeType::BLOCK)
 	{
-		RegexNode* newTree(new RegexNode(*tree));
 		newTree->setBlockId(index);
 		newTree->setId(id);
 		id += 1;
 		return newTree;
 	}
-	RegexNode* newTree(new RegexNode());
 	newTree->setFirstChild(tree);
 	newTree->setId(id);
 	id += 1;

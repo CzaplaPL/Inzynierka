@@ -313,6 +313,33 @@ TEST_F(RegexGenerateTreeTest, addBracketsTest)
 	EXPECT_EQ(secondChild->getValue(), 'c');
 }
 
+
+TEST_F(RegexGenerateTreeTest, addEmptyBracketsTest)
+{
+	string reg = "a?()a";
+
+	RegexNode* tree = regexService->generateTree(reg, id);
+	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
+	EXPECT_EQ(tree->getSecondChild()->getType(), RegexNodeType::END);
+
+	tree = tree->getFirstChild();
+	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
+
+	RegexNode* firstChild = tree->getFirstChild();
+	EXPECT_EQ(firstChild->getType(), RegexNodeType::QUESTION);
+
+	RegexNode* secondChild = tree->getSecondChild();
+	EXPECT_EQ(secondChild->getType(), RegexNodeType::ID);
+	EXPECT_EQ(secondChild->getValue(), 'a');
+
+	tree = tree->getFirstChild();
+
+	firstChild = tree->getFirstChild();
+	EXPECT_EQ(firstChild->getType(), RegexNodeType::ID);
+	EXPECT_EQ(firstChild->getValue(), 'a');
+
+}
+
 TEST_F(RegexGenerateTreeTest, addPlusTest)
 {
 	string reg = "a+bc+";

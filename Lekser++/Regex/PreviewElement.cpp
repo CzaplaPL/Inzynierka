@@ -16,6 +16,9 @@ void Lex::PreviewElement::setElement(char element)
 	case'[':
 		this->type = RegexNodeType::BLOCK;
 		break;
+	case']':
+		this->type = RegexNodeType::BLOCK;
+		break;
 	case'*':
 		this->type = RegexNodeType::STAR;
 		break;

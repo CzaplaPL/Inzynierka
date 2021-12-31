@@ -1,9 +1,6 @@
 #include "RegexService.h"
-#define MYDEBUG_NEW new( _NORMAL_BLOCK, __FILE__, __LINE__)
-#define new MYDEBUG_NEW
-//todo puste ()
+
 //todo [x-a,1-2]
-//todo inteligentne wskazniki
 //todo zamienic earse na indexowanie;
 Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 {
@@ -47,6 +44,10 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 			tree = newTree;
 			reg.erase(0, 1);
 		}
+	}
+	else if (reg[0] == ')')
+	{
+		return nullptr;
 	}
 	else
 	{
@@ -95,10 +96,9 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 				}
 				if (reg[0] == '[')
 				{
-					action = this->checkAction(reg[0]);
 					RegexNode* secondChild(new RegexNode());
 					secondChild->setType(RegexNodeType::BLOCK);
-					secondChild = (*action)(previewElement, reg, secondChild, nextId);
+					secondChild = this->addBlock(previewElement, reg, secondChild, nextId);
 					tree->setSecondChild(secondChild);
 					break;
 				}
@@ -113,6 +113,10 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 				{
 					reg.erase(0, 1);
 					RegexNode* treeInBrackets(this->generateTree(reg, nextId));
+					if (treeInBrackets == nullptr) {
+						reg.erase(0, 1);
+						continue;
+					}
 					tree = this->addBrackets(previewElement, tree, treeInBrackets, nextId);
 				}
 				else {
