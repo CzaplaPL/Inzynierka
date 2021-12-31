@@ -151,12 +151,6 @@
     <ClCompile Include="addons\IdCreator.cpp" />
     <ClCompile Include="addons\Logger.cpp" />
     <ClCompile Include="addons\Uuid.cpp" />
-    <ClCompile Include="lekser\DAS\Das.cpp" />
-    <ClCompile Include="lekser\DAS\DasBuilder.cpp" />
-    <ClCompile Include="lekser\DAS\DasService.cpp" />
-    <ClCompile Include="lekser\DAS\MachineStep.cpp" />
-    <ClCompile Include="lekser\DAS\NasStep.cpp" />
-    <ClCompile Include="lekser\DAS\StepInDas.cpp" />
     <ClCompile Include="lekser\Lekser.cpp" />
     <ClCompile Include="lekser\regex\PreviewElement.cpp" />
     <ClCompile Include="lekser\regex\RegexConstructorSyntaxTree.cpp" />
@@ -173,12 +167,6 @@
     <ClInclude Include="addons\IdCreator.h" />
     <ClInclude Include="addons\Logger.h" />
     <ClInclude Include="addons\Uuid.h" />
-    <ClInclude Include="lekser\DAS\Das.h" />
-    <ClInclude Include="lekser\DAS\DasBuilder.h" />
-    <ClInclude Include="lekser\DAS\DasService.h" />
-    <ClInclude Include="lekser\DAS\MachineStep.h" />
-    <ClInclude Include="lekser\DAS\NasStep.h" />
-    <ClInclude Include="lekser\DAS\StepInDas.h" />
     <ClInclude Include="lekser\Lekser.h" />
     <ClInclude Include="addons\LoggerInterface.h" />
     <ClInclude Include="lekser\regex\PreviewElement.h" />

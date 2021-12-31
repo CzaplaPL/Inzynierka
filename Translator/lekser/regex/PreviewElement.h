@@ -2,14 +2,15 @@
 #include <string>
 
 #include "RegexNodeType.h"
-
-class PreviewElement
+namespace Lex
 {
-public:
-	std::string value;
-	RegexNodeType type;
+	class PreviewElement
+	{
+	public:
+		std::string value;
+		RegexNodeType type;
 
-	PreviewElement(char element);
-	void setElement(char element);
-	std::string toString();
-};
+		PreviewElement(char element);
+		void setElement(char element);
+	};
+}

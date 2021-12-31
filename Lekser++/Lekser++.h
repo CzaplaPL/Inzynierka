@@ -2,6 +2,8 @@
 
 #include"addons/ILogger.h"
 #include"addons/Logger.h"
+#include"regex/RegexService.h"
+#include"regex/RegexNode.h"
 
 #include "sys/LekserDefinitionReader.h"
 
@@ -15,5 +17,6 @@ public:
 	Lekser(string file);
 	Lekser(string file, ILogger* log);
 	void generateLexer(string file);
+	void test(string file);
 	string toString();
 };

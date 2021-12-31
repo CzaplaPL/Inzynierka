@@ -16,10 +16,10 @@ namespace Lex
 		int id = -1;
 		char value;
 		std::string blockId;
-		std::shared_ptr < RegexNode> firstChild = nullptr;
-		std::shared_ptr < RegexNode> secondChild = nullptr;
-		RegexNodeType type = RegexNodeType::END;
-		std::shared_ptr < RegexNode> parent = nullptr;
+		RegexNode* firstChild = nullptr;
+		RegexNode* secondChild = nullptr;
+		RegexNodeType type;
+		RegexNode* parent = nullptr;
 
 	public:
 		RegexNode();
@@ -42,5 +42,6 @@ namespace Lex
 		void setSecondChild(RegexNode* tree);
 		void setParents(RegexNode* parent);
 		std::string getValueAsString();
+		~RegexNode();
 	};
 }

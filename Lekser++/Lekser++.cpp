@@ -1,4 +1,7 @@
-﻿#include "Lekser++.h"
+﻿#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+#include "Lekser++.h"
 #include <iostream>
 void Lekser::init()
 {
@@ -34,6 +37,17 @@ void Lekser::generateLexer(string file)
 	{
 		this->log->error(exception.what());
 	}
+}
+
+void Lekser::test(string file)
+{
+	Lex::Logger llo("cos");
+	Lex::RegexService ser(llo);
+
+	string reg = "a|[a-b]";
+	int id = 0;
+	Lex::RegexNode* node = ser.generateTree(reg, id);
+	delete node;
 }
 
 string Lekser::toString()

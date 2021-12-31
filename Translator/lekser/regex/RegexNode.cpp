@@ -1,18 +1,17 @@
 #include "RegexNode.h"
-#include "RegexService.h"
 
-RegexNode::RegexNode()
+Lex::RegexNode::RegexNode()
 {
 }
 
-RegexNode::RegexNode(RegexNodeType type, char value, int id)
+Lex::RegexNode::RegexNode(RegexNodeType type, char value, int id)
 {
 	this->type = type;
 	this->value = value;
 	this->id = id;
 }
 
-RegexNode::RegexNode(RegexNode* tree, RegexNode* parent)
+Lex::RegexNode::RegexNode(RegexNode* tree, RegexNode* parent)
 {
 	this->type = tree->getType();
 
@@ -27,7 +26,7 @@ RegexNode::RegexNode(RegexNode* tree, RegexNode* parent)
 	this->id = tree->getId();
 }
 
-RegexNode* RegexNode::operator[](int id)
+Lex::RegexNode* Lex::RegexNode::operator[](int id)
 {
 	if (this->id == id)
 	{
@@ -35,121 +34,101 @@ RegexNode* RegexNode::operator[](int id)
 	}
 	if (this->id < id)
 	{
-		if (this->secondChild == nullptr) throw out_of_range("index poza zakresem");
+		if (this->secondChild == nullptr) throw std::out_of_range("index poza zakresem");
 		return (*this->secondChild)[id];
 	}
-	if (this->firstChild == nullptr) throw out_of_range("index poza zakresem");
+	if (this->firstChild == nullptr) throw std::out_of_range("index poza zakresem");
 	return (*this->firstChild)[id];
 }
 
-RegexNodeType RegexNode::getType()
+Lex::RegexNodeType Lex::RegexNode::getType()
 {
 	return this->type;
 }
 
-RegexNode* RegexNode::getFirstChild()
+Lex::RegexNode* Lex::RegexNode::getFirstChild()
 {
 	return this->firstChild;
 }
 
-RegexNode* RegexNode::getSecondChild()
+Lex::RegexNode* Lex::RegexNode::getSecondChild()
 {
 	return secondChild;
 }
 
-RegexNode* RegexNode::getParent()
+Lex::RegexNode* Lex::RegexNode::getParent()
 {
 	return this->parent;
 }
 
-char RegexNode::getValue()
+char Lex::RegexNode::getValue()
 {
 	return this->value;
 }
 
-std::string RegexNode::getBlockId()
+std::string Lex::RegexNode::getBlockId()
 {
 	return this->blockId;
 }
 
-int RegexNode::getId()
+int Lex::RegexNode::getId()
 {
 	return this->id;
 }
 
-void RegexNode::setId(int id)
+void Lex::RegexNode::setId(int id)
 {
 	this->id = id;
 }
 
-void RegexNode::setValue(char value)
+void Lex::RegexNode::setValue(char value)
 {
 	this->value = value;
 }
 
-void RegexNode::setBlockId(std::string& blockId)
+void Lex::RegexNode::setBlockId(std::string& blockId)
 {
 	this->blockId = blockId;
 }
 
-void RegexNode::setFirstChild(RegexNode* tree)
+void Lex::RegexNode::setFirstChild(RegexNode* tree)
 {
 	tree->setParents(this);
 	this->firstChild = tree;
 }
 
-void RegexNode::setType(RegexNodeType type)
+void Lex::RegexNode::setType(RegexNodeType type)
 {
 	this->type = type;
 }
 
-void RegexNode::setSecondChild(RegexNodeType type, char value, int id)
+void Lex::RegexNode::setSecondChild(RegexNodeType type, char value, int id)
 {
 	RegexNode* secondChild = new RegexNode(type, value, id);
 	secondChild->setParents(this);
 	this->secondChild = secondChild;
 }
 
-void RegexNode::setSecondChild(RegexNode* tree)
+void Lex::RegexNode::setSecondChild(RegexNode* tree)
 {
 	tree->setParents(this);
 	this->secondChild = new RegexNode(tree, this);
 }
 
-void RegexNode::setParents(RegexNode* parent)
+void Lex::RegexNode::setParents(RegexNode* parent)
 {
 	this->parent = parent;
 }
 
-std::string RegexNode::toString()
-{
-	std::string toReturn = "Regex node: \n";
-	toReturn += "value = " + std::string(1, value) + "\n";
-	toReturn += "type = " + RegexService::regexNodeTypeToString(type) + "\n";
-
-	if (firstChild != nullptr)
-	{
-		toReturn += "firsChild:" + firstChild->toString() + "\n";
-	}
-	else
-	{
-		toReturn += "firsChild = NULL \n";
-	}
-	if (secondChild != nullptr)
-	{
-		toReturn += "secondChild:" + secondChild->toString();
-	}
-	else
-	{
-		toReturn += "secondChild = NULL";
-	}
-
-	return toReturn;
-}
-
-string RegexNode::getValueAsString()
+std::string Lex::RegexNode::getValueAsString()
 {
 	if (this->type == RegexNodeType::BLOCK) return blockId;
-	if (this->type == RegexNodeType::ID) return string(1, this->value);
+	if (this->type == RegexNodeType::ID) return std::string(1, this->value);
 	return "";
+}
+
+Lex::RegexNode::~RegexNode()
+{
+	delete this->getFirstChild();
+	delete this->getSecondChild();
 }

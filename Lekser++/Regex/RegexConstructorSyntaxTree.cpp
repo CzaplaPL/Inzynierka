@@ -1,4 +1,6 @@
 #include "RegexConstructorSyntaxTree.h"
+#define MYDEBUG_NEW new( _NORMAL_BLOCK, __FILE__, __LINE__)
+#define new MYDEBUG_NEW
 
 Lex::RegexNode* (*Lex::RegexConstructorSyntaxTree::checkAction(char& symbol))(PreviewElement previewElement, string& regex, RegexNode* tree, int& id)
 {

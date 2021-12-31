@@ -1,5 +1,6 @@
 #include "RegexService.h"
-
+#define MYDEBUG_NEW new( _NORMAL_BLOCK, __FILE__, __LINE__)
+#define new MYDEBUG_NEW
 //todo puste ()
 //todo [x-a,1-2]
 //todo inteligentne wskazniki
@@ -74,6 +75,7 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 		this->logger->debug("nastêpny znak");
 		try
 		{
+			this->logger->error("git");
 			if (reg[0] == ')')
 			{
 				return tree;
