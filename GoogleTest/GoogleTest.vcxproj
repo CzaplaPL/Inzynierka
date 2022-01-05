@@ -72,8 +72,8 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\Czapla\source\repos\Inzynierka\Lekser++\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>IdCreator.obj;Logger.obj;RegexConstructorSyntaxTree.obj;RegexNode.obj;RegexService.obj;Uuid.obj;PreviewElement.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Programowanie\inzynierka\Translator\Lekser++\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Das.obj;DasBuilder.obj;DasService.obj;IdCreator.obj;Logger.obj;NasStep.obj;StepInDas.obj;MachineStep.obj;RegexConstructorSyntaxTree.obj;RegexNode.obj;RegexService.obj;Uuid.obj;PreviewElement.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

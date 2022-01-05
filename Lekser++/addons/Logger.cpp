@@ -2,19 +2,19 @@
 
 namespace Lex
 {
-	string const Logger::VERSION = "0.0.5";
+	std::string const Logger::VERSION = "0.0.5";
 
-	Logger::Logger(string environment)
+	Logger::Logger(std::string environment)
 	{
 		this->isDebug = false;
 		this->isTime = true;
 		this->environment = environment;
 		_mkdir("log");
 
-		string environmentDir = "log/" + environment;
+		std::string environmentDir = "log/" + environment;
 		_mkdir(environmentDir.c_str());
 
-		fileLog.open("log/" + environment + "/log.log", ios::trunc | ios::in | ios::out);
+		fileLog.open("log/" + environment + "/log.log", std::ios::trunc | std::ios::in | std::ios::out);
 
 		writeStart(fileLog);
 
@@ -36,29 +36,29 @@ namespace Lex
 		this->isTime = isTime;
 	}
 
-	void Logger::info(const string message)
+	void Logger::info(const std::string message)
 	{
-		fileLog << now() << message << endl;
+		fileLog << now() << message << std::endl;
 	}
 
-	void Logger::debug(const string message)
+	void Logger::debug(const std::string message)
 	{
-		fileLog << "[DEBUG] " << now() << " " << message << endl;
+		fileLog << "[DEBUG] " << now() << " " << message << std::endl;
 		if (isDebug)
 		{
-			std::cout << "[DEBUG] " << now() << " " << message << endl;
+			std::cout << "[DEBUG] " << now() << " " << message << std::endl;
 		}
 	}
 
-	void Logger::warning(const string message)
+	void Logger::warning(const std::string message)
 	{
-		fileLog << "[WARNING] " << now() << " " << message << endl;
+		fileLog << "[WARNING] " << now() << " " << message << std::endl;
 	}
 
-	void Logger::error(const string message)
+	void Logger::error(const std::string message)
 	{
-		fileLog << "[ERROR] " << now() << " " << message << endl;
-		std::cout << "\033[1;31m " << "[ERROR] " << now() << " " << message << "\033[0m\n" << endl;
+		fileLog << "[ERROR] " << now() << " " << message << std::endl;
+		std::cout << "\033[1;31m " << "[ERROR] " << now() << " " << message << "\033[0m\n" << std::endl;
 	}
 
 	void Logger::writeDebug(const char* templates, ...)
@@ -100,12 +100,12 @@ namespace Lex
 					break;
 				}
 			}
-			fileLog << endl;
+			fileLog << std::endl;
 			__crt_va_end(vl);
 		}
 	}
 
-	string Logger::now() const
+	std::string Logger::now() const
 	{
 		if (isTime)
 		{
@@ -117,18 +117,18 @@ namespace Lex
 			localtime_s(&timeinfo, &rawtime);
 
 			strftime(buffer, sizeof(buffer), "%d-%m-%Y %H:%M:%S", &timeinfo);
-			string str(buffer);
+			std::string str(buffer);
 
 			return str;
 		}
 		return "";
 	}
 
-	void Logger::writeStart(fstream& file) const
+	void Logger::writeStart(std::fstream& file) const
 	{
-		file << "log Translator " << VERSION << endl;
-		file << "autor: Czapla " << endl;
-		file << "data uruchomienia : " << now() << endl;
+		file << "log Translator " << VERSION << std::endl;
+		file << "autor: Czapla " << std::endl;
+		file << "data uruchomienia : " << now() << std::endl;
 	}
 
 	void Logger::close() noexcept
@@ -137,7 +137,7 @@ namespace Lex
 		{
 			fileLog.close();
 		}
-		catch (exception e)
+		catch (std::exception e)
 		{
 		}
 	}

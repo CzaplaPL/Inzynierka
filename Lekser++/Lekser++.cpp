@@ -14,21 +14,21 @@ Lekser::Lekser()
 	init();
 }
 
-Lekser::Lekser(string file)
+Lekser::Lekser(std::string file)
 {
 	this->log.reset(new Lex::Logger("Lekser"));
 	init();
 	generateLexer(file);
 }
 
-Lekser::Lekser(string file, ILogger* log)
+Lekser::Lekser(std::string file, ILogger* log)
 {
 	this->log.reset(log);
 	init();
 	generateLexer(file);
 }
 
-void Lekser::generateLexer(string file)
+void Lekser::generateLexer(std::string file)
 {
 	try {
 		std::map<std::string, std::string> definitions = this->definitionReader->readDefinition(file);
@@ -39,18 +39,7 @@ void Lekser::generateLexer(string file)
 	}
 }
 
-void Lekser::test(string file)
-{
-	Lex::Logger llo("cos");
-	Lex::RegexService ser(llo);
-
-	string reg = "a|[a-b]";
-	int id = 0;
-	Lex::RegexNode* node = ser.generateTree(reg, id);
-	delete node;
-}
-
-string Lekser::toString()
+std::string Lekser::toString()
 {
 	return " ";
 }

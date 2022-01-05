@@ -1,14 +1,14 @@
 #include "DasBuilder.h"
 
-DasBuilder::DasBuilder(Logger& log)
+Lex::DasBuilder::DasBuilder(ILogger& log)
 {
 	this->log = &log;
 }
 
-vector<int> DasBuilder::firstPos(RegexNode* tree)
+std::vector<int> Lex::DasBuilder::firstPos(RegexNode* tree)
 {
-	vector<int> toReturn;
-	vector<int> secondFirstPos;
+	std::vector<int> toReturn;
+	std::vector<int> secondFirstPos;
 	if (tree == nullptr) throw LekserException("nie istnieje firstpos dla pustego drzewa");
 	switch (tree->getType())
 	{
@@ -41,12 +41,12 @@ vector<int> DasBuilder::firstPos(RegexNode* tree)
 	}
 }
 
-vector<int> DasBuilder::followPos(RegexNode* tree)
+std::vector<int> Lex::DasBuilder::followPos(RegexNode* tree)
 {
 	if (tree == nullptr) throw LekserException("nie istnieje followPos dla pustego drzewa");
 	RegexNode* parent = tree->getParent();
-	vector<int> toReturn;
-	vector<int> firstPosition;
+	std::vector<int> toReturn;
+	std::vector<int> firstPosition;
 	if (parent == nullptr) return toReturn;
 
 	switch (parent->getType())
@@ -67,7 +67,7 @@ vector<int> DasBuilder::followPos(RegexNode* tree)
 	return toReturn;
 }
 
-bool DasBuilder::nullable(RegexNode* tree)
+bool Lex::DasBuilder::nullable(RegexNode* tree)
 {
 	switch (tree->getType())
 	{
@@ -90,25 +90,25 @@ bool DasBuilder::nullable(RegexNode* tree)
 /// todo logi
 ///	todo cashe
 ///	todo set to vectorSet
-Das DasBuilder::generateDas(RegexNode* tree, string token)
+Lex::Das Lex::DasBuilder::generateDas(RegexNode* tree, std::string token)
 {
 	this->idCreator.clearMap();
-	Das dasToReturn(token);
-	queue<vector<int>> indefiniteStep;
+	Das dasToReturn;
+	std::queue<std::vector<int>> indefiniteStep;
 	indefiniteStep.push(this->firstPos(tree));
 
 	while (indefiniteStep.size() > 0)
 	{
-		vector<int> step = indefiniteStep.front();
+		std::vector<int> step = indefiniteStep.front();
 		indefiniteStep.pop();
-		map<string, set<int>> transitions;
+		std::map<std::string, std::set<int>> transitions;
 		bool isAccepting = false;
 		for (int nodeId : step)
 		{
 			RegexNode* node = (*tree)[nodeId];
 			if (!typeIsIdOrBlock(node))throw LekserException("typ wezla jest inny niz block lub id");
-			vector<int> followPosition = followPos(node);
-			string value = node->getValueAsString();
+			std::vector<int> followPosition = followPos(node);
+			std::string value = node->getValueAsString();
 
 			for (int position : followPosition)
 			{
@@ -116,29 +116,29 @@ Das DasBuilder::generateDas(RegexNode* tree, string token)
 			}
 			if (node->getType() == RegexNodeType::END) isAccepting = true;
 		}
-		string stepId = this->idCreator.generateId(step);
-		map <string, string> transitionWithId;
-		for (pair<string, set<int>> transition : transitions)
+		std::string stepId = this->idCreator.generateId(step);
+		std::map <std::string, std::string> transitionWithId;
+		for (std::pair<std::string, std::set<int>> transition : transitions)
 		{
-			vector<int> transitionSteps(transition.second.begin(), transition.second.end());
-			string transitionStepId = this->idCreator.generateId(transitionSteps);
+			std::vector<int> transitionSteps(transition.second.begin(), transition.second.end());
+			std::string transitionStepId = this->idCreator.generateId(transitionSteps);
 			if (!dasToReturn.hasStep(transitionStepId))
 			{
 				indefiniteStep.push(transitionSteps);
 			}
 			transitionWithId.insert_or_assign(transition.first, transitionStepId);
 		}
-		dasToReturn.addStep(stepId, MachineStep(transitionWithId, isAccepting));
+		dasToReturn.addStep(stepId, MachineStep(transitionWithId, isAccepting, token));
 	}
 	return dasToReturn;
 }
 
 ////////////////////funkcje prywatne////////////////////////////////////
 
-vector<int> DasBuilder::checkFollowPos(RegexNode* parent)
+std::vector<int> Lex::DasBuilder::checkFollowPos(RegexNode* parent)
 {
-	vector<int> toReturn;
-	vector<int>  firstPosition;
+	std::vector<int> toReturn;
+	std::vector<int>  firstPosition;
 	RegexNode* actualParent = parent->getParent();
 	while (true)
 	{
@@ -178,7 +178,7 @@ vector<int> DasBuilder::checkFollowPos(RegexNode* parent)
 	}
 }
 
-bool DasBuilder::typeIsIdOrBlock(RegexNode* node)
+bool Lex::DasBuilder::typeIsIdOrBlock(RegexNode* node)
 {
 	return (node->getType() == RegexNodeType::BLOCK || node->getType() == RegexNodeType::ID || node->getType() == RegexNodeType::END);
 }

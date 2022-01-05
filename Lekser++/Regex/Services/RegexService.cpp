@@ -6,7 +6,7 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 {
 	this->logger->debug("budowanie drzewa rozk³adu dla" + reg);
 	RegexNode* tree = new RegexNode;
-	RegexNode* (*action)(PreviewElement previewElement, string & regex, RegexNode*, int& nextId) = NULL;
+	RegexNode* (*action)(PreviewElement previewElement, std::string & regex, RegexNode*, int& nextId) = NULL;
 	PreviewElement previewElement = PreviewElement(reg[0]);
 	if (reg[0] == '(')
 	{
@@ -112,12 +112,13 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 				if (reg[0] == '(')
 				{
 					reg.erase(0, 1);
-					RegexNode* treeInBrackets(this->generateTree(reg, nextId));
+					int actualId = nextId;
+					RegexNode* treeInBrackets(this->generateTree(reg, ++nextId));
 					if (treeInBrackets == nullptr) {
 						reg.erase(0, 1);
 						continue;
 					}
-					tree = this->addBrackets(previewElement, tree, treeInBrackets, nextId);
+					tree = this->addBrackets(previewElement, tree, treeInBrackets, actualId);
 				}
 				else {
 					action = this->checkAction(reg[0]);
@@ -165,7 +166,7 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 	return completeTree;
 }
 
-string Lex::RegexService::regexNodeTypeToString(RegexNodeType type)
+std::string Lex::RegexService::regexNodeTypeToString(RegexNodeType type)
 {
 	switch (type)
 	{

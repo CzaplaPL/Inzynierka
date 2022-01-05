@@ -1,13 +1,12 @@
 #pragma once
 #include <iostream>
-
-#include "RegexNode.h"
-
-#include "PreviewElement.h"
 #include <memory>
 #include <functional>
 
-using namespace std;
+#include "../RegexNode.h"
+#include "../../addons/ILogger.h"
+#include "../../sys/exception/LekserException.h"
+#include "../PreviewElement.h"
 
 namespace Lex
 {
@@ -16,10 +15,13 @@ namespace Lex
 	/// </summary>
 	class RegexConstructorSyntaxTree
 	{
+		std::string dupa;
+		ILogger* logger;
 	public:
 
-		RegexConstructorSyntaxTree()
+		RegexConstructorSyntaxTree(ILogger* logger)
 		{
+			this->logger = logger;
 		}
 
 	protected:
@@ -30,7 +32,7 @@ namespace Lex
 		/// <returns>wska¿nik do odpowiedniej funkcji</returns>
 		//Lex::RegexNode* (RegexConstructorSyntaxTree::* checkAction(char& symbol))(PreviewElement previewElement, string& regex, RegexNode* tree, int& id);
 
-		Lex::RegexNode* (*checkAction(char& symbol))(PreviewElement previewElement, string& regex, RegexNode* tree, int& id);
+		Lex::RegexNode* (*checkAction(char& symbol))(PreviewElement previewElement, std::string& regex, RegexNode* tree, int& id);
 
 		/// <summary>
 		/// funkcja dodaj¹ca znak | do drzewa rozkladu
@@ -39,7 +41,7 @@ namespace Lex
 		/// <param name="secondChar"></param>
 		/// <param name="tree"></param>
 		/// <returns>nowe drzewo rozk³adu</returns>
-		static Lex::RegexNode* addOr(PreviewElement previewElement, string& regex, RegexNode* tree, int& id);
+		static Lex::RegexNode* addOr(PreviewElement previewElement, std::string& regex, RegexNode* tree, int& id);
 		/// <summary>
 		/// funkcja dodajca znak ° do drzewa rozk³adu
 		/// </summary>
@@ -47,7 +49,7 @@ namespace Lex
 		/// <param name="curentElement"></param>
 		/// <param name="tree"></param>
 		/// <returns>nowe drzewo rozk³adu</returns>
-		static Lex::RegexNode* addCombine(PreviewElement previewElement, string& regex, RegexNode* tree, int& id);
+		static Lex::RegexNode* addCombine(PreviewElement previewElement, std::string& regex, RegexNode* tree, int& id);
 		/// <summary>
 		/// funkcja dodajca znak * do drzewa rozk³adu
 		/// </summary>
@@ -55,7 +57,7 @@ namespace Lex
 		/// <param name="curentElement"></param>
 		/// <param name="tree"></param>
 		/// <returns>nowe drzewo rozk³adu</returns>
-		static Lex::RegexNode* addStar(PreviewElement previewElement, string& regex, RegexNode* tree, int& id);
+		static Lex::RegexNode* addStar(PreviewElement previewElement, std::string& regex, RegexNode* tree, int& id);
 		/// <summary>
 		/// funkcja dodajca znak + do drzewa rozk³adu
 		/// </summary>
@@ -63,7 +65,7 @@ namespace Lex
 		/// <param name="curentElement"></param>
 		/// <param name="tree"></param>
 		/// <returns>nowe drzewo rozk³adu</returns>
-		static Lex::RegexNode* addPlus(PreviewElement previewElement, string& regex, RegexNode* tree, int& id);
+		static Lex::RegexNode* addPlus(PreviewElement previewElement, std::string& regex, RegexNode* tree, int& id);
 		/// <summary>
 		/// funkcja dodajca znak ? do drzewa rozk³adu
 		/// </summary>
@@ -71,7 +73,7 @@ namespace Lex
 		/// <param name="curentElement"></param>
 		/// <param name="tree"></param>
 		/// <returns>nowe drzewo rozk³adu</returns>
-		static Lex::RegexNode* addQuestion(PreviewElement previewElement, string& regex, RegexNode* tree, int& id);
+		static Lex::RegexNode* addQuestion(PreviewElement previewElement, std::string& regex, RegexNode* tree, int& id);
 		/// <summary>
 		/// funkcja dodajca drzewo rozka³du z ()
 		/// </summary>
@@ -87,14 +89,14 @@ namespace Lex
 	/// <param name="curentElement"></param>
 	/// <param name="tree"></param>
 	/// <returns>nowe drzewo rozk³adu</returns>
-		static Lex::RegexNode* addMustageBrackets(PreviewElement previewElement, string& regex, RegexNode* tree, int& id);
+		static Lex::RegexNode* addMustageBrackets(PreviewElement previewElement, std::string& regex, RegexNode* tree, int& id);
 		/// funkcja obs³uguj¹ca [] w drzewie rozk³adu
 		/// </summary>
 		/// <param name="previewElement"></param>
 		/// <param name="curentElement"></param>
 		/// <param name="tree"></param>
 		/// <returns>nowe drzewo rozk³adu</returns>
-		static Lex::RegexNode* addBlock(PreviewElement previewElement, string& regex, RegexNode* tree, int& id);
+		static Lex::RegexNode* addBlock(PreviewElement previewElement, std::string& regex, RegexNode* tree, int& id);
 
 		void print_num(int i)
 		{
@@ -102,6 +104,6 @@ namespace Lex
 		}
 
 	private:
-		static int countCharLenght(string& regex);
+		static int countCharLenght(std::string& regex);
 	};
 }

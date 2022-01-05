@@ -1,8 +1,8 @@
 #pragma once
-#include "RegexNode.h"
-#include "../addons/Logger.h"
-#include "../sys/exception/LekserException.h"
-#include "PreviewElement.h"
+#include "../RegexNode.h"
+#include "../../addons/ILogger.h"
+#include "../../sys/exception/LekserException.h"
+#include "../PreviewElement.h"
 #include "RegexConstructorSyntaxTree.h"
 namespace Lex
 {
@@ -11,10 +11,10 @@ namespace Lex
 	/// </summary>
 	class RegexService : private RegexConstructorSyntaxTree
 	{
-		Lex::Logger* logger;
+		ILogger* logger;
 	public:
 
-		RegexService(Lex::Logger& logger) : RegexConstructorSyntaxTree(&logger)
+		RegexService(ILogger& logger) : RegexConstructorSyntaxTree(&logger)
 		{
 			this->logger = &logger;
 		}
@@ -31,7 +31,7 @@ namespace Lex
 		/// </summary>
 		/// <param name="type"></param>
 		/// <returns>string z nazwa typu</returns>
-		static string regexNodeTypeToString(Lex::RegexNodeType type);
+		static std::string regexNodeTypeToString(Lex::RegexNodeType type);
 		/// <summary>
 		/// funkcja sprawdza czy dany znak jest znakiem specjalnym
 		/// </summary>

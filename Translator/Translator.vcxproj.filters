@@ -34,33 +34,6 @@
     <ClCompile Include="Translator.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="addons\Logger.cpp">
-      <Filter>Pliki źródłowe\System\addoans\logger</Filter>
-    </ClCompile>
-    <ClCompile Include="lekser\Lekser.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="lekser\sys\LekserConfigReader.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="addons\IdCreator.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="addons\Uuid.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="lekser\regex\PreviewElement.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="lekser\regex\RegexConstructorSyntaxTree.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="lekser\regex\RegexNode.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="lekser\regex\RegexService.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.gitignore">
@@ -69,23 +42,6 @@
     <None Include="..\README.md">
       <Filter>other</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="addons\Logger.h">
-      <Filter>Pliki źródłowe\System\addoans\logger</Filter>
-    </ClInclude>
-    <ClInclude Include="lekser\Lekser.h" />
-    <ClInclude Include="addons\LoggerInterface.h" />
-    <ClInclude Include="lekser\sys\LekserConfigReader.h" />
-    <ClInclude Include="lekser\sys\LekserException.h" />
-    <ClInclude Include="lekser\sys\NoStepException.h" />
-    <ClInclude Include="addons\IdCreator.h" />
-    <ClInclude Include="addons\Uuid.h" />
-    <ClInclude Include="lekser\regex\PreviewElement.h" />
-    <ClInclude Include="lekser\regex\RegexConstructorSyntaxTree.h" />
-    <ClInclude Include="lekser\regex\RegexNode.h" />
-    <ClInclude Include="lekser\regex\RegexNodeType.h" />
-    <ClInclude Include="lekser\regex\RegexService.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="tekst.txt" />

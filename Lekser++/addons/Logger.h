@@ -3,12 +3,9 @@
 #include <ctime>
 #include <direct.h>
 #include <iostream>
-#include <string>
 #include <fstream>
 
 #include "ILogger.h"
-
-using namespace std;
 
 namespace Lex
 {
@@ -19,13 +16,13 @@ namespace Lex
 	{
 		bool isDebug;
 		bool isTime;
-		string environment;
-		fstream fileLog;
+		std::string environment;
+		std::fstream fileLog;
 	public:
-		static const string VERSION;
+		static const std::string VERSION;
 
 		/// <param name="environment">srodowisko w jakim jest wykonywany program</param>
-		Logger(string environment);
+		Logger(std::string environment);
 
 		~Logger();
 		/// <summary>
@@ -40,14 +37,14 @@ namespace Lex
 		/// <param name="isTime"></param>
 		void setTime(bool isTime)  noexcept;
 
-		void info(string message) override;
-		void debug(string message) override;
-		void warning(string message) override;
-		void error(string message) override;
+		void info(std::string message) override;
+		void debug(std::string message) override;
+		void warning(std::string message) override;
+		void error(std::string message) override;
 		void writeDebug(const char* templates, ...) override;
 	private:
-		string now() const;
-		void writeStart(fstream& file) const;
+		std::string now() const;
+		void writeStart(std::fstream& file) const;
 		void close() noexcept;
 	};
 }

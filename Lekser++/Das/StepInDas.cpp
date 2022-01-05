@@ -1,17 +1,17 @@
 #include "StepInDas.h"
 
-StepInDas::StepInDas(int dasId, std::string stepId)
+Lex::StepInDas::StepInDas(int dasId, std::string stepId)
 {
 	this->stepId = stepId;
 	this->dasId = dasId;
 }
 
-int StepInDas::getDasId()
+int Lex::StepInDas::getDasId()
 {
 	return this->dasId;
 }
 
-std::string StepInDas::getId()
+std::string Lex::StepInDas::getId()
 {
 	return this->stepId;
 }

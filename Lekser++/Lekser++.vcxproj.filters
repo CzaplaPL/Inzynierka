@@ -57,7 +57,7 @@
     <ClInclude Include="Regex\PreviewElement.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Regex\RegexConstructorSyntaxTree.h">
+    <ClInclude Include="Regex\Services\RegexConstructorSyntaxTree.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="Regex\RegexNode.h">
@@ -66,7 +66,19 @@
     <ClInclude Include="Regex\RegexNodeType.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Regex\RegexService.h">
+    <ClInclude Include="Regex\Services\RegexService.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Das\DasBuilder.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Das\DasService.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Das\NasStep.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Das\StepInDas.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
   </ItemGroup>
@@ -101,13 +113,25 @@
     <ClCompile Include="Regex\PreviewElement.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Regex\RegexConstructorSyntaxTree.cpp">
+    <ClCompile Include="Regex\Services\RegexConstructorSyntaxTree.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="Regex\RegexNode.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Regex\RegexService.cpp">
+    <ClCompile Include="Regex\Services\RegexService.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Das\DasBuilder.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Das\DasService.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Das\NasStep.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Das\StepInDas.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
