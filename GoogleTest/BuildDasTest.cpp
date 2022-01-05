@@ -1,10 +1,12 @@
 #include "pch.h"
 #include <vector>
-#include "../Translator/lekser/DAS/DasBuilder.h"
-#include "../Translator/lekser/DAS/DasService.h"
+
+using namespace Lex;
+using namespace std;
+
 class BuildDasTest : public ::testing::Test {
 protected:
-	Logger* logger;
+	ILogger* logger;
 	int id;
 	RegexService* regexService;
 	DasBuilder* dasBuilder;
@@ -76,13 +78,13 @@ TEST_F(BuildDasTest, test_merge_das_function)
 	EXPECT_TRUE(stepE.stepIsAccepting());
 	EXPECT_EQ(stepE.getAcceptingToken(), "a*b");
 
-	EXPECT_THROW(stepE.getStepIdForString("a"); , NoStepException);
+	EXPECT_THROW(stepE.getStepIdForString("a");, NoStepException);
 
 	nextStepIdForB = stepE.getStepIdForString("b");
 	MachineStep stepF = result.getStep(nextStepIdForB);
 	EXPECT_TRUE(stepF.stepIsAccepting());
 	EXPECT_EQ(stepF.getAcceptingToken(), "abb");
 
-	EXPECT_THROW(stepF.getStepIdForString("a");, NoStepException);
-	EXPECT_THROW(stepF.getStepIdForString("b");, NoStepException);
+	EXPECT_THROW(stepF.getStepIdForString("a"); , NoStepException);
+	EXPECT_THROW(stepF.getStepIdForString("b"); , NoStepException);
 }

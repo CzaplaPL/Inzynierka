@@ -1,6 +1,9 @@
 #include "pch.h"
 #include <vector>
-#include "../Translator/lekser/DAS/DasBuilder.h"
+
+using namespace Lex;
+using namespace std;
+
 class BuildDasFunctionsTest : public ::testing::Test {
 protected:
 	Logger* logger;
@@ -115,7 +118,6 @@ TEST_F(BuildDasFunctionsTest, testGenerateDas)
 	string reg = "a(b|c)";
 	RegexNode* tree = regexService->generateTree(reg, id);
 	Das result = dasBuilder->generateDas(tree, "TOKEN");
-	EXPECT_EQ(result.getToken(), "TOKEN");
 	EXPECT_EQ(result.getStepSize(), 3);
 	string firstStepId = result.getFirstStepId();
 	MachineStep firstStep = result.getStep(firstStepId);
@@ -124,12 +126,13 @@ TEST_F(BuildDasFunctionsTest, testGenerateDas)
 	nextStepId = nextStep.getStepIdForString("b");
 	nextStep = result.getStep(nextStepId);
 	EXPECT_TRUE(nextStep.stepIsAccepting());
+	EXPECT_EQ(nextStep.getAcceptingToken(), "TOKEN");
 
 	id = 0;
 	reg = "(a|b)*abb";
 	tree = regexService->generateTree(reg, id);
 	result = dasBuilder->generateDas(tree, "TOKEN2");
-	EXPECT_EQ(result.getToken(), "TOKEN2");
+
 	EXPECT_EQ(result.getStepSize(), 4);
 	firstStepId = result.getFirstStepId();
 	firstStep = result.getStep(firstStepId);
@@ -142,12 +145,12 @@ TEST_F(BuildDasFunctionsTest, testGenerateDas)
 	nextStepId = nextStep.getStepIdForString("b");
 	nextStep = result.getStep(nextStepId);
 	EXPECT_TRUE(nextStep.stepIsAccepting());
+	EXPECT_EQ(nextStep.getAcceptingToken(), "TOKEN2");
 
 	id = 0;
 	reg = "[a-b]|ab";
 	tree = regexService->generateTree(reg, id);
 	result = dasBuilder->generateDas(tree, "TOKEN3");
-	EXPECT_EQ(result.getToken(), "TOKEN3");
 	EXPECT_EQ(result.getStepSize(), 3);
 	firstStepId = result.getFirstStepId();
 	firstStep = result.getStep(firstStepId);
@@ -156,12 +159,12 @@ TEST_F(BuildDasFunctionsTest, testGenerateDas)
 	nextStepId = nextStep.getStepIdForString("b");
 	nextStep = result.getStep(nextStepId);
 	EXPECT_TRUE(nextStep.stepIsAccepting());
+	EXPECT_EQ(nextStep.getAcceptingToken(), "TOKEN3");
 
 	id = 0;
 	reg = "a{2,}";
 	tree = regexService->generateTree(reg, id);
 	result = dasBuilder->generateDas(tree, "TOKEN4");
-	EXPECT_EQ(result.getToken(), "TOKEN4");
 	EXPECT_EQ(result.getStepSize(), 3);
 	firstStepId = result.getFirstStepId();
 	firstStep = result.getStep(firstStepId);
@@ -173,12 +176,12 @@ TEST_F(BuildDasFunctionsTest, testGenerateDas)
 	nextStepId = nextStep.getStepIdForString("a");
 	nextStep = result.getStep(nextStepId);
 	EXPECT_TRUE(nextStep.stepIsAccepting());
+	EXPECT_EQ(nextStep.getAcceptingToken(), "TOKEN4");
 
 	id = 0;
 	reg = "a|b*c|(d+e?y{2})*ha";
 	tree = regexService->generateTree(reg, id);
 	result = dasBuilder->generateDas(tree, "TOKEN5");
-	EXPECT_EQ(result.getToken(), "TOKEN5");
 	EXPECT_EQ(result.getStepSize(), 10);
 	firstStepId = result.getFirstStepId();
 	firstStep = result.getStep(firstStepId);
@@ -191,6 +194,7 @@ TEST_F(BuildDasFunctionsTest, testGenerateDas)
 	nextStepId = nextStep.getStepIdForString("a");
 	nextStep = result.getStep(nextStepId);
 	EXPECT_TRUE(nextStep.stepIsAccepting());
+	EXPECT_EQ(nextStep.getAcceptingToken(), "TOKEN5");
 
 	firstStepId = result.getFirstStepId();
 	firstStep = result.getStep(firstStepId);
@@ -207,4 +211,5 @@ TEST_F(BuildDasFunctionsTest, testGenerateDas)
 	nextStepId = nextStep.getStepIdForString("a");
 	nextStep = result.getStep(nextStepId);
 	EXPECT_TRUE(nextStep.stepIsAccepting());
+	EXPECT_EQ(nextStep.getAcceptingToken(), "TOKEN5");
 }
