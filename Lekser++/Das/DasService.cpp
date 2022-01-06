@@ -1,15 +1,16 @@
 #include "DasService.h"
 
-void Lex::DasService::generateLekser(std::vector< std::pair< std::string, std::string>> elements)
+Lex::Das Lex::DasService::generateLekser(std::vector<Lex::Definition> elements)
 {
 	std::vector < Das > Dases;
-	for (std::pair< std::string, std::string> element : elements)
+	for (Definition element : elements)
 	{
+		std::string regex = element.getRegex();
 		int id = 0;
-		RegexNode* tree = this->regexService.generateTree(element.second, id);
-		Dases.emplace_back(this->dasBuilder.generateDas(tree, element.first));
+		RegexNode* tree = this->regexService.generateTree(regex, id);
+		Dases.emplace_back(this->dasBuilder.generateDas(tree, element.getToken()));
 	}
-	Das lekserMachine = mergeDases(Dases);
+	return mergeDases(Dases);
 }
 
 Lex::Das  Lex::DasService::mergeDases(std::vector<Das>& dases)

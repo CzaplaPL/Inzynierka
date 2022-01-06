@@ -76,7 +76,6 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 		this->logger->debug("nastêpny znak");
 		try
 		{
-			this->logger->error("git");
 			if (reg[0] == ')')
 			{
 				return tree;

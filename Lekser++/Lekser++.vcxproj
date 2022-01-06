@@ -172,11 +172,13 @@
     <ClInclude Include="Das\StepInDas.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Lekser++.h" />
+    <ClInclude Include="sys\LekserAnalizer.h" />
     <ClInclude Include="Regex\PreviewElement.h" />
     <ClInclude Include="Regex\Services\RegexConstructorSyntaxTree.h" />
     <ClInclude Include="Regex\RegexNode.h" />
     <ClInclude Include="Regex\RegexNodeType.h" />
     <ClInclude Include="Regex\Services\RegexService.h" />
+    <ClInclude Include="sys\Definition.h" />
     <ClInclude Include="sys\exception\NoStepException.h" />
     <ClInclude Include="sys\LekserDefinitionReader.h" />
     <ClInclude Include="pch.h" />
@@ -195,6 +197,7 @@
     <ClCompile Include="Das\StepInDas.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Lekser++.cpp" />
+    <ClCompile Include="sys\LekserAnalizer.cpp" />
     <ClCompile Include="Regex\PreviewElement.cpp" />
     <ClCompile Include="Regex\Services\RegexConstructorSyntaxTree.cpp" />
     <ClCompile Include="Regex\RegexNode.cpp" />

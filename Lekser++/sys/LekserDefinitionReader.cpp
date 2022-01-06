@@ -5,14 +5,14 @@ Lex::LekserDefinitionReader::LekserDefinitionReader(std::shared_ptr <ILogger> lo
 	this->log = log;
 }
 
-std::map<std::string, std::string> Lex::LekserDefinitionReader::readDefinition(std::string fileName)
+std::vector<Lex::Definition> Lex::LekserDefinitionReader::readDefinition(std::string fileName)
 {
 	std::ifstream file(fileName);
 
 	if (!file.is_open())
 	{
 		this->log->error("nie uda³o otworzyc pliku z definicjami : " + fileName);
-		return std::map<std::string, std::string>();
+		return std::vector<Lex::Definition>();
 	}
 
 	std::string line;
@@ -34,13 +34,24 @@ std::map<std::string, std::string> Lex::LekserDefinitionReader::readDefinition(s
 		}
 		numberLine++;
 	}
-	return this->definitions;
+
+	return this->generateVector(this->definitions);
 }
 
 std::string Lex::LekserDefinitionReader::getRegexForVariable(std::string variable)
 {
 	if (this->definitions.find(variable) == this->definitions.end()) throw LekserReaderException("nie odnaleziono zmiennej w lini : ");
 	return this->definitions[variable];
+}
+
+std::vector<Lex::Definition> Lex::LekserDefinitionReader::generateVector(std::map<std::string, std::string> definitions)
+{
+	std::vector<Lex::Definition> toReturn;
+	for (auto element : definitions)
+	{
+		toReturn.push_back(Definition(element.second, element.first));
+	}
+	return toReturn;
 }
 
 std::string Lex::LekserDefinitionReader::readToken(std::string::iterator& it, std::string::iterator end)

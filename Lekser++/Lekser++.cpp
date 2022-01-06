@@ -6,6 +6,7 @@
 void Lekser::init()
 {
 	this->definitionReader = make_unique<Lex::LekserDefinitionReader>((this->log));
+	this->DasServices = make_unique<Lex::DasService>((this->log));
 }
 
 Lekser::Lekser()
@@ -31,12 +32,18 @@ Lekser::Lekser(std::string file, ILogger* log)
 void Lekser::generateLexer(std::string file)
 {
 	try {
-		std::map<std::string, std::string> definitions = this->definitionReader->readDefinition(file);
+		this->definitions = this->definitionReader->readDefinition(file);
 	}
 	catch (LekserReaderException exception)
 	{
 		this->log->error(exception.what());
+		return;
 	}
+	this->das = this->DasServices->generateLekser(this->definitions);
+}
+
+std::vector<std::string> Lekser::analizeFile(std::string file)
+{
 }
 
 std::string Lekser::toString()

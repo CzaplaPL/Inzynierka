@@ -7,7 +7,5 @@ int main()
 {
 	Lekser lex("tekst.txt");
 
-	Lex::Logger llo("cos");
-
 	return 1;
 }

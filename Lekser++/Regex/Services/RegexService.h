@@ -11,12 +11,12 @@ namespace Lex
 	/// </summary>
 	class RegexService : private RegexConstructorSyntaxTree
 	{
-		ILogger* logger;
+		std::shared_ptr<ILogger> logger;
 	public:
 
-		RegexService(ILogger& logger) : RegexConstructorSyntaxTree(&logger)
+		RegexService(std::shared_ptr<ILogger> logger) : RegexConstructorSyntaxTree(logger)
 		{
-			this->logger = &logger;
+			this->logger = logger;
 		}
 
 		/// <summary>

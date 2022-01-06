@@ -1,2 +1,6 @@
-dupa:ma
-cos:$dupa$kos
+A:a
+Aaa:abbc
+ab:a*b
+reg:(a|b)*abb
+mi:mi
+cos:$mi$kos

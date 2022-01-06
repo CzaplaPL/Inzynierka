@@ -1,8 +1,8 @@
 #include "DasBuilder.h"
 
-Lex::DasBuilder::DasBuilder(ILogger& log)
+Lex::DasBuilder::DasBuilder(std::shared_ptr<ILogger> log)
 {
-	this->log = &log;
+	this->log = log;
 }
 
 std::vector<int> Lex::DasBuilder::firstPos(RegexNode* tree)
