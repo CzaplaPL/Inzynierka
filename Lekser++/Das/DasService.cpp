@@ -65,11 +65,11 @@ Lex::Das  Lex::DasService::mergeDases(std::vector<Das>& dases)
 		}
 		if (acceptingToken.length() > 0)
 		{
-			dasToReturn.addStep(indefiniteStep.getStepId(), MachineStep(transitionWithId, true, acceptingToken));
+			dasToReturn.addStep(indefiniteStep.getStepId(), MachineStep(transitionWithId, true, indefiniteStep.getStepId(), acceptingToken));
 		}
 		else
 		{
-			dasToReturn.addStep(indefiniteStep.getStepId(), MachineStep(transitionWithId, false));
+			dasToReturn.addStep(indefiniteStep.getStepId(), MachineStep(transitionWithId, false, indefiniteStep.getStepId(), acceptingToken));
 		}
 	}
 

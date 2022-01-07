@@ -6,16 +6,16 @@ using namespace std;
 
 class BuildDasFunctionsTest : public ::testing::Test {
 protected:
-	Logger* logger;
+	std::shared_ptr<ILogger> logger;
 	int id;
 	RegexService* regexService;
 	DasBuilder* dasBuilder;
 
 	BuildDasFunctionsTest()
 	{
-		logger = new Logger("BuildDasFunctionsTest");
-		regexService = new RegexService(*logger);
-		dasBuilder = new DasBuilder(*logger);
+		logger.reset(new Lex::Logger("BuildDasFunctionsTest"));
+		regexService = new RegexService(logger);
+		dasBuilder = new DasBuilder(logger);
 		id = 0;
 	}
 

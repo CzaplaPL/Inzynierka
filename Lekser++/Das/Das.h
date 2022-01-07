@@ -21,6 +21,11 @@ namespace Lex
 			return this->firsStepId;
 		}
 
+		MachineStep getFirstStep()
+		{
+			return this->getStep(this->getFirstStepId());
+		}
+
 		int getStepSize()
 		{
 			return steps.size();

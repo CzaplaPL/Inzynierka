@@ -4,12 +4,14 @@
 #include"addons/Logger.h"
 #include"Das/DasService.h"
 #include "sys/LekserDefinitionReader.h"
+#include "sys/LekserAnalizer.h"
 
 class __declspec(dllexport) Lekser
 {
 	std::shared_ptr<ILogger> log;
 	std::unique_ptr<Lex::LekserDefinitionReader> definitionReader;
 	std::unique_ptr<Lex::DasService> DasServices;
+	std::unique_ptr<Lex::LekserAnalizer> lekserAnalizer;
 	std::vector<Lex::Definition> definitions;
 	Lex::Das das;
 	void init();

@@ -128,7 +128,7 @@ Lex::Das Lex::DasBuilder::generateDas(RegexNode* tree, std::string token)
 			}
 			transitionWithId.insert_or_assign(transition.first, transitionStepId);
 		}
-		dasToReturn.addStep(stepId, MachineStep(transitionWithId, isAccepting, token));
+		dasToReturn.addStep(stepId, MachineStep(transitionWithId, isAccepting, stepId, token));
 	}
 	return dasToReturn;
 }
