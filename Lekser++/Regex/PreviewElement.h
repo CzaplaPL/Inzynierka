@@ -1,7 +1,9 @@
 #pragma once
+
 #include <string>
 
 #include "RegexNodeType.h"
+
 namespace Lex
 {
 	class PreviewElement

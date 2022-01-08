@@ -1,9 +1,11 @@
 #pragma once
+
 #include "../RegexNode.h"
 #include "../../addons/ILogger.h"
 #include "../../sys/exception/LekserException.h"
 #include "../PreviewElement.h"
 #include "RegexConstructorSyntaxTree.h"
+
 namespace Lex
 {
 	/// <summary>

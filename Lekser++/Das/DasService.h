@@ -1,4 +1,5 @@
 #pragma once
+
 #include <vector>
 #include <unordered_set>
 
@@ -28,5 +29,10 @@ namespace Lex
 
 		Das mergeDases(std::vector<Das>& dases);
 		Das generateLekser(std::vector<Lex::Definition> elements);
+
+		~DasService()
+		{
+			this->log.reset();
+		}
 	};
 }

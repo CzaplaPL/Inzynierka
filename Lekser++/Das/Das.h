@@ -1,8 +1,9 @@
 #pragma once
+
 #include <stdexcept>
+#include <functional>
 
 #include "MachineStep.h"
-#include <functional>
 
 namespace Lex
 {

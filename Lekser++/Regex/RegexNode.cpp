@@ -104,7 +104,7 @@ void Lex::RegexNode::setType(RegexNodeType type)
 
 void Lex::RegexNode::setSecondChild(RegexNodeType type, char value, int id)
 {
-	RegexNode* secondChild = new RegexNode(type, value, id);
+	RegexNode* secondChild = new  RegexNode(type, value, id);
 	secondChild->setParents(this);
 	this->secondChild = secondChild;
 }
@@ -112,7 +112,7 @@ void Lex::RegexNode::setSecondChild(RegexNodeType type, char value, int id)
 void Lex::RegexNode::setSecondChild(RegexNode* tree)
 {
 	tree->setParents(this);
-	this->secondChild = new RegexNode(tree, this);
+	this->secondChild = new  RegexNode(tree, this);
 }
 
 void Lex::RegexNode::setParents(RegexNode* parent)
