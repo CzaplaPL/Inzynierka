@@ -55,11 +55,13 @@ std::vector<std::string> Lex::LekserAnalizer::analizeLine(std::string line)
 {
 	std::vector<std::string> toReturn;
 	MachineStep actualStep = this->das->getFirstStep();
+	std::string value = "";
 	for (std::string::iterator it = line.begin(); it != line.end(); ++it)
 	{
 		try
 		{
 			std::string nextStepId = actualStep.getStepIdForString(std::string(1, *it));
+			value += *it;
 			actualStep = this->das->getStep(nextStepId);
 		}
 		catch (NoStepException noStep)
@@ -67,11 +69,14 @@ std::vector<std::string> Lex::LekserAnalizer::analizeLine(std::string line)
 			if (actualStep.stepIsAccepting())
 			{
 				toReturn.push_back(actualStep.getAcceptingToken());
+				this->das->runCallbackForToken(actualStep.getAcceptingToken(), value);
 				actualStep = this->das->getFirstStep();
+				value = "";
 				it--;
 			}
 			else if (actualStep.getId() == this->das->getFirstStepId() && std::isspace(*it))
 			{
+				value = "";
 				continue;
 			}
 			else
@@ -83,7 +88,7 @@ std::vector<std::string> Lex::LekserAnalizer::analizeLine(std::string line)
 	if (actualStep.stepIsAccepting())
 	{
 		toReturn.push_back(actualStep.getAcceptingToken());
-		actualStep = this->das->getFirstStep();
+		this->das->runCallbackForToken(actualStep.getAcceptingToken(), value);
 		return toReturn;
 	}
 	else if (actualStep.getId() != this->das->getFirstStepId())
