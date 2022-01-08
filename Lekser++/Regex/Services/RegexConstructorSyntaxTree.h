@@ -16,10 +16,10 @@ namespace Lex
 	class RegexConstructorSyntaxTree
 	{
 		std::string dupa;
-		ILogger* logger;
+		std::shared_ptr<ILogger> logger;
 	public:
 
-		RegexConstructorSyntaxTree(ILogger* logger)
+		RegexConstructorSyntaxTree(std::shared_ptr<ILogger> logger)
 		{
 			this->logger = logger;
 		}

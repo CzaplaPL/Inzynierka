@@ -6,12 +6,12 @@ using namespace Lex;
 class RegexGenerateTreeTest : public ::testing::Test {
 protected:
 	int id;
-	Logger* logger;
+	std::shared_ptr<ILogger> logger;
 	RegexService* regexService;
 	RegexGenerateTreeTest()
 	{
-		logger = new Logger("RegexGenerateTreeTest");
-		regexService = new RegexService(*logger);
+		logger.reset(new Lex::Logger("RegexGenerateTreeTest"));
+		regexService = new RegexService(logger);
 		id = 0;
 	}
 	void SetUp() override {
@@ -313,7 +313,6 @@ TEST_F(RegexGenerateTreeTest, addBracketsTest)
 	EXPECT_EQ(secondChild->getValue(), 'c');
 }
 
-
 TEST_F(RegexGenerateTreeTest, addEmptyBracketsTest)
 {
 	string reg = "a?()a";
@@ -337,7 +336,6 @@ TEST_F(RegexGenerateTreeTest, addEmptyBracketsTest)
 	firstChild = tree->getFirstChild();
 	EXPECT_EQ(firstChild->getType(), RegexNodeType::ID);
 	EXPECT_EQ(firstChild->getValue(), 'a');
-
 }
 
 TEST_F(RegexGenerateTreeTest, addPlusTest)

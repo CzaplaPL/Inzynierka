@@ -1,8 +1,8 @@
 #include "DasBuilder.h"
 
-Lex::DasBuilder::DasBuilder(ILogger& log)
+Lex::DasBuilder::DasBuilder(std::shared_ptr<ILogger> log)
 {
-	this->log = &log;
+	this->log = log;
 }
 
 std::vector<int> Lex::DasBuilder::firstPos(RegexNode* tree)
@@ -128,7 +128,7 @@ Lex::Das Lex::DasBuilder::generateDas(RegexNode* tree, std::string token)
 			}
 			transitionWithId.insert_or_assign(transition.first, transitionStepId);
 		}
-		dasToReturn.addStep(stepId, MachineStep(transitionWithId, isAccepting, token));
+		dasToReturn.addStep(stepId, MachineStep(transitionWithId, isAccepting, stepId, token));
 	}
 	return dasToReturn;
 }

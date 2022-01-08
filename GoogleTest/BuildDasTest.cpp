@@ -6,7 +6,7 @@ using namespace std;
 
 class BuildDasTest : public ::testing::Test {
 protected:
-	ILogger* logger;
+	std::shared_ptr<ILogger> logger;
 	int id;
 	RegexService* regexService;
 	DasBuilder* dasBuilder;
@@ -14,10 +14,10 @@ protected:
 
 	BuildDasTest()
 	{
-		logger = new Logger("BuildDasTest");
-		regexService = new RegexService(*logger);
-		dasBuilder = new DasBuilder(*logger);
-		dasService = new DasService(*logger);
+		logger.reset(new Lex::Logger("BuildDasTest"));
+		regexService = new RegexService(logger);
+		dasBuilder = new DasBuilder(logger);
+		dasService = new DasService(logger);
 		id = 0;
 	}
 
@@ -78,13 +78,13 @@ TEST_F(BuildDasTest, test_merge_das_function)
 	EXPECT_TRUE(stepE.stepIsAccepting());
 	EXPECT_EQ(stepE.getAcceptingToken(), "a*b");
 
-	EXPECT_THROW(stepE.getStepIdForString("a");, NoStepException);
+	EXPECT_THROW(stepE.getStepIdForString("a"); , NoStepException);
 
 	nextStepIdForB = stepE.getStepIdForString("b");
 	MachineStep stepF = result.getStep(nextStepIdForB);
 	EXPECT_TRUE(stepF.stepIsAccepting());
 	EXPECT_EQ(stepF.getAcceptingToken(), "abb");
 
-	EXPECT_THROW(stepF.getStepIdForString("a"); , NoStepException);
-	EXPECT_THROW(stepF.getStepIdForString("b"); , NoStepException);
+	EXPECT_THROW(stepF.getStepIdForString("a");, NoStepException);
+	EXPECT_THROW(stepF.getStepIdForString("b");, NoStepException);
 }

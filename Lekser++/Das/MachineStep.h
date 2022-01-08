@@ -13,8 +13,9 @@ namespace Lex
 		bool isAccepting;
 		std::string token;
 		std::map<std::string, std::string> transitionsMap;
+		std::string id;
 	public:
-		MachineStep(std::map<std::string, std::string>& transitions, bool isAccepting, std::string token = "");
+		MachineStep(std::map<std::string, std::string>& transitions, bool isAccepting, std::string id, std::string token = "");
 		MachineStep();
 
 		std::string getStepIdForString(std::string key);
@@ -26,6 +27,11 @@ namespace Lex
 		std::string getAcceptingToken()
 		{
 			return this->token;
+		}
+
+		std::string getId()
+		{
+			return this->id;
 		}
 
 		bool stepIsAccepting()

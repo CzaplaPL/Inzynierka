@@ -13,11 +13,11 @@ namespace Lex
 {
 	class DasBuilder
 	{
-		ILogger* log;
+		std::shared_ptr<ILogger> log;
 		std::vector<int> checkFollowPos(RegexNode* parent);
 		IdCreator idCreator;
 	public:
-		DasBuilder(ILogger& log);
+		DasBuilder(std::shared_ptr<ILogger> log);
 
 		std::vector<int> firstPos(RegexNode* tree);
 		std::vector<int> followPos(RegexNode* tree);
