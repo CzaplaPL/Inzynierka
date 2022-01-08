@@ -19,7 +19,12 @@ public:
 	Lekser();
 	Lekser(std::string file);
 	Lekser(std::string file, ILogger* log);
+	Lekser(std::vector<std::pair<std::string, std::string>> tokenMap);
+	Lekser(std::vector<std::pair<std::string, std::string>> tokenMap, ILogger* log);
+	void generateLexer(std::vector<std::pair<std::string, std::string>> tokenMap);
 	void generateLexer(std::string file);
+	void setToken(std::string token, std::string regex);
 	std::vector <std::string> analizeFile(std::string file);
+	std::vector <std::string> analize(std::string text);
 	std::string toString();
 };

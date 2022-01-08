@@ -38,6 +38,30 @@ std::vector<Lex::Definition> Lex::LekserDefinitionReader::readDefinition(std::st
 	return this->generateVector(this->definitions);
 }
 
+std::vector<Lex::Definition> Lex::LekserDefinitionReader::addDefinition(std::string token, std::string regex)
+{
+	regex = this->removeVariables(regex);
+	this->definitions.insert(std::pair<std::string, std::string>(token, regex));
+	return this->generateVector(this->definitions);
+}
+
+std::vector<Lex::Definition> Lex::LekserDefinitionReader::definitionfromMap(std::vector<std::pair<std::string, std::string>> tokenMap)
+{
+	for (auto element : tokenMap)
+	{
+		try
+		{
+			std::string regex = this->removeVariables(element.second);
+			this->definitions.insert(std::pair<std::string, std::string>(element.first, regex));
+		}
+		catch (LekserReaderException exception)
+		{
+			this->log->error(exception.what());
+		}
+	}
+	return this->generateVector(this->definitions);
+}
+
 std::string Lex::LekserDefinitionReader::getRegexForVariable(std::string variable)
 {
 	if (this->definitions.find(variable) == this->definitions.end()) throw LekserReaderException("nie odnaleziono zmiennej w lini : ");

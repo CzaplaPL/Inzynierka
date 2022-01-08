@@ -21,6 +21,8 @@ namespace Lex
 	public:
 		LekserDefinitionReader(std::shared_ptr<ILogger> log);
 		std::vector<Definition> readDefinition(std::string fileName);
+		std::vector<Lex::Definition> addDefinition(std::string token, std::string regex);
+		std::vector<Definition> definitionfromMap(std::vector<std::pair<std::string, std::string>> tokenMap);
 		std::string getRegexForVariable(std::string variable);
 	};
 }

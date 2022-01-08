@@ -30,15 +30,49 @@ Lekser::Lekser(std::string file, ILogger* log)
 	generateLexer(file);
 }
 
+Lekser::Lekser(std::vector<std::pair<std::string, std::string>> tokenMap)
+{
+	this->log.reset(new Lex::Logger("Lekser"));
+	init();
+	generateLexer(tokenMap);
+}
+
+Lekser::Lekser(std::vector<std::pair<std::string, std::string>> tokenMap, ILogger* log)
+{
+	this->log.reset(log);
+	init();
+	generateLexer(tokenMap);
+}
+
+void Lekser::generateLexer(std::vector<std::pair<std::string, std::string>> tokenMap)
+{
+	this->definitions.clear();
+	this->definitions = this->definitionReader->definitionfromMap(tokenMap);
+	this->das = this->DasServices->generateLekser(this->definitions);
+}
+
 void Lekser::generateLexer(std::string file)
 {
-	try {
+	try
+	{
 		this->definitions = this->definitionReader->readDefinition(file);
 	}
 	catch (LekserReaderException exception)
 	{
 		this->log->error(exception.what());
-		return;
+	}
+	this->das = this->DasServices->generateLekser(this->definitions);
+}
+
+void Lekser::setToken(std::string token, std::string regex)
+{
+	try
+	{
+		this->definitions = this->definitionReader->addDefinition(token, regex);
+	}
+	catch (LekserReaderException exception)
+	{
+		this->log->error(exception.what());
 	}
 	this->das = this->DasServices->generateLekser(this->definitions);
 }
@@ -46,6 +80,11 @@ void Lekser::generateLexer(std::string file)
 std::vector<std::string> Lekser::analizeFile(std::string file)
 {
 	return this->lekserAnalizer->analizeFile(file);
+}
+
+std::vector<std::string> Lekser::analize(std::string text)
+{
+	return this->lekserAnalizer->analize(text);
 }
 
 std::string Lekser::toString()

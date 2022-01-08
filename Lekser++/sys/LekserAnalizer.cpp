@@ -28,6 +28,29 @@ std::vector<std::string> Lex::LekserAnalizer::analizeFile(std::string fileName)
 	return toReturn;
 }
 
+std::vector<std::string> Lex::LekserAnalizer::analize(std::string text)
+{
+	std::vector<std::string> toReturn;
+	std::string line;
+	int numberLine = 1;
+	std::istringstream textStream(text);
+	while (std::getline(textStream, line))
+	{
+		try
+		{
+			std::vector<std::string> analizeResult = this->analizeLine(line);
+			toReturn.insert(toReturn.end(), analizeResult.begin(), analizeResult.end());
+		}
+		catch (NoStepException noStep)
+		{
+			this->log->error("b³¹d analizy w lini(" + std::to_string(numberLine) + ") : " + noStep.what());
+			return toReturn;
+		}
+		numberLine++;
+	}
+	return toReturn;
+}
+
 std::vector<std::string> Lex::LekserAnalizer::analizeLine(std::string line)
 {
 	std::vector<std::string> toReturn;
@@ -61,8 +84,9 @@ std::vector<std::string> Lex::LekserAnalizer::analizeLine(std::string line)
 	{
 		toReturn.push_back(actualStep.getAcceptingToken());
 		actualStep = this->das->getFirstStep();
+		return toReturn;
 	}
-	else
+	else if (actualStep.getId() != this->das->getFirstStepId())
 	{
 		throw NoStepException("ostatnie znaki nie tworza tokenu");
 	}

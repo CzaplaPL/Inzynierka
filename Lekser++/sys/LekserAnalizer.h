@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <sstream>
 #include "../addons/ILogger.h"
 #include "../Das/Das.h"
 #include "exception/NoStepException.h"
@@ -22,5 +23,6 @@ namespace Lex
 		}
 
 		std::vector<std::string> analizeFile(std::string fileName);
+		std::vector<std::string> analize(std::string text);
 	};
 }
