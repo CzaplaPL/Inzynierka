@@ -139,42 +139,41 @@ std::vector<int> Lex::DasBuilder::checkFollowPos(RegexNode* parent)
 {
 	std::vector<int> toReturn;
 	std::vector<int>  firstPosition;
+	std::vector<int>  followPos;
 	RegexNode* actualParent = parent->getParent();
-	while (true)
+
+	if (actualParent == nullptr) return toReturn;
+	switch (actualParent->getType())
 	{
-		if (actualParent == nullptr) return toReturn;
-		switch (actualParent->getType())
+	case RegexNodeType::QUESTION:
+	case RegexNodeType::OR:
+		return checkFollowPos(actualParent);
+		break;
+	case RegexNodeType::COMBINE:
+		if (parent->getId() == actualParent->getSecondChild()->getId())
 		{
-		case RegexNodeType::QUESTION:
-		case RegexNodeType::OR:
-			actualParent = actualParent->getParent();
-			break;
-		case RegexNodeType::COMBINE:
-			if (parent->getId() == actualParent->getSecondChild()->getId())
-			{
-				actualParent = actualParent->getParent();
-				break;
-			}
-			firstPosition = firstPos(actualParent->getSecondChild());
-			toReturn.insert(toReturn.end(), firstPosition.begin(), firstPosition.end());
-			if (nullable(actualParent->getSecondChild()))
-			{
-				actualParent = actualParent->getParent();
-				break;
-			}
-			return toReturn;
-		case RegexNodeType::PLUS:
-		case RegexNodeType::STAR:
-			firstPosition = firstPos(actualParent->getFirstChild());
-			toReturn.insert(toReturn.end(), firstPosition.begin(), firstPosition.end());
-			actualParent = actualParent->getParent();
-			break;
-		case RegexNodeType::ID:
-		case RegexNodeType::BLOCK:
-		case RegexNodeType::END:
-		default:
-			throw LekserException("nie mo¿na wywo³aæ funkcji checkFollowPos dla ID,block i end");
+			return checkFollowPos(actualParent);
 		}
+		firstPosition = firstPos(actualParent->getSecondChild());
+		toReturn.insert(toReturn.end(), firstPosition.begin(), firstPosition.end());
+		if (nullable(actualParent->getSecondChild()))
+		{
+			followPos = checkFollowPos(actualParent);
+			toReturn.insert(toReturn.end(), followPos.begin(), followPos.end());
+		}
+		return toReturn;
+	case RegexNodeType::PLUS:
+	case RegexNodeType::STAR:
+		firstPosition = firstPos(actualParent->getFirstChild());
+		toReturn.insert(toReturn.end(), firstPosition.begin(), firstPosition.end());
+		followPos = checkFollowPos(actualParent);
+		toReturn.insert(toReturn.end(), followPos.begin(), followPos.end());
+		return toReturn;
+	case RegexNodeType::ID:
+	case RegexNodeType::BLOCK:
+	case RegexNodeType::END:
+	default:
+		throw LekserException("nie mo¿na wywo³aæ funkcji checkFollowPos dla ID,block i end");
 	}
 }
 

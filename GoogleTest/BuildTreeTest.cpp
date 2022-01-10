@@ -21,7 +21,7 @@ protected:
 
 TEST_F(RegexGenerateTreeTest, addBlockAfterIdTest)
 {
-	string reg = "a[a-b]";
+	string reg = "  a[a-b]";
 
 	RegexNode* tree = regexService->generateTree(reg, id);
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
@@ -41,7 +41,7 @@ TEST_F(RegexGenerateTreeTest, addBlockAfterIdTest)
 
 TEST_F(RegexGenerateTreeTest, addBlockAfterOrTest)
 {
-	string reg = "a|[a-b]";
+	string reg = "a | [a-b]";
 
 	RegexNode* tree = regexService->generateTree(reg, id);
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);
@@ -61,7 +61,7 @@ TEST_F(RegexGenerateTreeTest, addBlockAfterOrTest)
 
 TEST_F(RegexGenerateTreeTest, addBlockTest)
 {
-	string reg = "[a-b]|a";
+	string reg = "[a-b] | a";
 
 	RegexNode* tree = regexService->generateTree(reg, id);
 	EXPECT_EQ(tree->getType(), RegexNodeType::COMBINE);

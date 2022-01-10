@@ -18,9 +18,9 @@ std::string Lex::MachineStep::getStepIdForString(std::string key)
 	{
 		for (auto element : this->transitionsMap)
 		{
-			if (element.first[0] == '[' && element.first.size() == 4)
+			if (element.first[1] == '-' && element.first.size() == 3)
 			{
-				if (*key.c_str() >= element.first[1] && *key.c_str() <= element.first[3])
+				if (*key.c_str() >= element.first[0] && *key.c_str() <= element.first[2])
 				{
 					return element.second;
 				}

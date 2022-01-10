@@ -123,16 +123,16 @@ Lex::RegexNode* Lex::RegexConstructorSyntaxTree::addBrackets(PreviewElement prev
 	if (previewElement.type == RegexNodeType::OR)
 	{
 		tree->setSecondChild(treeInBrackets);
+		return new  RegexNode(tree, nullptr);
 	}
-	else
-	{
-		tree->setFirstChild(new  RegexNode(*tree));
-		tree->setType(RegexNodeType::COMBINE);
-		tree->setId(id);
-		id += 1;
-		tree->setSecondChild(treeInBrackets);
-	}
-	return new  RegexNode(tree, nullptr);
+
+	RegexNode* newTree(new  RegexNode());
+	newTree->setFirstChild(tree);
+	newTree->setType(RegexNodeType::COMBINE);
+	newTree->setId(id);
+	id += 1;
+	newTree->setSecondChild(treeInBrackets);
+	return newTree;
 }
 
 Lex::RegexNode* Lex::RegexConstructorSyntaxTree::addMustageBrackets(PreviewElement previewElement, std::string& regex, RegexNode* tree, int& id)

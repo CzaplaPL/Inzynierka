@@ -7,6 +7,11 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 	this->logger->debug("budowanie drzewa rozk³adu dla" + reg);
 	RegexNode* tree = new  RegexNode;
 	RegexNode* (*action)(PreviewElement previewElement, std::string & regex, RegexNode*, int& nextId) = NULL;
+
+	while (reg[0] == ' ')
+	{
+		reg.erase(0, 1);
+	}
 	PreviewElement previewElement = PreviewElement(reg[0]);
 	if (reg[0] == '(')
 	{
@@ -65,6 +70,7 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 		else
 		{
 			if (isSpecialChar(reg[0]))throw LekserException("nie mo¿na rozpoczynaæ znakiem specjalnym");
+			if (reg[0] == '\\')reg.erase(0, 1);
 			tree->setValue(reg[0]);
 			tree->setId(nextId);
 			nextId += 1;
@@ -74,6 +80,10 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 	while (reg.length())
 	{
 		this->logger->debug("nastêpny znak");
+		while (reg[0] == ' ')
+		{
+			reg.erase(0, 1);
+		}
 		try
 		{
 			if (reg[0] == ')')
