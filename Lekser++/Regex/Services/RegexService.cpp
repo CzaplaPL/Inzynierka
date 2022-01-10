@@ -5,8 +5,13 @@
 Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 {
 	this->logger->debug("budowanie drzewa rozk³adu dla" + reg);
-	RegexNode* tree = new RegexNode;
+	RegexNode* tree = new  RegexNode;
 	RegexNode* (*action)(PreviewElement previewElement, std::string & regex, RegexNode*, int& nextId) = NULL;
+
+	while (reg[0] == ' ')
+	{
+		reg.erase(0, 1);
+	}
 	PreviewElement previewElement = PreviewElement(reg[0]);
 	if (reg[0] == '(')
 	{
@@ -16,7 +21,7 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 		reg.erase(0, 1);
 		if (reg[0] == '*')
 		{
-			RegexNode* newTree(new RegexNode());
+			RegexNode* newTree(new  RegexNode());
 			newTree->setFirstChild(tree);
 			newTree->setType(RegexNodeType::STAR);
 			newTree->setId(nextId);
@@ -26,7 +31,7 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 		}
 		else if (reg[0] == '+')
 		{
-			RegexNode* newTree(new RegexNode());
+			RegexNode* newTree(new  RegexNode());
 			newTree->setFirstChild(tree);
 			newTree->setType(RegexNodeType::PLUS);
 			newTree->setId(nextId);
@@ -36,7 +41,7 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 		}
 		else if (reg[0] == '?')
 		{
-			RegexNode* newTree(new RegexNode());
+			RegexNode* newTree(new  RegexNode());
 			newTree->setFirstChild(tree);
 			newTree->setType(RegexNodeType::QUESTION);
 			newTree->setId(nextId);
@@ -65,6 +70,7 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 		else
 		{
 			if (isSpecialChar(reg[0]))throw LekserException("nie mo¿na rozpoczynaæ znakiem specjalnym");
+			if (reg[0] == '\\')reg.erase(0, 1);
 			tree->setValue(reg[0]);
 			tree->setId(nextId);
 			nextId += 1;
@@ -74,6 +80,10 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 	while (reg.length())
 	{
 		this->logger->debug("nastêpny znak");
+		while (reg[0] == ' ')
+		{
+			reg.erase(0, 1);
+		}
 		try
 		{
 			if (reg[0] == ')')
@@ -87,7 +97,7 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 
 				if (reg[0] == '(')
 				{
-					RegexNode* secondChild(new RegexNode());
+					RegexNode* secondChild(new  RegexNode());
 					reg.erase(0, 1);
 					secondChild = this->generateTree(reg, nextId);
 					tree->setSecondChild(secondChild);
@@ -95,7 +105,7 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 				}
 				if (reg[0] == '[')
 				{
-					RegexNode* secondChild(new RegexNode());
+					RegexNode* secondChild(new  RegexNode());
 					secondChild->setType(RegexNodeType::BLOCK);
 					secondChild = this->addBlock(previewElement, reg, secondChild, nextId);
 					tree->setSecondChild(secondChild);
@@ -157,10 +167,10 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 	}
 	logger->debug("koniec generowania drzewa");
 
-	RegexNode* completeTree = new RegexNode(RegexNodeType::COMBINE, ' ', nextId);
+	RegexNode* completeTree = new  RegexNode(RegexNodeType::COMBINE, ' ', nextId);
 	nextId++;
 	completeTree->setFirstChild(tree);
-	RegexNode* endElement = new RegexNode(RegexNodeType::END, '#', nextId);
+	RegexNode* endElement = new  RegexNode(RegexNodeType::END, '#', nextId);
 	completeTree->setSecondChild(endElement);
 	return completeTree;
 }

@@ -1,4 +1,5 @@
 #pragma once
+
 #include <string>
 namespace Lex
 {
@@ -22,5 +23,5 @@ namespace Lex
 		{
 			return token;
 		}
-	};
+};
 }

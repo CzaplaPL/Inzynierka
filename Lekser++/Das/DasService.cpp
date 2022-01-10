@@ -9,6 +9,7 @@ Lex::Das Lex::DasService::generateLekser(std::vector<Lex::Definition> elements)
 		int id = 0;
 		RegexNode* tree = this->regexService.generateTree(regex, id);
 		Dases.emplace_back(this->dasBuilder.generateDas(tree, element.getToken()));
+		delete tree;
 	}
 	return mergeDases(Dases);
 }

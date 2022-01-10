@@ -1,4 +1,5 @@
 #pragma once
+
 #include <memory>
 #include <map>
 #include <vector>
@@ -13,8 +14,8 @@ namespace Lex
 	class LekserDefinitionReader
 	{
 		std::shared_ptr<ILogger> log;
-		std::map<std::string, std::string> definitions;
-		std::vector<Definition> generateVector(std::map<std::string, std::string> definitions);
+		std::vector<Definition> definitions;
+		Definition findDefinition(std::string token);
 		std::string readToken(std::string::iterator& it, std::string::iterator end);
 		std::string readRegex(std::string::iterator it, std::string::iterator end);
 		std::string removeVariables(std::string definition);

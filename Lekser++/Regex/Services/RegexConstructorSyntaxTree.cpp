@@ -1,6 +1,4 @@
 #include "RegexConstructorSyntaxTree.h"
-#define MYDEBUG_NEW new( _NORMAL_BLOCK, __FILE__, __LINE__)
-#define new MYDEBUG_NEW
 
 Lex::RegexNode* (*Lex::RegexConstructorSyntaxTree::checkAction(char& symbol))(PreviewElement previewElement, std::string& regex, RegexNode* tree, int& id)
 {
@@ -32,7 +30,7 @@ Lex::RegexNode* (*Lex::RegexConstructorSyntaxTree::checkAction(char& symbol))(Pr
 
 Lex::RegexNode* Lex::RegexConstructorSyntaxTree::addOr(PreviewElement previewElement, std::string& regex, RegexNode* tree, int& id)
 {
-	RegexNode* newTree(new RegexNode());
+	RegexNode* newTree(new  RegexNode());
 	newTree->setFirstChild(tree);
 	newTree->setType(RegexNodeType::OR);
 	newTree->setId(id);
@@ -42,7 +40,7 @@ Lex::RegexNode* Lex::RegexConstructorSyntaxTree::addOr(PreviewElement previewEle
 
 Lex::RegexNode* Lex::RegexConstructorSyntaxTree::addCombine(PreviewElement previewElement, std::string& regex, RegexNode* tree, int& id)
 {
-	RegexNode* newTree(new RegexNode());
+	RegexNode* newTree = new  RegexNode();
 	newTree->setType(RegexNodeType::COMBINE);
 	newTree->setId(id);
 	newTree->setFirstChild(tree);
@@ -54,18 +52,20 @@ Lex::RegexNode* Lex::RegexConstructorSyntaxTree::addCombine(PreviewElement previ
 
 Lex::RegexNode* Lex::RegexConstructorSyntaxTree::addStar(PreviewElement previewElement, std::string& regex, RegexNode* tree, int& id)
 {
-	RegexNode* newTree(new RegexNode());
+	RegexNode* newTree;
 	RegexNode* secondChild = tree->getSecondChild();
 	if (secondChild == nullptr)
 	{
+		newTree = new  RegexNode();
 		newTree->setFirstChild(tree);
 		newTree->setType(RegexNodeType::STAR);
 		newTree->setId(id);
 		id += 1;
 		return newTree;
 	}
-	newTree = new RegexNode(tree, nullptr);
-	RegexNode* newSecondChild(new RegexNode());
+
+	newTree = new  RegexNode(tree, nullptr);
+	RegexNode* newSecondChild(new  RegexNode());
 	newSecondChild->setType(RegexNodeType::STAR);
 	newSecondChild->setFirstChild(secondChild);
 	newSecondChild->setId(id);
@@ -76,7 +76,7 @@ Lex::RegexNode* Lex::RegexConstructorSyntaxTree::addStar(PreviewElement previewE
 
 Lex::RegexNode* Lex::RegexConstructorSyntaxTree::addPlus(PreviewElement previewElement, std::string& regex, RegexNode* tree, int& id)
 {
-	RegexNode* newTree(new RegexNode());
+	RegexNode* newTree(new  RegexNode());
 	RegexNode* secondChild = tree->getSecondChild();
 	if (secondChild == nullptr)
 	{
@@ -86,8 +86,8 @@ Lex::RegexNode* Lex::RegexConstructorSyntaxTree::addPlus(PreviewElement previewE
 		id += 1;
 		return newTree;
 	}
-	newTree = new RegexNode(tree, nullptr);
-	RegexNode* newSecondChild(new RegexNode());
+	newTree = new  RegexNode(tree, nullptr);
+	RegexNode* newSecondChild(new  RegexNode());
 	newSecondChild->setType(RegexNodeType::PLUS);
 	newSecondChild->setFirstChild(secondChild);
 	newSecondChild->setId(id);
@@ -98,7 +98,7 @@ Lex::RegexNode* Lex::RegexConstructorSyntaxTree::addPlus(PreviewElement previewE
 
 Lex::RegexNode* Lex::RegexConstructorSyntaxTree::addQuestion(PreviewElement previewElement, std::string& regex, RegexNode* tree, int& id)
 {
-	RegexNode* newTree(new RegexNode());
+	RegexNode* newTree(new  RegexNode());
 	RegexNode* secondChild = tree->getSecondChild();
 	if (secondChild == nullptr)
 	{
@@ -108,8 +108,8 @@ Lex::RegexNode* Lex::RegexConstructorSyntaxTree::addQuestion(PreviewElement prev
 		id += 1;
 		return newTree;
 	}
-	newTree = new RegexNode(tree, nullptr);
-	RegexNode* newSecondChild(new RegexNode());
+	newTree = new  RegexNode(tree, nullptr);
+	RegexNode* newSecondChild(new  RegexNode());
 	newSecondChild->setType(RegexNodeType::QUESTION);
 	newSecondChild->setFirstChild(secondChild);
 	newSecondChild->setId(id);
@@ -123,16 +123,16 @@ Lex::RegexNode* Lex::RegexConstructorSyntaxTree::addBrackets(PreviewElement prev
 	if (previewElement.type == RegexNodeType::OR)
 	{
 		tree->setSecondChild(treeInBrackets);
+		return new  RegexNode(tree, nullptr);
 	}
-	else
-	{
-		tree->setFirstChild(new RegexNode(*tree));
-		tree->setType(RegexNodeType::COMBINE);
-		tree->setId(id);
-		id += 1;
-		tree->setSecondChild(treeInBrackets);
-	}
-	return new RegexNode(tree, nullptr);
+
+	RegexNode* newTree(new  RegexNode());
+	newTree->setFirstChild(tree);
+	newTree->setType(RegexNodeType::COMBINE);
+	newTree->setId(id);
+	id += 1;
+	newTree->setSecondChild(treeInBrackets);
+	return newTree;
 }
 
 Lex::RegexNode* Lex::RegexConstructorSyntaxTree::addMustageBrackets(PreviewElement previewElement, std::string& regex, RegexNode* tree, int& id)
@@ -144,7 +144,7 @@ Lex::RegexNode* Lex::RegexConstructorSyntaxTree::addMustageBrackets(PreviewEleme
 		int countChar = countCharLenght(regex);
 		if (countChar < 1) throw LekserException("oczekiwano liczby dodatniej w wyra¿eniu {x,y}");
 
-		RegexNode* newTree(new RegexNode());
+		RegexNode* newTree(new  RegexNode());
 		newTree = addQuestion(previewElement, regex, tree, id);
 		for (int i = 1; i < countChar; ++i)
 		{
@@ -157,7 +157,7 @@ Lex::RegexNode* Lex::RegexConstructorSyntaxTree::addMustageBrackets(PreviewEleme
 	regex.erase(0, 1);
 	int countChar = countCharLenght(regex);
 	if (countChar < 1) throw LekserException("oczekiwano liczby dodatniej w wyra¿eniu {x,y}");
-	RegexNode* newTree(new RegexNode(tree, nullptr));
+	RegexNode* newTree(new  RegexNode(tree, nullptr));
 	for (int i = 1; i < countChar; ++i)
 	{
 		newTree = addCombine(previewElement, element, newTree, id);
@@ -200,18 +200,18 @@ Lex::RegexNode* Lex::RegexConstructorSyntaxTree::addBlock(PreviewElement preview
 
 	if (tree->getType() == RegexNodeType::BLOCK)
 	{
-		RegexNode* newTree(new RegexNode(*tree));
+		RegexNode* newTree(new  RegexNode(*tree));
 		newTree->setBlockId(index);
 		newTree->setId(id);
 		id += 1;
 		return newTree;
 	}
-	RegexNode* newTree(new RegexNode());
+	RegexNode* newTree(new  RegexNode());
 	newTree->setFirstChild(tree);
 	newTree->setId(id);
 	id += 1;
 	newTree->setType(RegexNodeType::COMBINE);
-	RegexNode* secondChild(new RegexNode);
+	RegexNode* secondChild(new  RegexNode);
 	secondChild->setType(RegexNodeType::BLOCK);
 	secondChild->setBlockId(index);
 	secondChild->setId(id);

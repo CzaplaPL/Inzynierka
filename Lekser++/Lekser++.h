@@ -1,4 +1,7 @@
 #pragma once
+#include <stdlib.h>
+#include <crtdbg.h>
+#include <iostream>
 
 #include"addons/ILogger.h"
 #include"addons/Logger.h"
@@ -34,4 +37,12 @@ public:
 	std::vector <std::string> analizeFile(std::string file);
 	std::vector <std::string> analize(std::string text);
 	std::string toString();
+
+	~Lekser()
+	{
+		log.reset();
+		definitionReader.reset();
+		DasServices.reset();
+		lekserAnalizer.reset();
+	}
 };

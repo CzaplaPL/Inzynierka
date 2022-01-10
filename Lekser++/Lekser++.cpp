@@ -1,8 +1,5 @@
-﻿#define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
-#include "Lekser++.h"
-#include <iostream>
+﻿#include "Lekser++.h"
+
 void Lekser::init()
 {
 	this->definitionReader = std::make_unique<Lex::LekserDefinitionReader>((this->log));
@@ -12,20 +9,20 @@ void Lekser::init()
 
 Lekser::Lekser()
 {
-	this->log.reset(new Lex::Logger("Lekser"));
+	this->log.reset(new  Lex::Logger("Lekser"));
 	init();
 }
 
 Lekser::Lekser(std::string file)
 {
-	this->log.reset(new Lex::Logger("Lekser"));
+	this->log.reset(new  Lex::Logger("Lekser"));
 	init();
 	generateLexer(file);
 }
 
 Lekser::Lekser(std::string file, std::map<std::string, std::function<void(std::string)>> callbacks)
 {
-	this->log.reset(new Lex::Logger("Lekser"));
+	this->log.reset(new  Lex::Logger("Lekser"));
 	init();
 	generateLexer(file);
 	this->addCallbacks(callbacks);
@@ -48,7 +45,7 @@ Lekser::Lekser(std::string file, ILogger* log, std::map<std::string, std::functi
 
 Lekser::Lekser(std::vector<std::pair<std::string, std::string>> tokenMap)
 {
-	this->log.reset(new Lex::Logger("Lekser"));
+	this->log.reset(new  Lex::Logger("Lekser"));
 	init();
 	generateLexer(tokenMap);
 }

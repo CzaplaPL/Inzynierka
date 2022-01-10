@@ -157,6 +157,8 @@
   <ItemGroup>
     <Text Include="tekst.txt" />
     <Text Include="test.txt" />
+    <Text Include="zad1_reguly.txt" />
+    <Text Include="zad1_test.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -16,7 +16,7 @@ std::vector<Lex::Definition> Lex::LekserDefinitionReader::readDefinition(std::st
 	}
 
 	std::string line;
-	int numberLine = 0;
+	int numberLine = 1;
 	while (std::getline(file, line))
 	{
 		try
@@ -26,23 +26,32 @@ std::vector<Lex::Definition> Lex::LekserDefinitionReader::readDefinition(std::st
 			it++;
 			std::string regex = this->readRegex(it, line.end());
 			regex = this->removeVariables(regex);
-			this->definitions.insert(std::pair<std::string, std::string>(token, regex));
+			this->definitions.push_back(Definition(regex, token));
 		}
 		catch (LekserReaderException exception)
 		{
 			this->log->error(exception.what() + std::to_string(numberLine));
+			return std::vector<Lex::Definition>();
 		}
 		numberLine++;
 	}
 
-	return this->generateVector(this->definitions);
+	return this->definitions;
 }
 
 std::vector<Lex::Definition> Lex::LekserDefinitionReader::addDefinition(std::string token, std::string regex)
 {
-	regex = this->removeVariables(regex);
-	this->definitions.insert(std::pair<std::string, std::string>(token, regex));
-	return this->generateVector(this->definitions);
+	try
+	{
+		regex = this->removeVariables(regex);
+		this->definitions.push_back(Definition(regex, token));
+	}
+	catch (LekserReaderException exception)
+	{
+		this->log->error(exception.what());
+		return this->definitions;
+	}
+	return this->definitions;
 }
 
 std::vector<Lex::Definition> Lex::LekserDefinitionReader::definitionfromMap(std::vector<std::pair<std::string, std::string>> tokenMap)
@@ -52,30 +61,27 @@ std::vector<Lex::Definition> Lex::LekserDefinitionReader::definitionfromMap(std:
 		try
 		{
 			std::string regex = this->removeVariables(element.second);
-			this->definitions.insert(std::pair<std::string, std::string>(element.first, regex));
+			this->definitions.push_back(Definition(regex, element.first));
 		}
 		catch (LekserReaderException exception)
 		{
-			this->log->error(exception.what());
+			this->log->error(exception.what() + element.first);
+			return std::vector<Lex::Definition>();
 		}
 	}
-	return this->generateVector(this->definitions);
+	return this->definitions;
 }
 
 std::string Lex::LekserDefinitionReader::getRegexForVariable(std::string variable)
 {
-	if (this->definitions.find(variable) == this->definitions.end()) throw LekserReaderException("nie odnaleziono zmiennej w lini : ");
-	return this->definitions[variable];
+	return this->findDefinition(variable).getRegex();
 }
 
-std::vector<Lex::Definition> Lex::LekserDefinitionReader::generateVector(std::map<std::string, std::string> definitions)
+Lex::Definition Lex::LekserDefinitionReader::findDefinition(std::string token)
 {
-	std::vector<Lex::Definition> toReturn;
-	for (auto element : definitions)
-	{
-		toReturn.push_back(Definition(element.second, element.first));
-	}
-	return toReturn;
+	auto it = std::find_if(this->definitions.begin(), this->definitions.end(), [token](Definition def) -> bool {return def.getToken() == token; });
+	if (it == this->definitions.end()) throw LekserReaderException("nie odnaleziono zmiennej w lini : ");
+	return *it;
 }
 
 std::string Lex::LekserDefinitionReader::readToken(std::string::iterator& it, std::string::iterator end)
@@ -122,8 +128,8 @@ std::string Lex::LekserDefinitionReader::removeVariables(std::string definition)
 		{
 			endIndex = i;
 			std::string variable = definition.substr(startIndex + 1, endIndex - startIndex - 1);
-			std::string regex = this->getRegexForVariable(variable);
-			definition.replace(startIndex, endIndex + 1, regex);
+			std::string regex = "(" + this->getRegexForVariable(variable) + ")";
+			definition.replace(startIndex, endIndex + 1 - startIndex, regex);
 			i = startIndex + regex.length() - 1;
 			startIndex = -1;
 		}

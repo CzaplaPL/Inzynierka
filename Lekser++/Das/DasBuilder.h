@@ -1,5 +1,4 @@
 #pragma once
-
 #include <vector>
 #include <queue>
 
@@ -9,6 +8,7 @@
 #include "../addons/IdCreator.h"
 #include "../regex/RegexNode.h"
 #include "MachineStep.h"
+
 namespace Lex
 {
 	class DasBuilder
@@ -23,6 +23,11 @@ namespace Lex
 		std::vector<int> followPos(RegexNode* tree);
 		bool nullable(RegexNode* tree);
 		Das generateDas(RegexNode* tree, std::string token);
+
+		~DasBuilder()
+		{
+			this->log.reset();
+		}
 	private:
 
 		bool typeIsIdOrBlock(RegexNode* node);

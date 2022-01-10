@@ -1,0 +1,19 @@
+digit:[0-9]
+hex_digit:$digit$ | [a-f] | [A-F]
+hex_digits: $hex_digit$+
+digits:$digit$+
+hex_pref:0 (X|x)
+fractional:.$digits$
+sign_opt:-
+exp_opt:(e|E) $sign_opt$? $digits$
+plus_op:\+
+minus_op:\-
+mult_op:\*
+div_op:\/
+operator:$plus_op$|$minus_op$|$mult_op$|$div_op$
+op_bracket:\(
+cl_bracket:\)
+dec_num:$sign_opt$?$digits$
+hex_num:$hex_pref$$hex_digits$
+double_num:$sign_opt$?$digits$$fractional$
+double_exp_num:$sign_opt$?$digits$$fractional$?$exp_opt$

@@ -1,9 +1,11 @@
 #pragma once
+
 #include <string>
 #include <vector>
 
 #include "MachineStep.h"
 #include "StepInDas.h"
+
 namespace Lex
 {
 	class NasStep
