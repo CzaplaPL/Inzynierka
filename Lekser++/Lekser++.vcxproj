@@ -178,12 +178,13 @@
     <ClInclude Include="Regex\RegexNode.h" />
     <ClInclude Include="Regex\RegexNodeType.h" />
     <ClInclude Include="Regex\Services\RegexService.h" />
-    <ClInclude Include="sys\Definition.h" />
+    <ClInclude Include="sys\Rule.h" />
     <ClInclude Include="sys\exception\NoStepException.h" />
-    <ClInclude Include="sys\LekserDefinitionReader.h" />
+    <ClInclude Include="sys\LekserRuleReader.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="sys\exception\LekserException.h" />
     <ClInclude Include="sys\exception\LekserReaderException.h" />
+    <ClInclude Include="sys\Token.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="addons\IdCreator.cpp" />
@@ -202,7 +203,7 @@
     <ClCompile Include="Regex\Services\RegexConstructorSyntaxTree.cpp" />
     <ClCompile Include="Regex\RegexNode.cpp" />
     <ClCompile Include="Regex\Services\RegexService.cpp" />
-    <ClCompile Include="sys\LekserDefinitionReader.cpp" />
+    <ClCompile Include="sys\LekserRuleReader.cpp" />
     <ClCompile Include="pch.cpp" />
   </ItemGroup>
   <ItemGroup>

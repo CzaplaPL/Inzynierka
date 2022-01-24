@@ -36,7 +36,7 @@
     <ClInclude Include="addons\Uuid.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="sys\LekserDefinitionReader.h">
+    <ClInclude Include="sys\LekserRuleReader.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="sys\exception\LekserException.h">
@@ -81,10 +81,13 @@
     <ClInclude Include="Das\StepInDas.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="sys\Definition.h">
+    <ClInclude Include="sys\Rule.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="sys\LekserAnalizer.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="sys\Token.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
   </ItemGroup>
@@ -107,7 +110,7 @@
     <ClCompile Include="addons\Uuid.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="sys\LekserDefinitionReader.cpp">
+    <ClCompile Include="sys\LekserRuleReader.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="Das\MachineStep.cpp">
