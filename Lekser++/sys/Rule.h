@@ -3,12 +3,12 @@
 #include <string>
 namespace Lex
 {
-	class Definition
+	class Rule
 	{
 		std::string regex;
 		std::string token;
 	public:
-		Definition(std::string regex, std::string token)
+		Rule(std::string regex, std::string token)
 		{
 			this->regex = regex;
 			this->token = token;
@@ -23,5 +23,5 @@ namespace Lex
 		{
 			return token;
 		}
-};
+	};
 }

@@ -8,7 +8,7 @@
 #include "StepInDas.h"
 #include "../regex/RegexNode.h"
 #include "../sys/exception/LekserException.h"
-#include "../sys/Definition.h"
+#include "../sys/Rule.h"
 #include "../addons/ILogger.h"
 #include "DasBuilder.h"
 #include "../regex/Services/RegexService.h"
@@ -28,7 +28,7 @@ namespace Lex
 		}
 
 		Das mergeDases(std::vector<Das>& dases);
-		Das generateLekser(std::vector<Lex::Definition> elements);
+		Das generateLekser(std::vector<Lex::Rule> elements);
 
 		~DasService()
 		{

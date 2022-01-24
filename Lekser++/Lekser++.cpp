@@ -2,7 +2,7 @@
 
 void Lekser::init()
 {
-	this->definitionReader = std::make_unique<Lex::LekserDefinitionReader>((this->log));
+	this->definitionReader = std::make_unique<Lex::LekserRuleReader>((this->log));
 	this->DasServices = std::make_unique<Lex::DasService>((this->log));
 	this->lekserAnalizer = std::make_unique<Lex::LekserAnalizer>(this->log, &(this->das));
 }
@@ -65,10 +65,18 @@ Lekser::Lekser(std::vector<std::pair<std::string, std::string>> tokenMap, ILogge
 	this->addCallbacks(callbacks);
 }
 
+Lekser::Lekser(std::vector<std::pair<std::string, std::string>> tokenMap, std::map<std::string, std::function<void(std::string)>> callbacks)
+{
+	this->log.reset(new  Lex::Logger("Lekser"));
+	init();
+	generateLexer(tokenMap);
+	this->addCallbacks(callbacks);
+}
+
 void Lekser::generateLexer(std::vector<std::pair<std::string, std::string>> tokenMap)
 {
 	this->definitions.clear();
-	this->definitions = this->definitionReader->definitionfromMap(tokenMap);
+	this->definitions = this->definitionReader->ruleFromMap(tokenMap);
 	this->das = this->DasServices->generateLekser(this->definitions);
 }
 
@@ -76,7 +84,7 @@ void Lekser::generateLexer(std::string file)
 {
 	try
 	{
-		this->definitions = this->definitionReader->readDefinition(file);
+		this->definitions = this->definitionReader->readRule(file);
 	}
 	catch (LekserReaderException exception)
 	{
@@ -89,7 +97,7 @@ void Lekser::setToken(std::string token, std::string regex)
 {
 	try
 	{
-		this->definitions = this->definitionReader->addDefinition(token, regex);
+		this->definitions = this->definitionReader->addRule(token, regex);
 	}
 	catch (LekserReaderException exception)
 	{
@@ -122,17 +130,12 @@ void Lekser::addCallbacks(std::map<std::string, std::function<void(std::string)>
 	}
 }
 
-std::vector<std::string> Lekser::analizeFile(std::string file)
+std::vector<Token> Lekser::analizeFile(std::string file)
 {
 	return this->lekserAnalizer->analizeFile(file);
 }
 
-std::vector<std::string> Lekser::analize(std::string text)
+std::vector<Token> Lekser::analize(std::string text)
 {
 	return this->lekserAnalizer->analize(text);
-}
-
-std::string Lekser::toString()
-{
-	return " ";
 }

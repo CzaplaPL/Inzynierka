@@ -1,9 +1,9 @@
 #include "DasService.h"
 
-Lex::Das Lex::DasService::generateLekser(std::vector<Lex::Definition> elements)
+Lex::Das Lex::DasService::generateLekser(std::vector<Lex::Rule> elements)
 {
 	std::vector < Das > Dases;
-	for (Definition element : elements)
+	for (Rule element : elements)
 	{
 		std::string regex = element.getRegex();
 		int id = 0;

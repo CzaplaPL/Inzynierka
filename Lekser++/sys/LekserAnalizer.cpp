@@ -1,9 +1,9 @@
 #include "LekserAnalizer.h"
 
-std::vector<std::string> Lex::LekserAnalizer::analizeFile(std::string fileName)
+std::vector<Token> Lex::LekserAnalizer::analizeFile(std::string fileName)
 {
 	std::ifstream file(fileName);
-	std::vector<std::string> toReturn;
+	std::vector<Token> toReturn;
 	if (!file.is_open())
 	{
 		this->log->error("nie uda³o otworzyc pliku z definicjami : " + fileName);
@@ -15,7 +15,7 @@ std::vector<std::string> Lex::LekserAnalizer::analizeFile(std::string fileName)
 	{
 		try
 		{
-			std::vector<std::string> analizeResult = this->analizeLine(line);
+			std::vector<Token> analizeResult = this->analizeLine(line);
 			toReturn.insert(toReturn.end(), analizeResult.begin(), analizeResult.end());
 		}
 		catch (NoStepException noStep)
@@ -28,9 +28,9 @@ std::vector<std::string> Lex::LekserAnalizer::analizeFile(std::string fileName)
 	return toReturn;
 }
 
-std::vector<std::string> Lex::LekserAnalizer::analize(std::string text)
+std::vector<Token> Lex::LekserAnalizer::analize(std::string text)
 {
-	std::vector<std::string> toReturn;
+	std::vector<Token> toReturn;
 	std::string line;
 	int numberLine = 1;
 	std::istringstream textStream(text);
@@ -38,7 +38,7 @@ std::vector<std::string> Lex::LekserAnalizer::analize(std::string text)
 	{
 		try
 		{
-			std::vector<std::string> analizeResult = this->analizeLine(line);
+			std::vector<Token> analizeResult = this->analizeLine(line);
 			toReturn.insert(toReturn.end(), analizeResult.begin(), analizeResult.end());
 		}
 		catch (NoStepException noStep)
@@ -51,9 +51,9 @@ std::vector<std::string> Lex::LekserAnalizer::analize(std::string text)
 	return toReturn;
 }
 
-std::vector<std::string> Lex::LekserAnalizer::analizeLine(std::string line)
+std::vector<Token> Lex::LekserAnalizer::analizeLine(std::string line)
 {
-	std::vector<std::string> toReturn;
+	std::vector<Token> toReturn;
 	MachineStep actualStep = this->das->getFirstStep();
 	std::string value = "";
 	for (std::string::iterator it = line.begin(); it != line.end(); ++it)
@@ -68,7 +68,7 @@ std::vector<std::string> Lex::LekserAnalizer::analizeLine(std::string line)
 		{
 			if (actualStep.stepIsAccepting())
 			{
-				toReturn.push_back(actualStep.getAcceptingToken());
+				toReturn.push_back(Token(actualStep.getAcceptingToken(), value));
 				this->das->runCallbackForToken(actualStep.getAcceptingToken(), value);
 				actualStep = this->das->getFirstStep();
 				value = "";
@@ -87,7 +87,7 @@ std::vector<std::string> Lex::LekserAnalizer::analizeLine(std::string line)
 	}
 	if (actualStep.stepIsAccepting())
 	{
-		toReturn.push_back(actualStep.getAcceptingToken());
+		toReturn.push_back(Token(actualStep.getAcceptingToken(), value));
 		this->das->runCallbackForToken(actualStep.getAcceptingToken(), value);
 		return toReturn;
 	}

@@ -1,18 +1,19 @@
-#include "LekserDefinitionReader.h"
+#include "LekserRuleReader.h"
 
-Lex::LekserDefinitionReader::LekserDefinitionReader(std::shared_ptr <ILogger> log)
+Lex::LekserRuleReader::LekserRuleReader(std::shared_ptr <ILogger> log)
 {
 	this->log = log;
 }
 
-std::vector<Lex::Definition> Lex::LekserDefinitionReader::readDefinition(std::string fileName)
+std::vector<Lex::Rule> Lex::LekserRuleReader::readRule(std::string fileName)
 {
+	this->rules.clear();
 	std::ifstream file(fileName);
 
 	if (!file.is_open())
 	{
 		this->log->error("nie uda³o otworzyc pliku z definicjami : " + fileName);
-		return std::vector<Lex::Definition>();
+		return std::vector<Lex::Rule>();
 	}
 
 	std::string line;
@@ -26,65 +27,66 @@ std::vector<Lex::Definition> Lex::LekserDefinitionReader::readDefinition(std::st
 			it++;
 			std::string regex = this->readRegex(it, line.end());
 			regex = this->removeVariables(regex);
-			this->definitions.push_back(Definition(regex, token));
+			this->rules.push_back(Rule(regex, token));
 		}
 		catch (LekserReaderException exception)
 		{
 			this->log->error(exception.what() + std::to_string(numberLine));
-			return std::vector<Lex::Definition>();
+			return std::vector<Lex::Rule>();
 		}
 		numberLine++;
 	}
 
-	return this->definitions;
+	return this->rules;
 }
 
-std::vector<Lex::Definition> Lex::LekserDefinitionReader::addDefinition(std::string token, std::string regex)
+std::vector<Lex::Rule> Lex::LekserRuleReader::addRule(std::string token, std::string regex)
 {
 	try
 	{
 		regex = this->removeVariables(regex);
-		this->definitions.push_back(Definition(regex, token));
+		this->rules.push_back(Rule(regex, token));
 	}
 	catch (LekserReaderException exception)
 	{
 		this->log->error(exception.what());
-		return this->definitions;
+		return this->rules;
 	}
-	return this->definitions;
+	return this->rules;
 }
 
-std::vector<Lex::Definition> Lex::LekserDefinitionReader::definitionfromMap(std::vector<std::pair<std::string, std::string>> tokenMap)
+std::vector<Lex::Rule> Lex::LekserRuleReader::ruleFromMap(std::vector<std::pair<std::string, std::string>> tokenMap)
 {
+	this->rules.clear();
 	for (auto element : tokenMap)
 	{
 		try
 		{
 			std::string regex = this->removeVariables(element.second);
-			this->definitions.push_back(Definition(regex, element.first));
+			this->rules.push_back(Rule(regex, element.first));
 		}
 		catch (LekserReaderException exception)
 		{
 			this->log->error(exception.what() + element.first);
-			return std::vector<Lex::Definition>();
+			return std::vector<Lex::Rule>();
 		}
 	}
-	return this->definitions;
+	return this->rules;
 }
 
-std::string Lex::LekserDefinitionReader::getRegexForVariable(std::string variable)
+std::string Lex::LekserRuleReader::getRegexForVariable(std::string variable)
 {
 	return this->findDefinition(variable).getRegex();
 }
 
-Lex::Definition Lex::LekserDefinitionReader::findDefinition(std::string token)
+Lex::Rule Lex::LekserRuleReader::findDefinition(std::string token)
 {
-	auto it = std::find_if(this->definitions.begin(), this->definitions.end(), [token](Definition def) -> bool {return def.getToken() == token; });
-	if (it == this->definitions.end()) throw LekserReaderException("nie odnaleziono zmiennej w lini : ");
+	auto it = std::find_if(this->rules.begin(), this->rules.end(), [token](Rule def) -> bool {return def.getToken() == token; });
+	if (it == this->rules.end()) throw LekserReaderException("nie odnaleziono zmiennej w lini : ");
 	return *it;
 }
 
-std::string Lex::LekserDefinitionReader::readToken(std::string::iterator& it, std::string::iterator end)
+std::string Lex::LekserRuleReader::readToken(std::string::iterator& it, std::string::iterator end)
 {
 	std::string token = "";
 	for (; it != end; ++it)
@@ -98,7 +100,7 @@ std::string Lex::LekserDefinitionReader::readToken(std::string::iterator& it, st
 	throw LekserReaderException("b³¹d w odczytaniu definicji w lini : ");
 }
 
-std::string Lex::LekserDefinitionReader::readRegex(std::string::iterator it, std::string::iterator end)
+std::string Lex::LekserRuleReader::readRegex(std::string::iterator it, std::string::iterator end)
 {
 	std::string regex = "";
 	for (; it != end; ++it)
@@ -108,7 +110,7 @@ std::string Lex::LekserDefinitionReader::readRegex(std::string::iterator it, std
 	return regex;
 }
 
-std::string Lex::LekserDefinitionReader::removeVariables(std::string definition)
+std::string Lex::LekserRuleReader::removeVariables(std::string definition)
 {
 	int startIndex = -1;
 	int endIndex = -1;
