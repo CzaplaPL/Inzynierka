@@ -1,6 +1,7 @@
 #include "RegexConstructorSyntaxTree.h"
 
-Lex::RegexNode* (*Lex::RegexConstructorSyntaxTree::checkAction(char& symbol))(PreviewElement previewElement, std::string& regex, RegexNode* tree, int& id)
+Lex::RegexNode* (*Lex::RegexConstructorSyntaxTree::checkAction(char& symbol))
+(PreviewElement previewElement, std::string& regex, RegexNode* tree, int& id)
 {
 	switch (symbol)
 	{
@@ -198,11 +199,14 @@ Lex::RegexNode* Lex::RegexConstructorSyntaxTree::addBlock(PreviewElement preview
 	if (index.length() < 1)throw LekserException("brak wartoœci w bloku []");
 	regex.erase(0, i);
 
-	if (tree->getType() == RegexNodeType::BLOCK)
+	if (tree->getType() == RegexNodeType::OR)
 	{
 		RegexNode* newTree(new  RegexNode(*tree));
-		newTree->setBlockId(index);
-		newTree->setId(id);
+		RegexNode* secondChild(new  RegexNode());
+		secondChild->setType(RegexNodeType::BLOCK);
+		secondChild->setBlockId(index);
+		secondChild->setId(id);
+		newTree->setSecondChild(secondChild);
 		id += 1;
 		return newTree;
 	}

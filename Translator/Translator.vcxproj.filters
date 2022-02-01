@@ -31,7 +31,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Translator.cpp">
+    <ClCompile Include="Zadania.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
@@ -48,5 +48,6 @@
     <Text Include="test.txt" />
     <Text Include="zad1_reguly.txt" />
     <Text Include="zad1_test.txt" />
+    <Text Include="zad2_program.txt" />
   </ItemGroup>
 </Project>

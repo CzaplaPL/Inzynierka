@@ -13,70 +13,7 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 		reg.erase(0, 1);
 	}
 	PreviewElement previewElement = PreviewElement(reg[0]);
-	if (reg[0] == '(')
-	{
-		this->logger->debug("zaczynam od nawiasu");
-		reg.erase(0, 1);
-		tree = this->generateTree(reg, nextId);
-		reg.erase(0, 1);
-		if (reg[0] == '*')
-		{
-			RegexNode* newTree(new  RegexNode());
-			newTree->setFirstChild(tree);
-			newTree->setType(RegexNodeType::STAR);
-			newTree->setId(nextId);
-			nextId += 1;
-			tree = newTree;
-			reg.erase(0, 1);
-		}
-		else if (reg[0] == '+')
-		{
-			RegexNode* newTree(new  RegexNode());
-			newTree->setFirstChild(tree);
-			newTree->setType(RegexNodeType::PLUS);
-			newTree->setId(nextId);
-			nextId += 1;
-			tree = newTree;
-			reg.erase(0, 1);
-		}
-		else if (reg[0] == '?')
-		{
-			RegexNode* newTree(new  RegexNode());
-			newTree->setFirstChild(tree);
-			newTree->setType(RegexNodeType::QUESTION);
-			newTree->setId(nextId);
-			nextId += 1;
-			tree = newTree;
-			reg.erase(0, 1);
-		}
-	}
-	else if (reg[0] == ')')
-	{
-		return nullptr;
-	}
-	else
-	{
-		tree->setType(previewElement.type);
-
-		if (reg[0] == '|')
-		{
-			throw LekserException("regex nie mo¿e zaczynaæ siê od znaku |");
-		}
-		if (reg[0] == '[')
-		{
-			action = this->checkAction(reg[0]);
-			tree = (*action)(previewElement, reg, tree, nextId);
-		}
-		else
-		{
-			if (isSpecialChar(reg[0]))throw LekserException("nie mo¿na rozpoczynaæ znakiem specjalnym");
-			if (reg[0] == '\\')reg.erase(0, 1);
-			tree->setValue(reg[0]);
-			tree->setId(nextId);
-			nextId += 1;
-		}
-		reg.erase(0, 1);
-	}
+	tree = this->CreateFirstElement(reg, nextId, previewElement);
 	while (reg.length())
 	{
 		this->logger->debug("nastêpny znak");
@@ -105,10 +42,7 @@ Lex::RegexNode* Lex::RegexService::generateTree(std::string& reg, int& nextId)
 				}
 				if (reg[0] == '[')
 				{
-					RegexNode* secondChild(new  RegexNode());
-					secondChild->setType(RegexNodeType::BLOCK);
-					secondChild = this->addBlock(previewElement, reg, secondChild, nextId);
-					tree->setSecondChild(secondChild);
+					tree = this->addBlock(previewElement, reg, tree, nextId);
 					break;
 				}
 				if (reg[0] == '\\')reg.erase(0, 1);
@@ -209,4 +143,86 @@ bool Lex::RegexService::isSpecialChar(char value)
 {
 	if (value == '|' || value == '*' || value == '?' || value == '+')return true;
 	return false;
+}
+
+Lex::RegexNode* Lex::RegexService::CreateFirstElement(std::string& reg, int& nextId, PreviewElement previewElement)
+{
+	RegexNode* tree = new  RegexNode;
+	if (reg[0] == '(')
+	{
+		this->logger->debug("zaczynam od nawiasu");
+		reg.erase(0, 1);
+		tree = this->generateTree(reg, nextId);
+		reg.erase(0, 1);
+		if (reg[0] == '*')
+		{
+			RegexNode* newTree(new  RegexNode());
+			newTree->setFirstChild(tree);
+			newTree->setType(RegexNodeType::STAR);
+			newTree->setId(nextId);
+			nextId += 1;
+			tree = newTree;
+			reg.erase(0, 1);
+		}
+		else if (reg[0] == '+')
+		{
+			RegexNode* newTree(new  RegexNode());
+			newTree->setFirstChild(tree);
+			newTree->setType(RegexNodeType::PLUS);
+			newTree->setId(nextId);
+			nextId += 1;
+			tree = newTree;
+			reg.erase(0, 1);
+		}
+		else if (reg[0] == '?')
+		{
+			RegexNode* newTree(new  RegexNode());
+			newTree->setFirstChild(tree);
+			newTree->setType(RegexNodeType::QUESTION);
+			newTree->setId(nextId);
+			nextId += 1;
+			tree = newTree;
+			reg.erase(0, 1);
+		}
+	}
+	else if (reg[0] == ')')
+	{
+		return nullptr;
+	}
+	else
+	{
+		tree->setType(previewElement.type);
+
+		if (reg[0] == '|')
+		{
+			throw LekserException("regex nie mo¿e zaczynaæ siê od znaku |");
+		}
+		if (reg[0] == '[')
+		{
+			std::string index = "";
+			int i = 1;
+			for (; reg[i] != ']'; ++i)
+			{
+				if (i == reg.length() - 1) throw LekserException("oczekiwano ]");
+				index += reg[i];
+			}
+			if (index.length() < 1)throw LekserException("brak wartoœci w bloku []");
+			reg.erase(0, i);
+
+			tree->setType(RegexNodeType::BLOCK);
+			tree->setBlockId(index);
+			tree->setId(nextId);
+			nextId += 1;
+		}
+		else
+		{
+			if (isSpecialChar(reg[0]))throw LekserException("nie mo¿na rozpoczynaæ znakiem specjalnym");
+			if (reg[0] == '\\')reg.erase(0, 1);
+			tree->setValue(reg[0]);
+			tree->setId(nextId);
+			nextId += 1;
+		}
+		reg.erase(0, 1);
+	}
+	return tree;
 }

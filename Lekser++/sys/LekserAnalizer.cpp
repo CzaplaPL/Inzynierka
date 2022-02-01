@@ -15,7 +15,7 @@ std::vector<Token> Lex::LekserAnalizer::analizeFile(std::string fileName)
 	{
 		try
 		{
-			std::vector<Token> analizeResult = this->analizeLine(line);
+			std::vector<Token> analizeResult = this->analizeLine(line + "\n");
 			toReturn.insert(toReturn.end(), analizeResult.begin(), analizeResult.end());
 		}
 		catch (NoStepException noStep)
@@ -38,7 +38,7 @@ std::vector<Token> Lex::LekserAnalizer::analize(std::string text)
 	{
 		try
 		{
-			std::vector<Token> analizeResult = this->analizeLine(line);
+			std::vector<Token> analizeResult = this->analizeLine(line + "\n");
 			toReturn.insert(toReturn.end(), analizeResult.begin(), analizeResult.end());
 		}
 		catch (NoStepException noStep)

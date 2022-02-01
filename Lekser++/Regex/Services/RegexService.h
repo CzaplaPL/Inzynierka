@@ -14,6 +14,9 @@ namespace Lex
 	class RegexService : private RegexConstructorSyntaxTree
 	{
 		std::shared_ptr<ILogger> logger;
+
+		Lex::RegexNode* CreateFirstElement(std::string& reg, int& nextId, PreviewElement previewElement);
+
 	public:
 
 		RegexService(std::shared_ptr<ILogger> logger) : RegexConstructorSyntaxTree(logger)
